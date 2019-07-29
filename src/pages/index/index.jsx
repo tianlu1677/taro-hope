@@ -4,6 +4,17 @@ import { connect } from '@tarojs/redux'
 
 import './index.scss'
 
+import withShare from '@/utils/with_share';
+
+@withShare({
+  title: '',
+  imageUrl: '',
+  path: '',
+  target_id: '',
+  target_type: ''
+})
+
+
 class Index extends Component {
 
     config = {

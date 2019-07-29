@@ -20,7 +20,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/mine/mine'
+      'pages/accounts/mine'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -40,7 +40,7 @@ class App extends Component {
         text: "首页"
       },  
       {
-        pagePath: "pages/mine/mine",
+        pagePath: "pages/accounts/mine",
         iconPath: "./assets/tab-bar/user.png",
         selectedIconPath: "./assets/tab-bar/user-active.png",
         text: "个人"
