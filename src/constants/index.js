@@ -1,0 +1,2 @@
+export const ACCOUNT_DETAIL = 'ACCOUNT_DETAIL'
+export const ACCOUNT_UPDATE = 'ACCOUNT_UPDATE'

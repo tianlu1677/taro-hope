@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import counter from './counter'
+import account_reducer from './account_reducer';
 
-export default combineReducers({
-  counter
+export default combineReducers({  
+  account: account_reducer
 })

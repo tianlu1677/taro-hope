@@ -50,7 +50,7 @@ const customInterceptor = function (chain) {
     } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
       Taro.setStorageSync("token", "");
       let path = getCurrentPageUrl();
-      if (path !== "pages/user_sign/user_sign") {
+      if (path !== "pages/login/login") {
         Taro.navigateTo({
           url: "/pages/login/login"
         });
