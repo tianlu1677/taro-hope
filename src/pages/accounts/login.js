@@ -26,9 +26,9 @@ import withShare from '@/utils/with_share';
 //   },
 // }))
 
-class Template extends Component {
+class Login extends Component {
   config = {
-    navigationBarTitleText: "首页"
+    navigationBarTitleText: "登录"
   };
 
   constructor() {
@@ -36,14 +36,13 @@ class Template extends Component {
   }
 
   componentDidMount() {
-   
+
   }
 
   render() {
-    return ( <View>Template</View>
-    );
+    return (<View>Template</View>);
   }
 }
 
 
-export default Template;
+export default Login;

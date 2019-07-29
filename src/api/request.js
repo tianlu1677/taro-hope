@@ -4,11 +4,9 @@ import interceptors from "./interceptors";
 
 interceptors.forEach(i => Taro.addInterceptor(i));
 
-// const BASE_URL = 'http://localhost:5000'
-const BASE_URL = 'https://xinxue.niubibeta.com';
-// const BASE_URL = 'https://meirixinxue.com'
+const BASE_URL = 'http://localhost:5000'
 
-export default function request(options, url = null) {  
+export default function request(options, url = null) {
   let data = options.data || options.payload
   let contentType = "application/json";
   contentType = options.contentType || contentType;

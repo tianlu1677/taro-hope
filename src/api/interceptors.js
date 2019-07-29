@@ -1,4 +1,4 @@
-import Taro from "@tarojs/taro-h5";
+import Taro from "@tarojs/taro";
 
 export const HTTP_STATUS = {
   SUCCESS: 200,
@@ -18,9 +18,9 @@ export const REFRESH_STATUS = {
   NORMAL: 0,
   REFRESHING: 1,
   NO_MORE_DATA: 2
-
-  /*获取当前页url*/
-};export const getCurrentPageUrl = () => {
+};
+/*获取当前页url*/
+export const getCurrentPageUrl = () => {
   let pages = Taro.getCurrentPages();
   let currentPage = pages[pages.length - 1];
   let url = currentPage.route;

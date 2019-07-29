@@ -1,10 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import withShare from '@/utils/with_share';
+import { dispatchTopicList } from "@/actions";
 
 import './index.scss'
-
-import withShare from '@/utils/with_share';
 
 @withShare({
   title: '',
@@ -14,15 +14,28 @@ import withShare from '@/utils/with_share';
   target_type: ''
 })
 
+@connect(state => state.account, { dispatchTopicList })
 
 class Index extends Component {
-
-    config = {
+  config = {
     navigationBarTitleText: '首页'
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+    console.log('xxxx')
+  }
+
+  async componentDidMount() {
+    // console.log('xxxx')
+    // this.props.dispatchTopicList().then((res) => {
+    //   console.log('11111', res)
+    // })
+    // console.log('22222')
+    //
+    // const res = await this.props.dispatchTopicList()
+    // console.log('sss', res)
+    // console.log('333333')
   }
 
   componentWillUnmount () { }
@@ -33,8 +46,8 @@ class Index extends Component {
 
   render () {
     return (
-      <View className='index'>      
-        <View><Text>Hello, World</Text></View>
+      <View className='index'>
+        <View><Text>qqqq</Text></View>
       </View>
     )
   }
