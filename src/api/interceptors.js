@@ -55,7 +55,8 @@ const customInterceptor = function (chain) {
       //     url: "/pages/login/login"
       //   });
       // }
-      return showError("需要登录", showToast);
+      // return showError("需要登录", showToast);
+      return res;
     } else if (res.statusCode >= 400) {
       let errorMsg = res.data && res.data.message;
       return showError(errorMsg, showToast);
