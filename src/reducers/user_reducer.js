@@ -1,20 +1,20 @@
-import { ACCOUNT_DETAIL, ACCOUNT_UPDATE } from '@/constants'
+import { USER_DETAIL, USER_UPDATE } from '@/constants'
 
 const INITIAL_STATE = {
-  currentAccount: {}
+  currentUser: {}
 }
 
 export default function counter (state = INITIAL_STATE, action) {
   switch (action.type) {
-    case ACCOUNT_DETAIL:
+    case USER_DETAIL:
       return {
         ...state,
-        currentAccount: action.account
+        currentUser: action.user
       }
-     case ACCOUNT_UPDATE:
+     case USER_UPDATE:
        return {
          ...state,
-         currentAccount: action.account
+         currentUser: action.user
        }
      default:
        return state

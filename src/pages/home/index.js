@@ -4,7 +4,7 @@ import { connect } from '@tarojs/redux'
 import withShare from '@/utils/with_share';
 import { dispatchTopicList } from "@/actions";
 
-import './index.scss'
+import './index.module.scss'
 
 @withShare({
   title: '',
@@ -14,7 +14,7 @@ import './index.scss'
   target_type: ''
 })
 
-@connect(state => state.account, { dispatchTopicList })
+@connect(state => state.user, { dispatchTopicList })
 
 class Index extends Component {
   config = {

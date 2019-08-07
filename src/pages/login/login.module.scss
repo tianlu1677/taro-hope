@@ -1,0 +1,28 @@
+.login {
+  padding: 36px;
+  text-align: center;
+  margin-top: 10%;
+  .logo {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+  }
+  .intro {
+    margin-top: 40px;
+    font-size: 32px;
+    font-weight: 500;
+  }
+  .desc {
+    margin-top: 40px;
+    font-size: 28px;
+  }
+  .login-button {
+    margin-top: 100px;
+    width: 90%;
+  }
+  .more-info {
+    margin-top: 40px;
+    font-size: 28px;
+    color: #ADADAE;
+  }
+}

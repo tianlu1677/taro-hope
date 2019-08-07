@@ -1,2 +1,2 @@
-export const ACCOUNT_DETAIL = 'ACCOUNT_DETAIL'
-export const ACCOUNT_UPDATE = 'ACCOUNT_UPDATE'
+export const USER_DETAIL = 'USER_DETAIL'
+export const USER_UPDATE = 'USER_UPDATE'

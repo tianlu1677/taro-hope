@@ -9,3 +9,9 @@ export const dispatchTopicList = payload => createAction({
   type: 'TOPIC_LIST',
   payload: payload
 })
+
+export const dispatchCurrentUser = payload => createAction({
+  url: '/api/v1/users/me',
+  type: 'CURRENT_USER',
+  payload: payload
+})

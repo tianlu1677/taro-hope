@@ -4,7 +4,9 @@ import interceptors from "./interceptors";
 
 interceptors.forEach(i => Taro.addInterceptor(i));
 
-const BASE_URL = 'http://localhost:5000'
+const BASE_URL = 'http://localhost:3000'
+
+// const BASE_URL = 'https://fans.niubibeta.com'
 
 export default function request(options, url = null) {
   let data = options.data || options.payload
@@ -17,7 +19,7 @@ export default function request(options, url = null) {
     method: options.method || 'GET',
     header: {
       "content-type": contentType,
-      Token: Taro.getStorageSync("auth_token")
+      AuthToken: Taro.getStorageSync("auth_token")
     }
   };
   // console.log(request_options)
