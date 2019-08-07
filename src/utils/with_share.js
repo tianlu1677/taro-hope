@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 import { connect } from '@tarojs/redux';
-import { createAction } from "@/api/action_api";
+// import { createAction } from "@/api/action_api";
 
 function SettingShare(opts = {}) {
 
@@ -74,7 +74,7 @@ function SettingShare(opts = {}) {
 
         // 每条分享都补充用户的分享id
         // 如果path不带参数，分享出去后解析的params里面会带一个{''： ''}
-        const currentAccountId = Taro.getStorageSync('account_id')
+        const currentAccountId = Taro.getStorageSync('user_id')
         const sharePath = `${path}&share_from_user_id=${currentAccountId}`;
 
         return {
