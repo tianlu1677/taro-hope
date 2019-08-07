@@ -48,13 +48,13 @@ const customInterceptor = function (chain) {
     } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
       return showError("服务端出现了问题", showToast);
     } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
-      Taro.setStorageSync("token", "");
-      let path = getCurrentPageUrl();
-      if (path !== "pages/login/login") {
-        Taro.navigateTo({
-          url: "/pages/login/login"
-        });
-      }
+      Taro.setStorageSync("auth_token", "");
+      // let path = getCurrentPageUrl();
+      // if (path !== "pages/login/login") {
+      //   Taro.navigateTo({
+      //     url: "/pages/login/login"
+      //   });
+      // }
       return showError("需要登录", showToast);
     } else if (res.statusCode >= 400) {
       let errorMsg = res.data && res.data.message;

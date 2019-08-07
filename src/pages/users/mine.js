@@ -1,5 +1,5 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Text} from "@tarojs/components";
+import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {dispatchCurrentUser} from '@/actions'
 import withShare from '@/utils/with_share';
@@ -28,7 +28,9 @@ class Mine extends Component {
   }
 
   render() {
-    return ( <View>Mine</View>
+    return ( <View>
+        <Button type="primary" onClick={() => { Taro.navigateTo({url: '/pages/login/login'})}}>登录</Button>
+      </View>
     );
   }
 }
