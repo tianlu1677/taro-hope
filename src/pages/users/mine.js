@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-
+import {dispatchCurrentUser} from '@/actions'
 import withShare from '@/utils/with_share';
 
 @withShare({
@@ -12,19 +12,7 @@ import withShare from '@/utils/with_share';
   target_type: ''
 })
 
-// @connect(({topic: {topicDetail}}) => ({
-//   topicDetail
-// }), (dispatch) => ({
-//   asyncTopicDetail(topic_id) {
-//     dispatch(asyncTopicDetail(topic_id))
-//   },
-//   topicCreateAction(topic_id, action_type) {
-//     dispatch(topicCreateAction(topic_id, action_type))
-//   },
-//   topicDestroyAction(topic_id, action_type) {
-//     dispatch(topicDestroyAction(topic_id, action_type))
-//   },
-// }))
+@connect(state => state.user, { dispatchCurrentUser })
 
 class Mine extends Component {
   config = {
@@ -36,7 +24,7 @@ class Mine extends Component {
   }
 
   componentDidMount() {
-   
+    this.props.dispatchCurrentUser()
   }
 
   render() {
