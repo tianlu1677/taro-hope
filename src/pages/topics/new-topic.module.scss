@@ -1,21 +1,4 @@
-
-// 颜色设置
-$black: #000000;
-$gray: #ADADAE;
-$blue: #00D2FF;
-$red: #FF6699;
-$white: #FFFFFF;
-$light_gray: #C4C4C4;
-$light_white: #F9F8F8;
-
-// 字体大小设置
-$font-big: 44px;
-$font-middle: 30px;
-
-// 1px 线的颜色
-$color-row-line: #F0F0F0;
-
-
+@import "../../styles/variable";
 
 .new-topic-detail {
   position: relative;
@@ -24,7 +7,7 @@ $color-row-line: #F0F0F0;
   .content {
     padding: 40px 60px;
     padding-top: 10px;
-    padding-bottom: 200px;
+    padding-bottom: 50px;
     .plain-content-block {
       min-height: 150px;
       font-size: 30px;
@@ -41,23 +24,23 @@ $color-row-line: #F0F0F0;
     }
     .medias-block {
       margin-top: 36px;
-      margin-bottom: 100px;
+      //margin-bottom: 100px;
       display: flex;
       flex: 1;
       width: 100%;
       flex-wrap: wrap;
       .media-item {
-        flex: 0 0 33.33%;
+        flex: 0 0 25%;
         margin-bottom: 16px;
         .photo {
           position: relative;
-          width: 200px;
-          height: 200px;
-          border-radius: 12px;
+          width: 148px;
+          height: 148px;
+          //border-radius: 12px;
           .topic-video, video {
-            width: 200px;
-            height: 200px;
-            border-radius: 12px;
+            width: 148px;
+            height: 148px;
+            //border-radius: 12px;
             z-index: 100;
           }
           .remove {
@@ -107,6 +90,9 @@ $color-row-line: #F0F0F0;
     }
   }
 
+  .chose {
+    color: gray;
+  }
   .publish-button {
     position: fixed;
     bottom: 0;
@@ -117,11 +103,11 @@ $color-row-line: #F0F0F0;
     width: 100%;
     text-align: center;
     .no-ready {
-      background: $light_white;
-      color: $gray;
+      background: rgba(255,165,188,1);;
+      color: rgba(255,197,212,1);;
     }
     .ready {
-      background: $blue;
+      background: $red;
       color: $white;
     }
     font-size: 36px;

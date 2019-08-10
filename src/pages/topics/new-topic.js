@@ -1,5 +1,5 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Video, Text, Button, Textarea, RichText, Image, CoverView, CoverImage} from "@tarojs/components";
+import {View, Video, Text, Button, Textarea, RichText, Radio, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import { createTopic, getTopic, updateTopic } from "@/api/topic_api";
 import addVideoImg from '@/assets/images/add-video.jpg';
@@ -7,13 +7,16 @@ import addPhotoImg from '@/assets/images/add-photo.jpg';
 import removeMediaImg from '@/assets/images/close.png'
 import goPage from "@/utils/page_path"
 import playVideoImg from '@/assets/images/play-video.png'
+import { AtTextarea, AtForm, AtSwitch  } from 'taro-ui'
+
 import './new-topic.module.scss';
 
 const defaultState = {
   topic_id: "",
-  topic_type: "single",
+  node_id: '',
   selectedImgs: [],
-  plain_content: "",
+  anonymous: false,
+  body: "",
   video_content: "",
   validateForm: false,
   submitting: false,
@@ -32,7 +35,6 @@ class NewTopic extends Component {
   state = defaultState
 
   componentDidMount() {
-    console.log('ddd', this.topic_id)
     if(this.topic_id) {
       this.loadTopicDetail(this.topic_id)
     } else {
@@ -47,10 +49,10 @@ class NewTopic extends Component {
   // 新建与编辑
   async loadTopicDetail(topic_id) {
     const res = await getTopic(topic_id)
-    const { tag_list, plain_content, topic_type, course_id, lesson_id, medias, course_name, lesson_name, video_content } = res.topic;
+    const { tag_list, body, topic_type, course_id, lesson_id, medias, course_name, lesson_name, video_content } = res.topic;
     this.setState({
       tag_list: tag_list,
-      plain_content: plain_content,
+      body: body,
       topic_type: topic_type,
       course_id: course_id,
       lesson_id: lesson_id,
@@ -63,7 +65,7 @@ class NewTopic extends Component {
   addPlainText = (event) => {
     console.log(event)
     this.setState({
-      plain_content: event.detail.value
+      body: event.detail.value
     })
   }
 
@@ -194,6 +196,10 @@ class NewTopic extends Component {
     }
   }
 
+  chooseAnonymous = (event) => {
+    console.log('event', event)
+  }
+
   onChangeVideoScreen = (event) => {
     // console.log('event', event.detail)
     this.setState({showTextarea: !event.detail.fullScreen})
@@ -245,7 +251,7 @@ class NewTopic extends Component {
   }
 
   _formatTopicForm = () => {
-    const { course_id, lesson_id, topic_type, tag_list, selectedImgs, plain_content, video_content } = this.state
+    const { course_id, lesson_id, topic_type, tag_list, selectedImgs, body, video_content } = this.state
     return {
       id: this.topic_id,
       course_id: course_id,
@@ -253,7 +259,7 @@ class NewTopic extends Component {
       type: topic_type,
       tag_list: tag_list,
       medias: selectedImgs.map((file) => (file.split("?")[0])),
-      plain_content: plain_content,
+      body: body,
       video_content: video_content
     };
   }
@@ -264,11 +270,11 @@ class NewTopic extends Component {
 
   isValidateForm = () => {
     let status = false
-    const { selectedImgs, video_content, plain_content } = this.state
+    const { selectedImgs, video_content, body } = this.state
     if (!selectedImgs && !video_content) {
       status = false;
     } else {
-      let has_text = plain_content.length > 0;
+      let has_text = body.length > 0;
       let has_image = selectedImgs.length > 0;
       let has_video = video_content && video_content.indexOf('meirixinxue') >= 0
       status = has_text && (has_image || has_video);
@@ -278,7 +284,7 @@ class NewTopic extends Component {
   }
 
   render() {
-    const { video_content, plain_content, selectedImgs } = this.state
+    const { video_content, body, selectedImgs } = this.state
     let isShowPhotoUpload = (selectedImgs.length < 9 && !video_content) || (selectedImgs.length < 8 && video_content)
     let video_content_m3u8 = video_content.indexOf('assets') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
@@ -286,22 +292,31 @@ class NewTopic extends Component {
         <View className="new-topic-detail">
           <View className="content">
             <View className="plain-content-block">
-              {this.state.showTextarea && <Textarea
-                onBlur={this.addPlainText}
-                placeholder="写下这一刻的学习心得...\n\n"
-                maxlength="500"
-                className="plain-content"
-                autoHeight
-                showConfirmBar
-
-                value={plain_content}
-                placeholderClass="plain-content-place-holder"
+              <AtTextarea
+                value={this.state.body}
+                onChange={this.addPlainText}
+                maxLength={200}
+                height={300}
+                placeholder='此刻说出你想对Ta说的话'
               />
-              }
             </View>
+            {/*<View className="plain-content-block">*/}
+              {/*{this.state.showTextarea && <Textarea*/}
+                {/*onBlur={this.addPlainText}*/}
+                {/*placeholder="写下这一刻的学习心得...\n\n"*/}
+                {/*maxlength="500"*/}
+                {/*className="plain-content"*/}
+                {/*autoHeight*/}
+                {/*showConfirmBar*/}
+
+                {/*value={body}*/}
+                {/*placeholderClass="plain-content-place-holder"*/}
+              {/*/>*/}
+              {/*}*/}
+            {/*</View>*/}
 
             {/*<View className='plain-content-block' style="height: 150px">*/}
-            {/*<View>{plain_content}</View>*/}
+            {/*<View>{body}</View>*/}
             {/*</View>*/}
 
             {/*图片*/}
@@ -371,6 +386,14 @@ class NewTopic extends Component {
 
             </View>
           </View>
+
+          {/*<View className="chose border-top-1px border-bottom-1px">*/}
+            {/*<AtSwitch title='是否匿名发布' checked={this.state.anonymous} border={false} onChange={this.chooseAnonymous} />*/}
+          {/*</View>*/}
+
+          <AtForm>
+            <AtSwitch title='是否匿名发布' checked={this.state.anonymous} onChange={this.chooseAnonymous} />
+          </AtForm>
 
           <View className="publish-button" onClick={this.onSubmit}>
             <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
