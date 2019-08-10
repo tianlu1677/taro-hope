@@ -1,2 +1,3 @@
 export const USER_DETAIL = 'USER_DETAIL'
 export const USER_UPDATE = 'USER_UPDATE'
+export const CURRENT_USER_DETAIL = 'CURRENT_USER_DETAIL'

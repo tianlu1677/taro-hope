@@ -1,7 +1,8 @@
-import { USER_DETAIL, USER_UPDATE } from '@/constants'
+import {CURRENT_USER_DETAIL, USER_DETAIL, USER_UPDATE} from '@/constants'
 
 const INITIAL_STATE = {
-  currentUser: {}
+  currentUser: {},
+  userDetail: {},
 }
 
 export default function counter (state = INITIAL_STATE, action) {
@@ -9,14 +10,19 @@ export default function counter (state = INITIAL_STATE, action) {
     case USER_DETAIL:
       return {
         ...state,
-        currentUser: action.user
+        userDetail: action.user
       }
-     case USER_UPDATE:
-       return {
-         ...state,
-         currentUser: action.user
-       }
-     default:
-       return state
+    case CURRENT_USER_DETAIL:
+      return {
+        ...state,
+        userDetail: action.user
+      }
+    case USER_UPDATE:
+     return {
+       ...state,
+       currentUser: action.user
+     }
+   default:
+     return state
   }
 }

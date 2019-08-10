@@ -48,3 +48,22 @@ export async function getUserDetail(id) {
   });
   return res.data;
 }
+
+// 更新用户的详细信息
+export async function updateUserDetail() {
+  const res = await request({
+    url: `/api/v1/users/update_info`,
+    method: "PATCH"
+  });
+  return res.data;
+}
+
+// 用户发布的心得数
+export async function getUserTopics(id) {
+  const res = await request({
+    url: `/api/v1/users/${id}/topics`,
+    method: "GET"
+  });
+  return res.data;
+}
+

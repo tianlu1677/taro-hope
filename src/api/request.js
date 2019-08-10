@@ -4,7 +4,7 @@ import interceptors from "./interceptors";
 
 interceptors.forEach(i => Taro.addInterceptor(i));
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:4000'
 
 // const BASE_URL = 'https://fans.niubibeta.com'
 

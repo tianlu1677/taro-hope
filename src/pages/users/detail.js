@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {dispatchCurrentUser} from '@/actions'
+import {dispatchCurrentUser, dispatchUserDetail} from '@/actions'
 import withShare from '@/utils/with_share';
 
 import UserHeader from '@/components/user-header';
@@ -15,7 +15,7 @@ import './detail.module.scss'
   target_type: ''
 })
 
-@connect(state => state.user, { dispatchCurrentUser })
+@connect(state => state.user, { dispatchCurrentUser, dispatchUserDetail })
 
 
 class Detail extends Component {
@@ -25,10 +25,14 @@ class Detail extends Component {
 
   constructor() {
     super(...arguments);
+    this.user_id = this.$router.params.user_id
   }
 
   componentDidMount() {
-    // this.props.dispatchCurrentUser()
+    this.props.dispatchUserDetail({user_id: this.user_id}).then((res) =>{
+      console.log('eeee', res)
+    })
+    this.props.dispatchCurrentUser()
   }
 
   render() {
