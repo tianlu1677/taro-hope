@@ -19,6 +19,27 @@ export async function phoneLogin(body = {}) {
   return res.data;
 }
 
+// 获取session_key
+export async function getSessionKey(body = {}) {
+  const res = await request({
+    url: "/api/v1/logins/session_key",
+    method: "POST",
+    data: body
+  });
+  return res.data;
+}
+
+
+// 获取登录信息
+export async function loginSystem(body = {}) {
+  const res = await request({
+    url: "/api/v1/logins",
+    method: "POST",
+    data: body
+  });
+  return res.data;
+}
+
 //用户的详情页
 export async function getUserDetail(id) {
   const res = await request({
