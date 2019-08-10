@@ -5,7 +5,7 @@ import {dispatchCurrentUser} from '@/actions'
 import withShare from '@/utils/with_share';
 
 import UserHeader from '@/components/user-header';
-import './mine.module.scss';
+import './detail.module.scss'
 
 @withShare({
   title: '',
@@ -18,9 +18,9 @@ import './mine.module.scss';
 @connect(state => state.user, { dispatchCurrentUser })
 
 
-class Mine extends Component {
+class Detail extends Component {
   config = {
-    navigationBarTitleText: "我"
+    navigationBarTitleText: "Ta的主页"
   };
 
   constructor() {
@@ -37,12 +37,10 @@ class Mine extends Component {
     return ( <View>
 
         <UserHeader
-          showEdit
+          showFollow
         />
-        <View className="division">
-        </View>
-        <View className="list">
 
+        <View className="division">
         </View>
       </View>
     );
@@ -50,4 +48,4 @@ class Mine extends Component {
 }
 
 
-export default Mine;
+export default Detail;

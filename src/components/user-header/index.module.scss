@@ -1,3 +1,5 @@
+@import "../../styles/variable";
+
 .user-header {
   padding: 34px 34px 34px 34px;
   .avatar {
@@ -17,7 +19,7 @@
       text-align: center;
       font-size: 32px;
     }
-    .follow {
+    .follow-button, .edit-button {
       position: absolute;
       right: 34px;
       top: 30px;
@@ -30,6 +32,9 @@
         color: white;
         text-align: center;
       }
+    }
+    .edit-button {
+      background: $blue;
     }
   }
 
@@ -47,21 +52,19 @@
   }
   .numbers {
     display: flex;
-    align-items: center;
     margin-top: 40px;
-
     font-size: 0;
-
     .item {
-      margin-right: 30px;
+      display: flex;
       height: 50px;
+      line-height: 50px;
       text-align: center;
+      margin-right: 30px;
       .num {
         font-size: 36px;
         font-weight: 600;
       }
       .txt {
-        height: 50px;
         margin-left: 10px;
         font-size: 24px;
         color: rgba(54,54,54,1);

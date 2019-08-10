@@ -5,21 +5,15 @@ import {connect} from "@tarojs/redux";
 import './index.module.scss'
 
 class UserHeader extends Component {
-
   static defaultProps = {
     user: {},
-    onClick: () => {
-    },
-    onGetUserInfo: () => {
-    }
-  }
-
-
-  componentDidMount() {
-
+    showFollow: false,
+    showEdit: false
   }
 
   render() {
+
+    const { showFollow, showEdit} = this.props
     return (<View className="user-header">
         <View className="avatar">
           <Image src="" className="avatar-img">
@@ -29,9 +23,18 @@ class UserHeader extends Component {
             东半球丸子
           </View>
 
-          <View className="follow">
-            <Text className="text">关注</Text>
-          </View>
+          {
+            showFollow && <View className="follow-button">
+              <Text className="text">关注</Text>
+            </View>
+          }
+
+          {
+            showEdit && <View className="edit-button">
+              <Text className="text">编辑</Text>
+            </View>
+          }
+
         </View>
 
         <View className="detail">
@@ -41,20 +44,20 @@ class UserHeader extends Component {
 
         <View className="numbers">
           <View className="item">
-            <Text className="num">56</Text>
-            <Text className="txt">动态</Text>
+            <View className="num">56</View>
+            <View className="txt">动态</View>
           </View>
           <View className="item">
-            <Text className="num">56</Text>
-            <Text className="txt">关注</Text>
+            <View className="num">56</View>
+            <View className="txt">关注</View>
           </View>
           <View className="item">
-            <Text className="num">56</Text>
-            <Text className="txt">被关注</Text>
+            <View className="num">56</View>
+            <View className="txt">被关注</View>
           </View>
           <View className="item">
-            <Text className="num">56</Text>
-            <Text className="txt">被喜欢</Text>
+            <View className="num">56</View>
+            <View className="txt">被喜欢</View>
           </View>
         </View>
       </View>

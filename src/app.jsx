@@ -21,6 +21,7 @@ class App extends Component {
     pages: [
       'pages/home/index',
       'pages/users/mine',
+      'pages/users/detail',
       'pages/login/login',
       'pages/topics/new-topic',
     ],
