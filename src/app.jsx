@@ -22,6 +22,7 @@ class App extends Component {
       'pages/home/index',
       'pages/users/mine',
       'pages/login/login',
+      'pages/topics/new-topic',
     ],
     window: {
       backgroundTextStyle: 'light',

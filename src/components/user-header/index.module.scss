@@ -1,0 +1,71 @@
+.user-header {
+  padding: 34px 34px 34px 34px;
+  .avatar {
+    position: relative;
+    display: flex;
+    flex: 0 0 130px;
+    line-height: 130px;
+    text-align: center;
+    .avatar-img {
+      height: 130px;
+      width: 130px;
+      border-radius: 50%;
+    }
+    .name {
+      margin-left: 26px;
+      line-height: 130px;
+      text-align: center;
+      font-size: 32px;
+    }
+    .follow {
+      position: absolute;
+      right: 34px;
+      top: 30px;
+      width:180px;
+      height:68px;
+      line-height: 68px;
+      background:rgba(253,124,157,1);
+      border-radius:34px;
+      .text {
+        color: white;
+        text-align: center;
+      }
+    }
+  }
+
+  .detail {
+    margin-top: 50px;
+    height: 40px;
+    line-height:40px;
+    font-size: 20px;
+    font-weight:400;
+    .location {
+      margin-left: 15px;
+      color: rgba(123,123,123,1);
+      background:rgba(245,246,251,1);
+    }
+  }
+  .numbers {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+
+    font-size: 0;
+
+    .item {
+      margin-right: 30px;
+      height: 50px;
+      text-align: center;
+      .num {
+        font-size: 36px;
+        font-weight: 600;
+      }
+      .txt {
+        height: 50px;
+        margin-left: 10px;
+        font-size: 24px;
+        color: rgba(54,54,54,1);
+      }
+    }
+  }
+}

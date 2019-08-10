@@ -4,6 +4,8 @@ import {connect} from "@tarojs/redux";
 import {dispatchCurrentUser} from '@/actions'
 import withShare from '@/utils/with_share';
 
+import UserHeader from '@/components/user-header';
+
 @withShare({
   title: '',
   imageUrl: '',
@@ -24,11 +26,15 @@ class Mine extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatchCurrentUser()
+    // this.props.dispatchCurrentUser()
   }
 
   render() {
+
+    const { currentUser } = this.props
     return ( <View>
+
+        <UserHeader/>
         <Button type="primary" onClick={() => { Taro.navigateTo({url: '/pages/login/login'})}}>登录</Button>
       </View>
     );
