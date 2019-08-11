@@ -1,0 +1,39 @@
+.topic-detail {
+  margin-top: 26px;
+  .user {
+    padding: 0 30px;
+  }
+  .images {
+    margin-top: 24px;
+    height: 490px;
+    .media {
+
+    }
+    .media-img {
+      width: 750px;
+      height: 490px;
+    }
+  }
+  .body {
+    margin-top: 10px;
+    padding: 0 30px;
+    font-size:30px;
+    font-weight:300;
+    line-height:50px;
+    color:rgba(67,73,87,1);
+  }
+  .numbers {
+    display: flex;
+    margin-top: 10px;
+    padding: 0 30px;
+    font-size: 24px;
+    line-height: 40px;
+    color:rgba(189,189,189,1);
+    .created_at {
+      margin-right: 5px;
+    }
+    .views_count {
+      margin-left: 5px;
+    }
+  }
+}

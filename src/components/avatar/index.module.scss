@@ -1,0 +1,42 @@
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  .left {
+    display: flex;
+    height: 60px;
+    line-height: 60px;
+    .cover {
+      .cover-img {
+        height: 60px;
+        width: 60px;
+        font-size: 0;
+      }
+    }
+    .name {
+      margin-left: 14px;
+      font-size:28px;
+      font-weight:500;
+      color: rgba(54,54,54,1);
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: row-reverse;
+    flex: 1;
+    .follow {
+      width:110px;
+      height:50px;
+
+      background:rgba(245,246,251,1);
+      border-radius:25px;
+      text-align: center;
+      .txt {
+        font-size: 24px;
+        font-weight:500;
+        color: rgba(184,184,184,1);
+      }
+    }
+  }
+}
