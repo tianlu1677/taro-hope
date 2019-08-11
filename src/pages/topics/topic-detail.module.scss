@@ -1,5 +1,8 @@
+@import "../../styles/variable";
+
 .topic-detail {
   margin-top: 26px;
+  padding-bottom: 70px;
   .user {
     padding: 0 30px;
   }
@@ -15,25 +18,81 @@
     }
   }
   .body {
-    margin-top: 10px;
+    margin-top: 65px;
     padding: 0 30px;
-    font-size:30px;
-    font-weight:300;
-    line-height:50px;
-    color:rgba(67,73,87,1);
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 50px;
+    color: rgba(67, 73, 87, 1);
   }
   .numbers {
     display: flex;
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 0 30px;
     font-size: 24px;
     line-height: 40px;
-    color:rgba(189,189,189,1);
+    color: rgba(189, 189, 189, 1);
     .created_at {
-      margin-right: 5px;
+      margin-right: 8px;
     }
     .views_count {
-      margin-left: 5px;
+      margin-left: 8px;
     }
   }
+
+}
+
+.comment-wrapper {
+
+}
+
+.bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  line-height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  z-index: 100;
+
+  .item {
+    font-size: 36px;
+  }
+
+  /*输入评论*/
+  .comment-input {
+    display: flex;
+    width: 100%;
+    padding: 22px 20px;
+    font-size: 23px;
+    height: 52px;
+
+    .comment-content {
+      width: 100%;
+      padding: 0 26px;
+      border-radius: 24px;
+      height: 54px;
+      background-color: $light_white;
+    }
+    .publish-comment {
+      width: 154px;
+      margin-left: 28px;
+      border-radius: 24px;
+      line-height: 54px;
+      text-align: center;
+      font-size: 24px;
+      background-color: $light_white;
+    }
+  }
+  .inside {
+
+  }
+}
+.inside {
+  padding: 0 112px;
 }

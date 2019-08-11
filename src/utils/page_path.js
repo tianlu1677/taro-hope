@@ -9,6 +9,10 @@ export default class goPage {
 
   }
 
+  static goEditUser() {
+    Taro.navigateTo({url: '/pages/users/edit'})
+  }
+
   // 兴趣广场
   // static goCategoryListUrl() {
   //   Taro.navigateTo({url: "/pages/categories/category-list"});

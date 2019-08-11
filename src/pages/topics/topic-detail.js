@@ -1,11 +1,19 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Text, Image, Swiper, SwiperItem} from "@tarojs/components";
+import {View, Text, Input, Image, Swiper, SwiperItem} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-
+import {getTopicReplies} from "@/api/topic_api"
 import withShare from '@/utils/with_share';
-import {dispatchCurrentUser, dispatchFollowUser, dispatchUnFollowUser, dispatchUserDetail, dispatchTopicDetail} from "@/actions"
+import {
+  dispatchCurrentUser,
+  dispatchFollowUser,
+  dispatchUnFollowUser,
+  dispatchUserDetail,
+  dispatchTopicDetail
+} from "@/actions"
 import Avatar from '@/components/avatar'
 import Division from '@/components/division'
+import CommentList from '@/components/list/comment-list'
+import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
 import './topic-detail.module.scss'
 
 @withShare({
@@ -15,47 +23,175 @@ import './topic-detail.module.scss'
   target_id: '',
   target_type: ''
 })
-@connect(state => state, { dispatchCurrentUser, dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser,dispatchTopicDetail })
+@connect(state => state, {
+  dispatchCurrentUser,
+  dispatchUserDetail,
+  dispatchFollowUser,
+  dispatchUnFollowUser,
+  dispatchTopicDetail
+})
+
 
 class TopicDetail extends Component {
   config = {
     navigationBarTitleText: "动态详情"
   };
 
+  state = {
+    commentList: [],
+    currentComment: {body: '', topic_id: '', placeholder: '写点评论吧'},
+    loading: true,
+    show_comment: false,
+  }
+
   constructor() {
     super(...arguments);
     this.topic_id = this.$router.params.topic_id
   }
 
+  $setShareTargetId = () => (this.props.topicDetail.id)
+  $setSharePath = () => (`/pages/topics/topic-detail?topic_id=${this.topic_id}`)
+  $setShareTitle = () => (this.props.topicDetail.user.name + '学习心得')
+
   componentDidMount() {
     this.props.dispatchTopicDetail({topic_id: this.topic_id})
+    this.getTopicReplyList(this.topic_id)
+  }
+
+  getTopicReplyList = async (topic_id) => {
+    const res = await getTopicReplies(topic_id)
+    this.setState({
+      commentList: res.replies
+    })
+  }
+
+  onPreview = (currentImg) => {
+    let currentImgUrl = currentImg.split("?")[0];
+
+    Taro.previewImage({
+      urls: this.props.topic.topicDetail.medias.map((file) => (file.split("?")[0])),
+      current: currentImgUrl
+    });
+  }
+
+  //1. 删除评论
+  onDeleteComment = (comment_id, commentIndex) => {
+    console.log('comment', comment_id, commentIndex)
+    let commentList = this.state.commentList
+    commentList.splice(commentIndex, 1)
+    this.setState({
+      commentList: commentList
+    })
+    deleteReply(comment_id)
+  }
+  //2. 回复评论
+  onReplyComment = (comment = {}) => {
+    this.setState({
+      show_comment: true
+    })
+    if (comment.id) {
+      this.setState({
+        currentComment: {
+          placeholder: "回复: @" + comment.user.name,
+          body: '',
+          topic_id: this.topic_id,
+          reply_to_id: comment.id,
+        }
+      })
+    } else {
+      this.setState({
+        currentComment: {
+          placeholder: "写点评论吧",
+          topic_id: this.topic_id,
+          body: '',
+        }
+      })
+    }
+  }
+
+  // 3. 发表新评论
+  publishComment = async (event) => {
+    event.stopPropagation();
+
+    const {currentComment} = this.state
+    if (currentComment.body.length >= 2) {
+      Taro.showLoading({title: "发送中...", mask: true});
+      if(currentComment.reply_to_id) {
+        let res = await createSecondReply(this.topic_id, currentComment)
+      } else {
+        let res = await createReply(this.topic_id, currentComment);
+      }
+
+      if (res.status === 'failed') {
+        Taro.hideLoading();
+        Taro.showModal({title: "提示", content: res.msg, showCancel: false, confirmColor: "#00D2FF"});
+        return
+      }
+      this.setState({
+        currentComment: {},
+        show_comment: false
+      })
+      this.getTopicReplyList(this.topic_id)
+      Taro.pageScrollTo({
+        scrollTop: 200,
+        duration: 300
+      });
+      Taro.hideLoading();
+      Taro.showToast({
+        title: "发布成功啦",
+        icon: "success",
+        mask: true,
+        duration: 1500
+      });
+    }
+  }
+
+  // 同步内容
+  saveComment = (event) => {
+    this.setState({
+      currentComment: {...this.state.currentComment, body: event.detail.value}
+    })
+  }
+
+  // 清除评论
+  clearComment = (event) => {
+    if (!event.detail.value) {
+      this.setState({
+        show_comment: false,
+        currentComment: {placeholder: '写点评论吧', body: '', topic_id: this.topic_id}
+      })
+    }
   }
 
   render() {
-    const { topicDetail } = this.props.topic
+    const {topicDetail, topicMeta} = this.props.topic
+    const {currentComment, show_comment} = this.state
     return (
       <View className="topic-detail">
         <View className="user">
           <Avatar
             user={topicDetail.user}
+            showFollow={true}
+            followed_user={topicMeta.followed_user}
           >
           </Avatar>
         </View>
 
         {
-          topicDetail.medias &&  <View className="images">
+          topicDetail.medias && <View className="images">
             <Swiper
               indicatorDots
-              indicatorColor={'rgba(0, 0, 0, .3)'}
-              indicator-active-color={"#000000"}
+              indicatorColor="#E6E6E6"
+              indicatorActiveColor="#FD7C97"
               circular
               className="media-list"
-              style={{height: '490px'}}
+              style={{height: '490rpx'}}
             >
               <View>
                 {topicDetail.medias.map((media) => {
                   return <SwiperItem className="media" key={media}>
-                    <Image src={media} className="media-img">
+                    <Image src={media + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'}
+                           className="media-img" onClick={this.onPreview.bind(this, media)} lazyLoad>
                     </Image>
                   </SwiperItem>
                 })}
@@ -66,22 +202,75 @@ class TopicDetail extends Component {
 
         {
           topicDetail.body && <View className="body">
-            字节跳动方面，今日头条App升级的新版本中给予了小程序更高的权重，更加突出小游戏和小程序的信息流推荐。在App的频道中新增了“小游戏”类目，将小游戏作为中心化入口进行分发。在信息流页面中出现了直推的小程序服务。信息流是今日头条核心的流量，通过信息流小程序将有更多的被曝光的机会。 百度在今年的AI开发者大会上也给予了小程序更多的曝光，开源的智能小程序将为APP构建一座座桥梁，打通App形成的信息孤岛。用户通过搜索和信息流接触到企业相关信息后，可以直接通过百度智能小程序完成体验、购买等直接操作
+            {topicDetail.body}
           </View>
         }
 
-
         <View className="numbers">
           <View className="created_at">
-            6月11日发布
+            {topicDetail.created_at_text}
           </View>
-
+          ·
           <View className="views_count">
-            浏览998
+            浏览{topicDetail.hits}
           </View>
         </View>
 
         <Division/>
+
+        <View className="topic-bottom border-top-1px">
+
+        </View>
+
+
+        <View className="comment-wrapper">
+          <CommentList
+            commentList={this.state.commentList}
+            onReplyComment={this.onReplyComment}
+            onDeletedComment={this.onDeleteComment}
+          >
+          </CommentList>
+        </View>
+
+        {
+          !show_comment && <View className="bottom inside border-top-1px">
+            <View className="item">
+              喜欢
+            </View>
+            <View className="item" onClick={this.onReplyComment}>
+              撩ta
+            </View>
+            <View className="item">
+              分享
+            </View>
+          </View>
+        }
+
+        {
+          show_comment && <View className="bottom border-top-1px">
+            <View className="comment-input">
+              <Input
+                placeholder={currentComment.placeholder}
+                className="comment-content"
+                value={currentComment.content}
+                cursorSpacing="10"
+                focus
+                confirmType="发送"
+                adjustPosition
+                type="text"
+                maxLength="100"
+                onConfirm={this.publishComment}
+                onBlur={this.clearComment}
+                onInput={this.saveComment}
+              />
+              <View onClick={this.publishComment}
+                    className={currentComment.content.length >= 2 ? ' publish-comment blue' : 'publish-comment light_gray'}>
+                发送
+              </View>
+            </View>
+          </View>
+        }
+
       </View>
     );
   }

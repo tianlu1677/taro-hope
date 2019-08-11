@@ -1,0 +1,78 @@
+@import "../../styles/mixin";
+@import "../../styles/variable";
+
+.comment-list {
+  .comment-list-title {
+    display: flex;
+    align-items: flex-end;
+    padding: 30px 30px 30px 30px;
+    .text {
+      font-size: 30px;
+      line-height: 1;
+      font-weight: bolder;
+      vertical-align: baseline;
+    }
+    .comments-count {
+      flex: 1;
+      padding-left: 15px;
+      color: $gray;
+      font-size: 24px;
+    }
+  }
+  .comment {
+    padding: 0 30px;
+    margin-bottom: 28px;
+    .praise {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      @include extend-click();
+      .icon-praise, .icon-praise-solid {
+        line-height: 52px;
+        font-size: 32px;
+      }
+      .text {
+        min-width: 20px;
+        margin-left: 10px;
+        font-size: 32px;
+        text-align: center;
+      }
+    }
+    .content {
+      word-break: break-word;
+      .comment-content {
+        padding-left: 78px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        font-size: 26px;
+        line-height: 32px;
+        border-bottom: 1px solid $color-row-line;
+        .reply {
+          //border-radius: 12px;
+          margin-top: 16px;
+          padding: 18px;
+          font-size: 22px;
+          line-height: 32px;
+          background: rgba(245,246,251,1);
+          .account-name {
+            color: black;
+          }
+          .text {
+            color: $gray;
+          }
+        }
+
+        .reply-count {
+          margin-top: 22px;
+          font-size: 22px;
+          color: $gray;
+        }
+      }
+    }
+  }
+  li:last-child {
+    .comment {
+      margin-bottom: 0;
+    }
+  }
+}

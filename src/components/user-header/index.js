@@ -12,6 +12,10 @@ class UserHeader extends Component {
     onFollow: () => {}
   }
 
+  onGoEditUser = () => {
+    Taro.navigateTo({url: '/pages/users/edit'})
+  }
+
   render() {
 
     const { showFollow, showEdit, user, userMeta} = this.props
@@ -31,7 +35,7 @@ class UserHeader extends Component {
           }
 
           {
-            showEdit && <View className="edit-button">
+            showEdit && <View className="edit-button" onClick={this.onGoEditUser}>
               <Text className="text">编辑</Text>
             </View>
           }

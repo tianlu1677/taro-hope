@@ -67,3 +67,21 @@ export async function getUserTopics(id) {
   return res.data;
 }
 
+
+// 关注
+export async function followUser(id) {
+  const res = await request({
+    url: `/api/v1/users/${id}/follow`,
+    method: "POST"
+  });
+  return res.data;
+}
+
+// 取消关注
+export async function unfollowUser(id) {
+  const res = await request({
+    url: `/api/v1/users/${id}/unfollow`,
+    method: "POST"
+  });
+  return res.data;
+}
