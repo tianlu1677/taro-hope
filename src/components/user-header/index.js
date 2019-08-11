@@ -1,6 +1,5 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
-import {connect} from "@tarojs/redux";
 
 import './index.module.scss'
 
@@ -26,7 +25,7 @@ class UserHeader extends Component {
           </View>
 
           {
-            showFollow && <View className="follow-button" onClick={this.props.onFollow.bind(userMeta.followed)}>
+            showFollow && <View className="follow-button" onClick={this.props.onFollow}>
               <Text className="text">{userMeta.followed ? '已关注' : '关注'}</Text>
             </View>
           }
@@ -40,7 +39,7 @@ class UserHeader extends Component {
         </View>
 
         <View className="detail">
-          <Text>性别</Text>
+          <Text>{user.gender_text}</Text>
           <Text className="location">{user.location || ''}</Text>
         </View>
 

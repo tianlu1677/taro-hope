@@ -41,12 +41,20 @@ class Detail extends Component {
       this.setState({
         loading: false
       })
+
+      const username = `${res.data.user.name}的主页`
+      Taro.setNavigationBarTitle({title: username})
     })
     this.props.dispatchCurrentUser()
+
   }
 
-  onFollow = (followed) => {
-    if(this.props.userMeta.followed) {
+  componentDidUpdate() {
+  }
+
+  onFollow = () => {
+    let followed =this.props.userMeta.followed
+    if(followed) {
       this.props.dispatchUnFollowUser({user_id: this.user_id})
     } else {
       this.props.dispatchFollowUser({user_id: this.user_id})
