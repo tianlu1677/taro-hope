@@ -1,6 +1,14 @@
 import request from "./request.js";
 
-//
+export async function createTopic(body = {}) {
+  const res = await request({
+    url: "/api/v1/topics",
+    method: "POST",
+    data: body
+  });
+  return res.data;
+}
+
 export async function getTopicDetail(id) {
   const res = await request({
     url: "/api/v1/topics/" + id,
@@ -8,6 +16,16 @@ export async function getTopicDetail(id) {
   });
   return res.data;
 }
+
+export async function updateTopicDetail(id, body) {
+  const res = await request({
+    url: "/api/v1/topics/" + id,
+    method: 'POST',
+    data: body
+  });
+  return res.data;
+}
+
 
 export async function getTopicReplies(id) {
   const res = await request({

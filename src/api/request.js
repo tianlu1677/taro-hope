@@ -1,11 +1,13 @@
 import Taro from "@tarojs/taro";
 
+import { siteConfig } from '@/utils/index'
+
 import interceptors from "./interceptors";
 
 interceptors.forEach(i => Taro.addInterceptor(i));
 
-const BASE_URL = 'http://localhost:4000'
-
+const BASE_URL = siteConfig().API_PORT
+const identity = siteConfig().identity
 // const BASE_URL = 'https://fans.niubibeta.com'
 
 export default function request(options, url = null) {
@@ -13,6 +15,7 @@ export default function request(options, url = null) {
   let contentType = "application/json";
   contentType = options.contentType || contentType;
   url = url || options.url;
+  data = {...data, identity: identity}
   const request_options = {
     url: url.indexOf("http") !== -1 ? url : BASE_URL + url,
     data: data,

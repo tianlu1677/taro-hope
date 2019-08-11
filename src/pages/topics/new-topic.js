@@ -1,26 +1,24 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Video, Text, Button, Textarea, RichText, Radio, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import { createTopic, getTopic, updateTopic } from "@/api/topic_api";
+import { createTopic, getTopicDetail, updateTopicDetail } from "@/api/topic_api";
 import addVideoImg from '@/assets/images/add-video.jpg';
 import addPhotoImg from '@/assets/images/add-photo.jpg';
 import removeMediaImg from '@/assets/images/close.png'
-import goPage from "@/utils/page_path"
 import playVideoImg from '@/assets/images/play-video.png'
 import { AtTextarea, AtForm, AtSwitch  } from 'taro-ui'
-
+import { uploadImages, uploadVideo } from "@/utils/upload_images"
 import './new-topic.module.scss';
 
 const defaultState = {
   topic_id: "",
   node_id: '',
   selectedImgs: [],
-  anonymous: false,
   body: "",
   video_content: "",
   validateForm: false,
   submitting: false,
-  showTextarea: true,
+  is_hide: false
 }
 
 class NewTopic extends Component {
@@ -48,22 +46,18 @@ class NewTopic extends Component {
 
   // 新建与编辑
   async loadTopicDetail(topic_id) {
-    const res = await getTopic(topic_id)
-    const { tag_list, body, topic_type, course_id, lesson_id, medias, course_name, lesson_name, video_content } = res.topic;
+    const res = await getTopicDetail(topic_id)
+    const { body, medias, video_content, is_hide } = res.topic;
     this.setState({
-      tag_list: tag_list,
       body: body,
-      topic_type: topic_type,
-      course_id: course_id,
-      lesson_id: lesson_id,
       selectedImgs: medias,
+      is_hide: is_hide,
       video_content: video_content
     })
   }
 
   // 文字
   addPlainText = (event) => {
-    console.log(event)
     this.setState({
       body: event.detail.value
     })
@@ -82,6 +76,8 @@ class NewTopic extends Component {
     });
     this.setState({
       selectedImgs: this.state.selectedImgs.concat(res.tempFilePaths)
+    }, () => {
+      this.uploadAllImage()
     })
   }
 
@@ -101,10 +97,9 @@ class NewTopic extends Component {
   }
 
   uploadAllImage = async () => {
-    let upload_url = process.env.BASE_URL + `/api/v1/assets`;
     const { selectedImgs } = this.state
-    let localImages = selectedImgs.filter((file) => (file.indexOf("assets") < 0));
-    let existFiles = selectedImgs.filter((file) => (file.indexOf("assets") > 0));
+    let localImages = selectedImgs.filter((file) => (file.indexOf("meirixinxue") < 0));
+    let existFiles = selectedImgs.filter((file) => (file.indexOf("meirixinxue") > 0));
     if(localImages.length <= 0) {
       this.setState({
         selectedImgs: existFiles
@@ -113,28 +108,7 @@ class NewTopic extends Component {
     }
 
     localImages = localImages.map((file) => (file.split("?")[0]))
-    const images = localImages.map((file) => {
-      return new Promise((resolve, reject) => {
-        return Taro.uploadFile({
-          url: upload_url,
-          filePath: file,
-          name: "file",
-          formData: {},
-          success(res) {
-            resolve(res.data);
-          },
-          fail(error) {
-            reject(error);
-          }
-        });
-      });
-    });
-
-    let result = await Promise.all(images);
-    const assets = result.map((res) => {
-      return JSON.parse(res).asset.url;
-    });
-    // console.log('assets', assets)
+    const assets = await uploadImages(localImages)
     this.setState({
       selectedImgs: existFiles.concat(assets)
     })
@@ -154,39 +128,15 @@ class NewTopic extends Component {
 
   chooseLocalVideo = async () => {
     const res = await Taro.chooseVideo({sourceType: ["album"], maxDuration: 60});
-    if(res.tempFilePath) {
+    Taro.showToast({
+      title: `上传视频中...`,
+      icon: "none",
+      duration: 20000
+    });
+    const video_url = await uploadVideo(res.tempFilePath)
+    if(video_url) {
       this.setState({
-        video_content: res.tempFilePath
-      })
-      Taro.showToast({
-        title: `上传视频中...`,
-        icon: "none",
-        duration: 20000
-      });
-      await this.uploadVideo(res.tempFilePath)
-    } else {
-      Taro.showToast({
-        title: `上传失败 ${res}`,
-        icon: "none",
-        duration: 2000
-      });
-    }
-  }
-
-  async uploadVideo(raw_file_path) {
-    let upload_url = process.env.BASE_URL + `/api/v1/assets`;
-    // let upload_url = 'http://localhost:5000' + `/api/v1/assets`;
-    let isLocalVideo = raw_file_path.indexOf("assets") < 0;
-    if (isLocalVideo) {
-      const res = await Taro.uploadFile({
-        url: upload_url,
-        filePath: raw_file_path,
-        name: "file",
-        formData: {}
-      });
-      console.log("video", JSON.parse(res.data));
-      this.setState({
-        video_content: JSON.parse(res.data).asset.video_url
+        video_content: video_url
       })
       Taro.showToast({
         title: `上传完成`,
@@ -198,15 +148,13 @@ class NewTopic extends Component {
 
   chooseAnonymous = (event) => {
     console.log('event', event)
-  }
-
-  onChangeVideoScreen = (event) => {
-    // console.log('event', event.detail)
-    this.setState({showTextarea: !event.detail.fullScreen})
+    this.setState({
+      is_hide: event
+    })
   }
 
   // 提交保存以及修改保存
-  onSubmit = async (event) => {
+  onSubmit = async () => {
     if (!this.isValidateForm() || this.state.submitting) { return; }
     this.setState({
       submitting: true
@@ -238,26 +186,23 @@ class NewTopic extends Component {
     const data = this._formatTopicForm()
     let topic_res = {}
     if (topic_id) {
-      topic_res = await updateTopic(topic_id, data)
+      topic_res = await updateTopicDetail(topic_id, data)
     } else {
       topic_res = await createTopic(data)
     }
     if (topic_res.status === 'failed') {
       Taro.showModal({title: "提示", content: topic_res.msg, showCancel: false, confirmColor: "#00D2FF"});
     } else {
-      goPage.redirectTopicDetailUrl(topic_res.id, "new");
+      Taro.redirectTo({url: `/pages/topics/topic-detail/${topic_res.id}` });
       this.resetTopicForm();
     }
   }
 
   _formatTopicForm = () => {
-    const { course_id, lesson_id, topic_type, tag_list, selectedImgs, body, video_content } = this.state
+    const {  selectedImgs, body, video_content, is_hide } = this.state
     return {
       id: this.topic_id,
-      course_id: course_id,
-      lesson_id: lesson_id,
-      type: topic_type,
-      tag_list: tag_list,
+      is_hide: is_hide,
       medias: selectedImgs.map((file) => (file.split("?")[0])),
       body: body,
       video_content: video_content
@@ -286,18 +231,18 @@ class NewTopic extends Component {
   render() {
     const { video_content, body, selectedImgs } = this.state
     let isShowPhotoUpload = (selectedImgs.length < 9 && !video_content) || (selectedImgs.length < 8 && video_content)
-    let video_content_m3u8 = video_content.indexOf('assets') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
+    let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
         <View className="new-topic-detail">
           <View className="content">
             <View className="plain-content-block">
               <AtTextarea
-                value={this.state.body}
+                value={body}
                 onChange={this.addPlainText}
                 maxLength={200}
                 height={300}
-                placeholder='此刻说出你想对Ta说的话'
+                placeholder='此刻说出你想对Ta说的话...'
               />
             </View>
             {/*<View className="plain-content-block">*/}
@@ -392,7 +337,7 @@ class NewTopic extends Component {
           {/*</View>*/}
 
           <AtForm>
-            <AtSwitch title='是否匿名发布' checked={this.state.anonymous} onChange={this.chooseAnonymous} />
+            <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" onChange={this.chooseAnonymous} />
           </AtForm>
 
           <View className="publish-button" onClick={this.onSubmit}>

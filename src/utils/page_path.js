@@ -5,6 +5,10 @@ export default class goPage {
     Taro.switchTab({url: "/pages/home/index"});
   }
 
+  static goTopicDetail(id) {
+
+  }
+
   // 兴趣广场
   // static goCategoryListUrl() {
   //   Taro.navigateTo({url: "/pages/categories/category-list"});
