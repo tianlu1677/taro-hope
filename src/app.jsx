@@ -39,17 +39,23 @@ class App extends Component {
       selectedColor: "#b4282d",
       backgroundColor: "#fafafa",
       borderStyle: 'black',
-      list: [{
+      list: [
+        {
         pagePath: "pages/home/index",
-        iconPath: "./assets/tab-bar/home.png",
-        selectedIconPath: "./assets/tab-bar/home-active.png",
+        iconPath: "./assets/tab-bar/qiuliao-1.png",
+        selectedIconPath: "./assets/tab-bar/qiuliao-11.png",
         text: "首页"
-      },
+      }, {
+          pagePath: "pages/topics/new-topic",
+          iconPath: "./assets/tab-bar/qiuliao-2.png",
+          selectedIconPath: "./assets/tab-bar/qiuliao-2.png",
+          text: "发布"
+        },
       {
         pagePath: "pages/users/mine",
-        iconPath: "./assets/tab-bar/user.png",
-        selectedIconPath: "./assets/tab-bar/user-active.png",
-        text: "个人"
+        iconPath: "./assets/tab-bar/qiuliao-3.png",
+        selectedIconPath: "./assets/tab-bar/qiuliao-31.png",
+        text: "我"
       }]
     }
   }

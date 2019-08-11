@@ -2,8 +2,8 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Video, Text, Button, Textarea, RichText, Radio, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import { createTopic, getTopicDetail, updateTopicDetail } from "@/api/topic_api";
-import addVideoImg from '@/assets/images/add-video.jpg';
-import addPhotoImg from '@/assets/images/add-photo.jpg';
+import addVideoImg from '@/assets/images/add-video.png';
+import addPhotoImg from '@/assets/images/add-photo.png';
 import removeMediaImg from '@/assets/images/close.png'
 import playVideoImg from '@/assets/images/play-video.png'
 import { AtTextarea, AtForm, AtSwitch  } from 'taro-ui'
