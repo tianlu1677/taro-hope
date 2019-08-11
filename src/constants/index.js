@@ -1,3 +1,5 @@
 export const USER_DETAIL = 'USER_DETAIL'
 export const USER_UPDATE = 'USER_UPDATE'
+export const USER_FOLLOW = 'USER_FOLLOW'
+export const USER_UN_FOLLOW = 'USER_UN_FOLLOW'
 export const CURRENT_USER_DETAIL = 'CURRENT_USER_DETAIL'

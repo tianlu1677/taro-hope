@@ -1,24 +1,40 @@
 import { createAction } from '@/utils/redux'
 
-import { USER_DETAIL, USER_UPDATE, CURRENT_USER_DETAIL } from '@/constants'
+import { USER_DETAIL, USER_UPDATE, CURRENT_USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW } from '@/constants'
 /**
  * 列表
- * @param {*} payload
+ * @param {*} options
  */
-export const dispatchTopicList = payload => createAction({
+export const dispatchTopicList = options => createAction({
   url: '/api/v1/topics',
   type: 'TOPIC_LIST',
-  payload: payload
+  options: options
 })
 
-export const dispatchCurrentUser = payload => createAction({
+export const dispatchCurrentUser = options => createAction({
   url: '/api/v1/users/me',
   type: CURRENT_USER_DETAIL,
-  payload: payload
+  options: options
 })
 
-export const dispatchUserDetail = payload => createAction({
-  url: `/api/v1/users/${payload.user_id}`,
+export const dispatchUserDetail = options => createAction({
+  url: `/api/v1/users/${options.user_id}`,
   type: USER_DETAIL,
-  payload: payload
+  options: options
+})
+
+
+export const dispatchFollowUser = options => createAction({
+  url: `/api/v1/users/${options.user_id}/follow`,
+  type: USER_FOLLOW,
+  method: 'POST',
+  options: options
+})
+
+
+export const dispatchUnFollowUser = options => createAction({
+  url: `/api/v1/users/${options.user_id}/unfollow`,
+  type: USER_UN_FOLLOW,
+  method: 'POST',
+  options: options
 })

@@ -7,25 +7,27 @@ import './index.module.scss'
 class UserHeader extends Component {
   static defaultProps = {
     user: {},
+    userMeta: {},
     showFollow: false,
-    showEdit: false
+    showEdit: false,
+    onFollow: () => {}
   }
 
   render() {
 
-    const { showFollow, showEdit} = this.props
+    const { showFollow, showEdit, user, userMeta} = this.props
     return (<View className="user-header">
         <View className="avatar">
-          <Image src="" className="avatar-img">
+          <Image src={user.avatar_url} className="avatar-img" lazyLoad>
           </Image>
 
           <View className="name">
-            东半球丸子
+            {user.name}
           </View>
 
           {
-            showFollow && <View className="follow-button">
-              <Text className="text">关注</Text>
+            showFollow && <View className="follow-button" onClick={this.props.onFollow.bind(userMeta.followed)}>
+              <Text className="text">{userMeta.followed ? '已关注' : '关注'}</Text>
             </View>
           }
 
@@ -39,20 +41,20 @@ class UserHeader extends Component {
 
         <View className="detail">
           <Text>性别</Text>
-          <Text className="location">天津</Text>
+          <Text className="location">{user.location || ''}</Text>
         </View>
 
         <View className="numbers">
           <View className="item">
-            <View className="num">56</View>
+            <View className="num">{user.topics_count}</View>
             <View className="txt">动态</View>
           </View>
           <View className="item">
-            <View className="num">56</View>
+            <View className="num">{user.following_count}</View>
             <View className="txt">关注</View>
           </View>
           <View className="item">
-            <View className="num">56</View>
+            <View className="num">{user.followers_count}</View>
             <View className="txt">被关注</View>
           </View>
           <View className="item">
