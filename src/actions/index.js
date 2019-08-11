@@ -1,6 +1,6 @@
 import { createAction } from '@/utils/redux'
 
-import { USER_DETAIL, USER_UPDATE, CURRENT_USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW } from '@/constants'
+import {USER_DETAIL, USER_UPDATE, CURRENT_USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW, TOPIC_DETAIL} from '@/constants'
 /**
  * 列表
  * @param {*} options
@@ -40,6 +40,36 @@ export const dispatchFollowUser = options => createAction({
 
 
 export const dispatchUnFollowUser = options => createAction({
+  url: `/api/v1/users/${options.user_id}/unfollow`,
+  type: USER_UN_FOLLOW,
+  method: 'POST',
+  options: options
+})
+
+// 心得
+export const dispatchTopicDetail = options => createAction({
+  url: `/api/v1/topics/${options.topic_id}`,
+  type: TOPIC_DETAIL,
+  data: options
+})
+export const dispatchLikeTopic = options => createAction({
+  url: `/api/v1/users/${options.user_id}/follow`,
+  type: USER_FOLLOW,
+  method: 'POST',
+  options: options
+})
+
+
+
+export const dispatchUnLikeTopic = options => createAction({
+  url: `/api/v1/users/${options.user_id}/follow`,
+  type: USER_FOLLOW,
+  method: 'POST',
+  options: options
+})
+
+
+export const dispatchUnFollowTopic = options => createAction({
   url: `/api/v1/users/${options.user_id}/unfollow`,
   type: USER_UN_FOLLOW,
   method: 'POST',

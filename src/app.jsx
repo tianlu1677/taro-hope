@@ -26,6 +26,7 @@ class App extends Component {
       'pages/users/edit-detail',
       'pages/login/login',
       'pages/topics/new-topic',
+      'pages/topics/topic-detail',
     ],
     window: {
       backgroundTextStyle: 'light',

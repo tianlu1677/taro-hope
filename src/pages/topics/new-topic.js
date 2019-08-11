@@ -13,7 +13,7 @@ import './new-topic.module.scss';
 const defaultState = {
   topic_id: "",
   node_id: '',
-  selectedImgs: [],
+  selectImages: [],
   body: "",
   video_content: "",
   validateForm: false,
@@ -50,7 +50,7 @@ class NewTopic extends Component {
     const { body, medias, video_content, is_hide } = res.topic;
     this.setState({
       body: body,
-      selectedImgs: medias,
+      selectImages: medias,
       is_hide: is_hide,
       video_content: video_content
     })
@@ -65,7 +65,7 @@ class NewTopic extends Component {
 
   // 图片相关内容
   chooseImage = async () => {
-    let leftImgLength = 9 - this.state.selectedImgs.length;
+    let leftImgLength = 9 - this.state.selectImages.length;
     if (!!this.state.video_content) {
       leftImgLength -= 1;
     }
@@ -75,34 +75,34 @@ class NewTopic extends Component {
       sourceType: ["album", "camera"]
     });
     this.setState({
-      selectedImgs: this.state.selectedImgs.concat(res.tempFilePaths)
+      selectImages: this.state.selectImages.concat(res.tempFilePaths)
     }, () => {
       this.uploadAllImage()
     })
   }
 
   onRemoveImage = (index) => {
-    let { selectedImgs } = this.state
-    selectedImgs.splice(index, 1)
+    let { selectImages } = this.state
+    selectImages.splice(index, 1)
     this.setState({
-      selectedImgs: selectedImgs
+      selectImages: selectImages
     })
   }
 
   onReviewImage(image) {
     Taro.previewImage({
-      urls: this.state.selectedImgs,
+      urls: this.state.selectImages,
       current: image
     });
   }
 
   uploadAllImage = async () => {
-    const { selectedImgs } = this.state
-    let localImages = selectedImgs.filter((file) => (file.indexOf("meirixinxue") < 0));
-    let existFiles = selectedImgs.filter((file) => (file.indexOf("meirixinxue") > 0));
+    const { selectImages } = this.state
+    let localImages = selectImages.filter((file) => (file.indexOf("meirixinxue") < 0));
+    let existFiles = selectImages.filter((file) => (file.indexOf("meirixinxue") > 0));
     if(localImages.length <= 0) {
       this.setState({
-        selectedImgs: existFiles
+        selectImages: existFiles
       })
       return
     }
@@ -110,7 +110,7 @@ class NewTopic extends Component {
     localImages = localImages.map((file) => (file.split("?")[0]))
     const assets = await uploadImages(localImages)
     this.setState({
-      selectedImgs: existFiles.concat(assets)
+      selectImages: existFiles.concat(assets)
     })
   }
 
@@ -199,11 +199,11 @@ class NewTopic extends Component {
   }
 
   _formatTopicForm = () => {
-    const {  selectedImgs, body, video_content, is_hide } = this.state
+    const {  selectImages, body, video_content, is_hide } = this.state
     return {
       id: this.topic_id,
       is_hide: is_hide,
-      medias: selectedImgs.map((file) => (file.split("?")[0])),
+      medias: selectImages.map((file) => (file.split("?")[0])),
       body: body,
       video_content: video_content
     };
@@ -215,12 +215,12 @@ class NewTopic extends Component {
 
   isValidateForm = () => {
     let status = false
-    const { selectedImgs, video_content, body } = this.state
-    if (!selectedImgs && !video_content) {
+    const { selectImages, video_content, body } = this.state
+    if (!selectImages && !video_content) {
       status = false;
     } else {
       let has_text = body.length > 0;
-      let has_image = selectedImgs.length > 0;
+      let has_image = selectImages.length > 0;
       let has_video = video_content && video_content.indexOf('meirixinxue') >= 0
       status = has_text && (has_image || has_video);
     }
@@ -229,8 +229,8 @@ class NewTopic extends Component {
   }
 
   render() {
-    const { video_content, body, selectedImgs } = this.state
-    let isShowPhotoUpload = (selectedImgs.length < 9 && !video_content) || (selectedImgs.length < 8 && video_content)
+    const { video_content, body, selectImages } = this.state
+    let isShowPhotoUpload = (selectImages.length < 9 && !video_content) || (selectImages.length < 8 && video_content)
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
@@ -267,7 +267,7 @@ class NewTopic extends Component {
             {/*图片*/}
             <View className="medias-block">
               {
-                selectedImgs && selectedImgs.map((media, media_index) => {
+                selectImages && selectImages.map((media, media_index) => {
                   return <View className="media-item" key={media}>
                     <View className="photo">
                       <Image src={media} alt="" className="photo" onClick={this.onReviewImage.bind(this, media)} mode="aspectFill" lazyLoad />
