@@ -28,7 +28,7 @@ class Mine extends Component {
   }
 
   componentDidMount() {
-    // this.props.dispatchCurrentUser()
+    this.props.dispatchCurrentUser()
   }
 
   render() {
@@ -38,6 +38,7 @@ class Mine extends Component {
 
         <UserHeader
           showEdit
+          user={currentUser}
         />
         <View className="division">
         </View>

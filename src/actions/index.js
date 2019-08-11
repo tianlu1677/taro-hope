@@ -17,10 +17,17 @@ export const dispatchCurrentUser = options => createAction({
   options: options
 })
 
+export const dispatchUpdateCurrentUser = options => createAction({
+  url: '/api/v1/users/update_info',
+  method: 'POST',
+  type: CURRENT_USER_DETAIL,
+  data: options
+})
+
 export const dispatchUserDetail = options => createAction({
   url: `/api/v1/users/${options.user_id}`,
   type: USER_DETAIL,
-  options: options
+  data: options
 })
 
 

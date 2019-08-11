@@ -22,6 +22,8 @@ class App extends Component {
       'pages/home/index',
       'pages/users/mine',
       'pages/users/detail',
+      'pages/users/edit',
+      'pages/users/edit-detail',
       'pages/login/login',
       'pages/topics/new-topic',
     ],

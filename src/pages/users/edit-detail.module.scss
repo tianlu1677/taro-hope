@@ -1,0 +1,26 @@
+@import "../../styles/variable";
+.edit-account-input {
+  padding: 55px 30px;
+  height: 100%;
+  //background-color: #F8F8F8;
+
+  .textarea-wrp {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #fff;
+  }
+  .publish-button {
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 36px;
+    .no-ready {
+      background:rgba(255,165,188,1);
+      color:rgba(255,197,212,1);
+    }
+    .ready {
+      background: $red;
+      color: $white;
+    }
+  }
+}

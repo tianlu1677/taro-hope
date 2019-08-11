@@ -1,0 +1,66 @@
+.edit-account {
+  .edit-form {
+    padding: 55px 30px;
+    .group {
+      display: flex;
+      text-align: center;
+      line-height: 100px;
+      .label {
+        font-size: 28px;
+        width: 80px;
+      }
+
+      .content {
+        font-size: 28px;
+        margin-left: 90px;
+        width: 100%;
+        image {
+          height: 90px;
+          width: 90px;
+          border-radius: 50%;
+          float: right;
+          margin-right: 40px;
+        }
+        .right-text {
+          float: right;
+          padding-right: 40px;
+        }
+        .intro {
+          line-height: 48px;
+          margin-top: 20px;
+        }
+
+        i.icon-arrow-right {
+          position: absolute;
+          right: 30px;
+          line-height: 100px;
+          font-size: 24px;
+          color: black;
+        }
+
+      }
+    }
+
+  }
+
+  .publish-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 60px;
+    width: 100%;
+    //text-align: center;
+    //.no-ready {
+    //  background: $light_white;
+    //  color: $gray;
+    //}
+    //.ready {
+    //  background: $blue;
+    //  color: $white;
+    //}
+    font-size: 18px;
+  }
+
+}
