@@ -49,14 +49,14 @@ const customInterceptor = function (chain) {
       return showError("服务端出现了问题", showToast);
     } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
       Taro.setStorageSync("auth_token", "");
-      // let path = getCurrentPageUrl();
-      // if (path !== "pages/login/login") {
-      //   Taro.navigateTo({
-      //     url: "/pages/login/login"
-      //   });
-      // }
-      // return showError("需要登录", showToast);
-      return res;
+      let path = getCurrentPageUrl();
+      if (path !== "pages/login/login") {
+        Taro.navigateTo({
+          url: "/pages/login/login"
+        });
+      }
+      return showError("需要登录", showToast);
+      // return res;
     } else if (res.statusCode >= 400) {
       let errorMsg = res.data && res.data.message;
       return showError(errorMsg, showToast);

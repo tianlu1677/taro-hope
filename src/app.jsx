@@ -27,6 +27,7 @@ class App extends Component {
       'pages/login/login',
       'pages/topics/new-topic',
       'pages/topics/topic-detail',
+      'pages/topics/topic-blank',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -46,7 +47,7 @@ class App extends Component {
         selectedIconPath: "./assets/tab-bar/qiuliao-11.png",
         text: "首页"
       }, {
-          pagePath: "pages/topics/new-topic",
+          pagePath: "pages/topics/topic-blank",
           iconPath: "./assets/tab-bar/qiuliao-2.png",
           selectedIconPath: "./assets/tab-bar/qiuliao-2.png",
           text: "发布"

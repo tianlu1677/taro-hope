@@ -11,7 +11,9 @@
     .plain-content-block {
       min-height: 150px;
       font-size: 30px;
-      /*border: 1px solid $gray; */
+      .at-textarea {
+        border: none;
+      }
       .plain-content {
         width: 100%;
         height: 150px;
@@ -92,6 +94,9 @@
 
   .chose {
     color: gray;
+  }
+  .is-hide {
+    padding: 0 30px;
   }
   .publish-button {
     position: fixed;

@@ -19,19 +19,26 @@
       text-align: center;
       font-size: 32px;
     }
-    .follow-button, .edit-button {
+    .follow-button, .unfollow-button, .edit-button {
       position: absolute;
       right: 1px;
       top: 30px;
       width:180px;
       height:68px;
       line-height: 68px;
-      background:rgba(253,124,157,1);
+      background: $light_gray;
       border-radius:34px;
       .text {
         color: white;
         text-align: center;
       }
+    }
+    .unfollow-button {
+      background: rgba(253,124,157,1);
+      .text {
+        color: rgba(184,184,184,1);
+      }
+
     }
     .edit-button {
       background: $blue;

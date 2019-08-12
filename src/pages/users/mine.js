@@ -3,8 +3,8 @@ import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {dispatchCurrentUser} from '@/actions'
 import withShare from '@/utils/with_share';
-
 import UserHeader from '@/components/user-header';
+import { AtActivityIndicator } from 'taro-ui'
 import './mine.module.scss';
 
 @withShare({
@@ -27,15 +27,31 @@ class Mine extends Component {
     super(...arguments);
   }
 
+  state = {
+    loading: true
+  }
+
   componentDidMount() {
-    this.props.dispatchCurrentUser()
+    this.setState({
+      loading: false
+    })
+  }
+
+  componentDidShow() {
+    this.props.dispatchCurrentUser((res) => {
+      this.setState({
+        loading: false
+      })
+    })
   }
 
   render() {
-
     const { currentUser } = this.props
-    return ( <View>
 
+    if(this.state.loading) {
+      return <AtActivityIndicator content='加载中...' mode="center"/>
+    }
+    return (<View>
         <UserHeader
           showEdit
           user={currentUser}
@@ -43,7 +59,6 @@ class Mine extends Component {
         <View className="division">
         </View>
         <View className="list">
-
         </View>
       </View>
     );

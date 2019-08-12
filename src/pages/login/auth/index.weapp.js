@@ -33,7 +33,7 @@ class Auth extends Component {
     });
     let fromPath = Taro.getStorageSync("last_path") || "/pages/home/index";
     Taro.removeStorageSync("last_path");
-    // Taro.reLaunch({url: fromPath});
+    Taro.reLaunch({url: fromPath});
   }
 
   fetchSessionKey = async () => {

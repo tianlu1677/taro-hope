@@ -11,18 +11,7 @@ export default function Reducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         topicDetail: action.payload.data.topic,
-      }
-    case TOPIC_LIKE:
-      return {
-        ...state,
-        topicDetail: {...state.topicDetail, likes_count: action.payload.data.count},
-        topicMeta: {...state.topicMeta, liked: true }
-      }
-    case TOPIC_UN_LIKE:
-      return {
-        ...state,
-        topicDetail: {...state.topicDetail, likes_count: action.payload.data.count},
-        topicMeta: {...state.topicMeta, liked: false }
+        topicMeta: action.payload.data.meta
       }
     case TOPIC_FOLLOW_USER:
       return {
@@ -33,6 +22,16 @@ export default function Reducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         topicMeta: {...state.topicMeta, followed_user: false}
+      }
+    case TOPIC_LIKE:
+      return {
+        ...state,
+        topicMeta: {...state.topicMeta, liked: true}
+      }
+    case TOPIC_UN_LIKE:
+      return {
+        ...state,
+        topicMeta: {...state.topicMeta, liked: false}
       }
    default:
      return state

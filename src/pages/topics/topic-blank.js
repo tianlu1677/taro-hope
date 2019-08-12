@@ -1,0 +1,23 @@
+import Taro, {Component} from "@tarojs/taro";
+import {View, Text} from "@tarojs/components";
+
+class TopicBlank extends Component {
+  config = {
+    navigationBarTitleText: "发布动态"
+  };
+
+  constructor() {
+    super(...arguments);
+  }
+
+  componentDidShow() {
+    Taro.redirectTo({url: '/pages/topics/new-topic'})
+  }
+
+  render() {
+    return (<View>x</View>
+    );
+  }
+}
+
+export default TopicBlank;

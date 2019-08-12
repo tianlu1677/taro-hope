@@ -8,11 +8,14 @@ import {
   dispatchFollowUser,
   dispatchUnFollowUser,
   dispatchUserDetail,
-  dispatchTopicDetail
+  dispatchTopicDetail,
+  dispatchLikeTopic,
+  dispatchUnLikeTopic
 } from "@/actions"
 import Avatar from '@/components/avatar'
 import Division from '@/components/division'
 import CommentList from '@/components/list/comment-list'
+import {AtActivityIndicator} from 'taro-ui'
 import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
 import './topic-detail.module.scss'
 
@@ -28,7 +31,9 @@ import './topic-detail.module.scss'
   dispatchUserDetail,
   dispatchFollowUser,
   dispatchUnFollowUser,
-  dispatchTopicDetail
+  dispatchTopicDetail,
+  dispatchLikeTopic,
+  dispatchUnLikeTopic
 })
 
 
@@ -54,7 +59,11 @@ class TopicDetail extends Component {
   $setShareTitle = () => (this.props.topicDetail.user.name + '学习心得')
 
   componentDidMount() {
-    this.props.dispatchTopicDetail({topic_id: this.topic_id})
+    this.props.dispatchTopicDetail({topic_id: this.topic_id}).then((res) => {
+      this.setState({
+        loading: false
+      })
+    })
     this.getTopicReplyList(this.topic_id)
   }
 
@@ -101,7 +110,7 @@ class TopicDetail extends Component {
     } else {
       this.setState({
         currentComment: {
-          placeholder: "写点评论吧",
+          placeholder: "写下对ta想说的话吧…",
           topic_id: this.topic_id,
           body: '',
         }
@@ -116,10 +125,11 @@ class TopicDetail extends Component {
     const {currentComment} = this.state
     if (currentComment.body.length >= 2) {
       Taro.showLoading({title: "发送中...", mask: true});
-      if(currentComment.reply_to_id) {
-        let res = await createSecondReply(this.topic_id, currentComment)
+      let res = {}
+      if (currentComment.reply_to_id) {
+        res = await createSecondReply(this.topic_id, currentComment)
       } else {
-        let res = await createReply(this.topic_id, currentComment);
+        res = await createReply(this.topic_id, currentComment);
       }
 
       if (res.status === 'failed') {
@@ -128,7 +138,7 @@ class TopicDetail extends Component {
         return
       }
       this.setState({
-        currentComment: {},
+        currentComment: {boyd: ''},
         show_comment: false
       })
       this.getTopicReplyList(this.topic_id)
@@ -163,9 +173,21 @@ class TopicDetail extends Component {
     }
   }
 
+  onLike = (liked) => {
+    if (liked) {
+      this.props.dispatchLikeTopic({obj_type: 'topic', obj_id: this.topic_id})
+    } else {
+      this.props.dispatchUnLikeTopic({obj_type: 'topic', obj_id: this.topic_id})
+    }
+  }
+
   render() {
     const {topicDetail, topicMeta} = this.props.topic
-    const {currentComment, show_comment} = this.state
+    const {currentComment, show_comment, loading} = this.state
+    if (loading) {
+      return <AtActivityIndicator content='加载中...' mode="center"/>
+    }
+
     return (
       <View className="topic-detail">
         <View className="user">
@@ -180,7 +202,7 @@ class TopicDetail extends Component {
         {
           topicDetail.medias && <View className="images">
             <Swiper
-              indicatorDots
+              indicatorDots={topicDetail.medias.length > 1}
               indicatorColor="#E6E6E6"
               indicatorActiveColor="#FD7C97"
               circular
@@ -190,8 +212,11 @@ class TopicDetail extends Component {
               <View>
                 {topicDetail.medias.map((media) => {
                   return <SwiperItem className="media" key={media}>
-                    <Image src={media + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'}
-                           className="media-img" onClick={this.onPreview.bind(this, media)} lazyLoad>
+                    <Image
+                      src={media + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'}
+                      className="media-img"
+                      onClick={this.onPreview.bind(this, media)}
+                      lazyLoad>
                     </Image>
                   </SwiperItem>
                 })}
@@ -234,8 +259,8 @@ class TopicDetail extends Component {
 
         {
           !show_comment && <View className="bottom inside border-top-1px">
-            <View className="item">
-              喜欢
+            <View className="item" onClick={this.onLike.bind(this, !topicMeta.liked)}>
+              {topic.topicMeta.liked ? '已喜欢 ' : '喜欢11'}
             </View>
             <View className="item" onClick={this.onReplyComment}>
               撩ta
@@ -263,8 +288,10 @@ class TopicDetail extends Component {
                 onBlur={this.clearComment}
                 onInput={this.saveComment}
               />
-              <View onClick={this.publishComment}
-                    className={currentComment.content.length >= 2 ? ' publish-comment blue' : 'publish-comment light_gray'}>
+              <View
+                onClick={this.publishComment}
+                className="publish-comment"
+                style={{color: (currentComment.body.length >= 2 ? '#219BFF' : '')}}>
                 发送
               </View>
             </View>

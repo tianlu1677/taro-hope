@@ -67,12 +67,12 @@ class CommentList extends Component {
                     {
                       comment.reply_to_id &&
                       <View className="reply">
-                        <Text className="account-name">张三: </Text>
-                        <Text className="text">hhhhhhh</Text>
+                        <Text className="account-name">{comment.reply_user ? comment.reply_user.name : '匿名用户'}: </Text>
+                        <Text className="text">{comment.reply_body || '已删除'}</Text>
                       </View>
                     }
                     <View className="reply-count">
-                      {comment.created_at} 回复 {comment.child_comments_count > 0 ? comment.child_comments_count : ''}
+                      {comment.created_at_text} · 回复{comment.child_comments_count > 0 ? comment.child_comments_count : ''}
                     </View>
                   </View>
                 </View>

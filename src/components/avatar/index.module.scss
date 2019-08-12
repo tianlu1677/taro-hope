@@ -1,3 +1,4 @@
+@import "../../styles/variable";
 .avatar {
   display: flex;
   //justify-content: center;
@@ -26,17 +27,23 @@
     display: flex;
     flex-direction: row-reverse;
     flex: 1;
-    .follow {
+    .follow, .unfollow {
       width:110px;
       height:50px;
-
       background:rgba(245,246,251,1);
       border-radius:25px;
       text-align: center;
       .txt {
+        line-height:50px;
         font-size: 24px;
         font-weight:500;
         color: rgba(184,184,184,1);
+      }
+    }
+    .unfollow {
+      background: $red;
+      .txt {
+        color: $white;
       }
     }
   }

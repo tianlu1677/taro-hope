@@ -1,9 +1,8 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
+import { followUser, unfollowUser } from "@/api/user_api";
+import goPage from '@/utils/page_path'
 import {connect} from "@tarojs/redux";
-
-import { followUser, unfollowUser } from "../../api/user_api";
-
 
 import './index.module.scss'
 
@@ -42,11 +41,15 @@ class Avatar extends Component {
     });
   }
 
+  goUserDetail() {
+    goPage.goUserDetail(this.props.user.id)
+  }
+
   render() {
     const { user, showFollow } = this.props
     return (
       <View className="avatar">
-        <View className="left">
+        <View className="left" onClick={this.goUserDetail}>
           <View className="cover">
             <Image src={user.avatar_url} className="cover-img"/>
           </View>
@@ -57,9 +60,17 @@ class Avatar extends Component {
 
         {
           showFollow && <View className="right">
-            <View className="follow" onClick={this.onFollow.bind(this, !this.state.followed)}>
-              <Text className="txt">{ this.state.followed ? '已关注' : '未关注'}</Text>
-            </View>
+            { this.state.followed &&
+              <View className="follow" onClick={this.onFollow.bind(this, !this.state.followed)}>
+                <Text className="txt">已关注</Text>
+              </View>
+            }
+            {
+              !this.state.followed && <View className="unfollow" onClick={this.onFollow.bind(this, !this.state.followed)}>
+                <Text className="txt">关注</Text>
+              </View>
+            }
+
           </View>
         }
 

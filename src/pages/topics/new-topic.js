@@ -189,11 +189,12 @@ class NewTopic extends Component {
       topic_res = await updateTopicDetail(topic_id, data)
     } else {
       topic_res = await createTopic(data)
+      // console.log('topic', topic_res)
     }
     if (topic_res.status === 'failed') {
       Taro.showModal({title: "提示", content: topic_res.msg, showCancel: false, confirmColor: "#00D2FF"});
     } else {
-      Taro.redirectTo({url: `/pages/topics/topic-detail/${topic_res.id}` });
+      Taro.redirectTo({url: `/pages/topics/topic-detail/${topic_res.topic.id}` });
       this.resetTopicForm();
     }
   }
@@ -240,7 +241,7 @@ class NewTopic extends Component {
               <AtTextarea
                 value={body}
                 onChange={this.addPlainText}
-                maxLength={200}
+                maxLength={1000}
                 height={300}
                 placeholder='此刻说出你想对Ta说的话...'
               />
@@ -336,9 +337,13 @@ class NewTopic extends Component {
             {/*<AtSwitch title='是否匿名发布' checked={this.state.anonymous} border={false} onChange={this.chooseAnonymous} />*/}
           {/*</View>*/}
 
-          <AtForm>
-            <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" onChange={this.chooseAnonymous} />
-          </AtForm>
+          {/*<AtForm>*/}
+          <View className="is-hide">
+
+
+            <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" border={false} onChange={this.chooseAnonymous} />
+          </View>
+          {/*</AtForm>*/}
 
           <View className="publish-button" onClick={this.onSubmit}>
             <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>

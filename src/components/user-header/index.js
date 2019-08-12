@@ -29,10 +29,14 @@ class UserHeader extends Component {
           </View>
 
           {
-            showFollow && <View className="follow-button" onClick={this.props.onFollow}>
-              <Text className="text">{userMeta.followed ? '已关注' : '关注'}</Text>
+            showFollow && userMeta.followed && <View className="follow-button" onClick={this.props.onFollow}>
+              <Text className="text">已关注</Text>
             </View>
           }
+
+          {showFollow && !userMeta.followed && <View className="unfollow-button" onClick={this.props.onFollow}>
+            <Text className="text">关注</Text>
+          </View>}
 
           {
             showEdit && <View className="edit-button" onClick={this.onGoEditUser}>
