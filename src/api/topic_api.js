@@ -1,5 +1,14 @@
 import request from "./request.js";
 
+export async function getTopicList(body = {}) {
+  const res = await request({
+    url: "/api/v1/topics",
+    method: "GET",
+    data: body
+  });
+  return res.data;
+}
+
 export async function createTopic(body = {}) {
   const res = await request({
     url: "/api/v1/topics",

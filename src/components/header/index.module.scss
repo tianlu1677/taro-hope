@@ -1,0 +1,14 @@
+.header {
+
+  margin: 10px 20px 40px 20px;
+  .left {
+    display: flex;
+    flex-direction: row;
+    .i-home {
+      height: 55px;
+      line-height: 55px;
+      font-size: 55px;
+      margin-right: 20px;
+    }
+  }
+}

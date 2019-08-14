@@ -1,0 +1,50 @@
+@import "../../styles/variable";
+
+.media {
+  width: 100%;
+  position: relative;
+  .item-list {
+    position: relative;
+    display: flex;
+    width: 100%;
+    .media-item {
+      font-size: 0;
+      position: relative;
+      margin-right: 9px;
+      .media-single {
+        width: 392px;
+      }
+      .media-multi {
+        height: 188px;
+        width: 188px;
+      }
+      image {
+        font-size: 0;
+        border-radius: 12px;
+      }
+      .play-video {
+        position: absolute;
+        width: 30%;
+        height: 30%;
+        min-height: 90px;
+        min-width: 90px;
+        max-height: 120px;
+        max-width: 120px;
+        overflow: auto;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+  .media-count {
+    position: absolute;
+    right: 60px;
+    bottom: 14px;
+    z-index: 100;
+    color: $white;
+    font-size: 28px;
+  }
+}

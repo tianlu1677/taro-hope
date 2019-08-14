@@ -12,5 +12,9 @@ export default class goPage {
   static goUserDetail(user_id) {
     Taro.navigateTo({url: "/pages/users/detail?user_id=" + user_id});
   }
+
+  static goTopicDetail(topic_id) {
+    Taro.navigateTo({url: "/pages/topics/topic-detail?topic_id=" + topic_id});
+  }
 }
 

@@ -17,6 +17,7 @@ import Division from '@/components/division'
 import CommentList from '@/components/list/comment-list'
 import {AtActivityIndicator} from 'taro-ui'
 import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
+import Header from '@/components/header'
 import './topic-detail.module.scss'
 
 @withShare({
@@ -190,6 +191,7 @@ class TopicDetail extends Component {
 
     return (
       <View className="topic-detail">
+        <Header />
         <View className="user">
           <Avatar
             user={topicDetail.user}
@@ -213,7 +215,7 @@ class TopicDetail extends Component {
                 {topicDetail.medias.map((media) => {
                   return <SwiperItem className="media" key={media}>
                     <Image
-                      src={media + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'}
+                      src={media}
                       className="media-img"
                       onClick={this.onPreview.bind(this, media)}
                       lazyLoad>

@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 1347555 */
+  src: url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.eot');
+  src: url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1347555_4zmxxsjnari.svg#iconfont') format('svg');
+}
+
+.u-icon {
+  &:before {
+    font-family: 'iconfont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
+
+.icon-share:before {
+  content: "\e60b";
+}
+
+.icon-comment:before {
+  content: "\e60c";
+}
+
+.icon-view-user:before {
+  content: "\e60d";
+}
+
+.icon-home:before {
+  content: "\e60f";
+}
+
+.icon-like:before {
+  content: "\e610";
+}
+
+.icon-liked:before {
+  content: "\e611";
+}
+
+.icon-man:before {
+  content: "\e612";
+}
+
+.icon-girl:before {
+  content: "\e613";
+}
+
+.icon-arrow-left:before {
+  content: "\e618";
+}

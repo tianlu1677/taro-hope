@@ -8,6 +8,10 @@ import removeMediaImg from '@/assets/images/close.png'
 import playVideoImg from '@/assets/images/play-video.png'
 import { AtTextarea, AtForm, AtSwitch  } from 'taro-ui'
 import { uploadImages, uploadVideo } from "@/utils/upload_images"
+import {
+  dispatchCurrentUser,
+} from "@/actions"
+
 import './new-topic.module.scss';
 
 const defaultState = {
@@ -21,6 +25,10 @@ const defaultState = {
   is_hide: false
 }
 
+@connect(state => state, {
+  dispatchCurrentUser,
+})
+
 class NewTopic extends Component {
   config = {
     navigationBarTitleText: "发布动态",
@@ -33,6 +41,7 @@ class NewTopic extends Component {
   state = defaultState
 
   componentDidMount() {
+    this.props.dispatchCurrentUser()
     if(this.topic_id) {
       this.loadTopicDetail(this.topic_id)
     } else {
@@ -194,7 +203,7 @@ class NewTopic extends Component {
     if (topic_res.status === 'failed') {
       Taro.showModal({title: "提示", content: topic_res.msg, showCancel: false, confirmColor: "#00D2FF"});
     } else {
-      Taro.redirectTo({url: `/pages/topics/topic-detail/${topic_res.topic.id}` });
+      Taro.redirectTo({url: `/pages/topics/topic-detail?topic_id=${topic_res.topic.id}` });
       this.resetTopicForm();
     }
   }
