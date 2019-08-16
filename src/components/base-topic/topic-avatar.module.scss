@@ -1,0 +1,24 @@
+@import "../../styles/variable";
+.avatar {
+  display: flex;
+  height: 50px;
+  .left {
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+    .cover {
+      .cover-img {
+        height: 50px;
+        width: 50px;
+        font-size: 0;
+        border-radius: 50%;
+      }
+    }
+    .name {
+      margin-left: 14px;
+      font-size: 26px;
+      font-weight: 500;
+      color: rgba(54,54,54,1);
+    }
+  }
+}

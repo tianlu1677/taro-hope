@@ -1,3 +1,6 @@
+@import "../../styles/variable";
+@import "../../styles/mixin";
+
 .topic-item {
   background-color: #ffffff;
   padding-top: 24px;
@@ -10,38 +13,55 @@
     padding: 0 30px;
     margin-top: 18px;
     margin-bottom: 18px;
-    .description {
-      font-size: 30px;
-      color: #3D3D3D;
+    font-size: 30px;
+    font-weight: 300;
+    .body-text {
+      color: rgba(61,61,61,1);
+      line-height:43px;
+      @include multi-line-text(5);
+    }
+    .body-more {
+      margin: 3px 0;
+      color: $blue;
     }
   }
   .medias {
     padding: 0 30px;
-  }
-  .action {
-    margin-top: 20px;
     margin-bottom: 20px;
+  }
+  .action-list {
+    margin-bottom: 10px;
     padding: 0 30px;
     display: flex;
-    .action-left, .action-right {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-    .action-right {
-      justify-content: flex-end;
-    }
+    align-items: center;
+    height: 40px;
     .icon {
-      width: 35px;
-      height: 35px;
       font-size: 37px;
       margin-right: 15px;
       color: #BDBDBD;
+      width: 110px;
     }
     .icon-text {
       color: #BDBDBD;
       font-size: 22px;
-      margin-right: 29px;
+    }
+
+    .action-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 355px;
+      .action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .action-right {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: flex-end;
     }
   }
 }

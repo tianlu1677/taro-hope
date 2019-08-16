@@ -6,6 +6,7 @@ import ImageBox from '@/components/image-box'
 import UIcon from '@/components/uicon'
 import Division from '@/components/division'
 import goPage from '@/utils/page_path'
+import TopicAvatar from './topic-avatar'
 
 import './index.module.scss'
 
@@ -25,18 +26,26 @@ class BaseTopic extends Component {
   }
 
   render() {
-    const { baseTopic } = this.props
+    const { baseTopic, baseTopic: { user } } = this.props
 
     return ( <View className="topic-item">
         <View className="avatar-wrapper">
-          <Avatar
-            showFollow={false}
-            user={baseTopic.user}
+          <TopicAvatar
+            user={user}
+            is_hide={baseTopic.is_hide}
           />
         </View>
 
         <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
-          {baseTopic.body}
+          <View className="body-text">
+            {baseTopic.body}
+          </View>
+          {
+            baseTopic.body.length > 120
+            && <View className="body-more">
+              更多
+            </View>
+          }
         </View>
 
         <View className="medias">
@@ -48,17 +57,26 @@ class BaseTopic extends Component {
           </ImageBox>
         </View>
 
-        <View className='action'>
+        <View className='action-list'>
           <View className='action-left'>
-            <UIcon icon="view-user" ex-class="icon"/> <Text className='icon-text'>{baseTopic.hits}</Text>
-            <UIcon icon="like" ex-class="icon"/> <Text className='icon-text'>{baseTopic.likes_count}</Text>
-            <UIcon icon="comment" ex-class="icon"/> <Text className='icon-text'>231</Text>
+            <View className="action">
+              <UIcon icon="view-user" ex-class="icon"/>
+              <Text className='icon-text'>{baseTopic.hits}</Text>
+            </View>
+            <View className="action">
+              <UIcon icon="like" ex-class="icon"/>
+              <Text className='icon-text'>{baseTopic.likes_count > 0 ? baseTopic.likes_count : '喜欢'}</Text>
+            </View>
+            <View className="action">
+              <UIcon icon="comment" ex-class="icon"/>
+              <Text className='icon-text'>撩ta</Text>
+            </View>
           </View>
           <View className='action-right'>
-            <UIcon icon="share" ex-class="icon"/> <Text className='icon-text'>231</Text>
+            <UIcon icon="share" ex-class="icon"/> <Text className='icon-text'>分享</Text>
           </View>
         </View>
-        <Division/>
+        <Division />
       </View>
     );
   }

@@ -76,7 +76,7 @@ class ImageBox extends Component {
           {
             medias.length > 3 &&
             <View className="media-count">
-              <Text>{medias.length - 3}+</Text>
+              <Text>{medias.length - 3} +</Text>
             </View>
           }
         </View>

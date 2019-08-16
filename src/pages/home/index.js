@@ -5,12 +5,13 @@ import withShare from '@/utils/with_share';
 import { dispatchTopicList } from "@/actions";
 import { getTopicList } from '@/api/topic_api'
 import TopicList from '@/components/list/topic-list'
+import { AtLoadMore} from 'taro-ui';
 import './index.module.scss'
 
 @withShare({
-  title: '',
+  title: '求撩',
   imageUrl: '',
-  path: '',
+  path: '/pages/home/index',
   target_id: '',
   target_type: ''
 })
@@ -19,7 +20,7 @@ import './index.module.scss'
 
 class Index extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '求撩'
   }
 
   state = {
@@ -102,9 +103,12 @@ class Index extends Component {
   render () {
     return (
       <View className='index'>
-        <TopicList
-          topicList={this.state.topicList}
-        />
+        {
+          <TopicList
+            topicList={this.state.topicList}
+          />
+        }
+        { this.state.paginate.busy && <AtLoadMore status="loading" /> }
       </View>
     )
   }
