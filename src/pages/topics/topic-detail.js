@@ -18,6 +18,7 @@ import CommentList from '@/components/list/comment-list'
 import {AtActivityIndicator} from 'taro-ui'
 import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
 import Header from '@/components/header'
+import UIcon from '@/components/uicon'
 import './topic-detail.module.scss'
 
 @withShare({
@@ -40,7 +41,8 @@ import './topic-detail.module.scss'
 
 class TopicDetail extends Component {
   config = {
-    navigationBarTitleText: "动态详情"
+    navigationBarTitleText: "动态详情",
+    navigationStyle: "custom",
   };
 
   state = {
@@ -183,20 +185,28 @@ class TopicDetail extends Component {
   }
 
   render() {
-    const {topicDetail, topicMeta} = this.props.topic
+    const {topic: { topicDetail} } = this.props
+    const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
+
+    const canEdit = topicDetail.abilities && topicDetail.abilities.update
+
     if (loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
 
     return (
       <View className="topic-detail">
-        <Header />
-        <View className="user">
+        <Header
+          title='动态详情'
+        />
+        <View className="avatar-wrapper border-top-1px">
           <Avatar
             user={topicDetail.user}
-            showFollow={true}
+            showFollow={!canEdit}
             followed_user={topicMeta.followed_user}
+            topic_id={topicDetail.id}
+            canEdit={canEdit}
           >
           </Avatar>
         </View>
@@ -261,14 +271,14 @@ class TopicDetail extends Component {
 
         {
           !show_comment && <View className="bottom inside border-top-1px">
-            <View className="item" onClick={this.onLike.bind(this, !topicMeta.liked)}>
-              {topic.topicMeta.liked ? '已喜欢 ' : '喜欢11'}
+            <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
+              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class="icon" /> <Text className="txt">喜欢</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>
-              撩ta
+              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">撩ta</Text>
             </View>
             <View className="item">
-              分享
+              <UIcon icon="share" ex-class="icon" /> <Text className="txt">分享</Text>
             </View>
           </View>
         }

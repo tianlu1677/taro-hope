@@ -65,7 +65,7 @@ class UserHeader extends Component {
             <View className="txt">被关注</View>
           </View>
           <View className="item">
-            <View className="num">56</View>
+            <View className="num">{user.topics_likes_hits || 0}</View>
             <View className="txt">被喜欢</View>
           </View>
         </View>

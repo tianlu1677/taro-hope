@@ -1,14 +1,33 @@
 .header {
-
-  margin: 10px 20px 40px 20px;
+  margin: 55px 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
   .left {
+    width: 150px;
     display: flex;
-    flex-direction: row;
-    .i-home {
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 32px;
+    border: 1Px solid rgba(0,0,0,0.08);
+    .i-back {
+      padding-left: 17px;
       height: 55px;
       line-height: 55px;
-      font-size: 55px;
-      margin-right: 20px;
+      font-size: 29px;
     }
+    .line {
+      color: rgba(0,0,0,0.08);
+    }
+    .i-home {
+      padding-right: 17px;
+      font-size: 38px;
+    }
+  }
+  .title {
+    font-size: 37px;
+    font-weight: 500;
+    line-height: 52px;
+    padding-left: 128px;
   }
 }

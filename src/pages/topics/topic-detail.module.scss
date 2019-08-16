@@ -3,8 +3,8 @@
 .topic-detail {
   margin-top: 26px;
   padding-bottom: 70px;
-  .user {
-    padding: 0 30px;
+  .avatar-wrapper {
+    padding: 26px 30px 0 26px;
   }
   .images {
     margin-top: 24px;
@@ -18,7 +18,7 @@
     }
   }
   .body {
-    margin-top: 65px;
+    margin-top: 25px;
     padding: 0 30px;
     font-size: 30px;
     font-weight: 300;
@@ -61,7 +61,20 @@
   z-index: 100;
 
   .item {
-    font-size: 36px;
+    font-size: 45px;
+    color: $gray;
+    font-weight:400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .icon {
+      font-size: 45px;
+    }
+    .txt {
+      font-size: 24px;
+      padding-left: 8px;
+    }
   }
 
   /*输入评论*/

@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {dispatchCurrentUser} from '@/actions'
+import {dispatchCurrentUser, dispatchCurrentUserMoreInfo} from '@/actions'
 import withShare from '@/utils/with_share';
 import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
@@ -15,7 +15,7 @@ import './mine.module.scss';
   target_type: ''
 })
 
-@connect(state => state.user, { dispatchCurrentUser })
+@connect(state => state.user, { dispatchCurrentUser, dispatchCurrentUserMoreInfo })
 
 
 class Mine extends Component {
@@ -35,14 +35,20 @@ class Mine extends Component {
     this.setState({
       loading: false
     })
+    this.props.dispatchCurrentUserMoreInfo()
   }
 
   componentDidShow() {
     this.props.dispatchCurrentUser((res) => {
+      // if(res) {
+
+      // }
       this.setState({
         loading: false
       })
+
     })
+
   }
 
   render() {

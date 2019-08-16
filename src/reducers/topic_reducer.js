@@ -1,7 +1,7 @@
 import {TOPIC_DETAIL, TOPIC_FOLLOW, TOPIC_UN_FOLLOW, TOPIC_FOLLOW_USER, TOPIC_UN_FOLLOW_USER, TOPIC_LIKE, TOPIC_UN_LIKE} from '@/constants'
 
 const INITIAL_STATE = {
-  topicDetail: {},
+  topicDetail: {user: {}, ability: {}},
   topicMeta: { liked: false, followed_user: false }
 }
 

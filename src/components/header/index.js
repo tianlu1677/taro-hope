@@ -9,24 +9,33 @@ class Header extends Component {
 
   static defaultProps = {
     title: '',
+    handleBack: () => {
+      Taro.navigateBack({})
+    }
   }
 
   componentDidMount() {
   }
 
-  goPageBack = () => {
+  goHome = () => {
     goPage.goHomeUrl()
   }
 
   render() {
-    return ( <View className="header">
+    const {handleBack, title} = this.props
+    return (<View className="header">
         <View className="left">
-          <View onClick={this.goPageBack}>
-            <UIcon icon="arrow-left" ex-class="i-home"  /> |
+          <View onClick={handleBack}>
+            <UIcon icon="arrow-left" ex-class="i-back"/>
           </View>
-          <View onClick={this.goPageBack}>
-            <UIcon icon="home" ex-class="i-home"  />
+          <View className="line">|</View>
+          <View onClick={this.goHome}>
+            <UIcon icon="home" ex-class="i-home"/>
           </View>
+        </View>
+
+        <View className="title">
+          {title}
         </View>
       </View>
     );
