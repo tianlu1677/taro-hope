@@ -16,5 +16,10 @@ export default class goPage {
   static goTopicDetail(topic_id) {
     Taro.navigateTo({url: "/pages/topics/topic-detail?topic_id=" + topic_id});
   }
+
+  static goPreviewVideo(video_url) {
+    Taro.navigateTo({url: "/pages/videos/preview?video_url=" + video_url});
+  }
+
 }
 
