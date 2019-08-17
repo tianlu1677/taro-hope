@@ -47,8 +47,6 @@ class NewTopic extends Component {
     this.props.dispatchCurrentUser()
     if(this.topic_id) {
       this.loadTopicDetail(this.topic_id)
-    } else {
-
     }
   }
 

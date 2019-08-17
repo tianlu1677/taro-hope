@@ -12,7 +12,8 @@ class ImageBox extends Component {
   static defaultProps = {
     medias: [],
     topic_id: '',
-    video_content: ''
+    video_content: '',
+    onTopicDetail: () => {}
   }
 
   componentDidMount() {
@@ -46,13 +47,13 @@ class ImageBox extends Component {
   // 3p
 
   render() {
-    const { medias, video_content, topic_id } = this.props
+    const { medias, video_content, topic_id, onTopicDetail } = this.props
     const show_medias = !!video_content ? medias.slice(0, 2) : medias.slice(0, 3)
 
     return (<View>
         {/*图片*/}
         <View className="media" onClick={this.goTopicDetail.bind(this, topic_id)}>
-          <View className="item-list">
+          <View className="item-list" onClick={onTopicDetail}>
             {
               video_content &&
               <View className="media-item" onClick={this.previewVideo}>

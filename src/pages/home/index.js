@@ -5,8 +5,11 @@ import withShare from '@/utils/with_share';
 import { dispatchTopicList } from "@/actions";
 import { getTopicList } from '@/api/topic_api'
 import TopicList from '@/components/list/topic-list'
-import { AtLoadMore} from 'taro-ui';
+import HookTopicList from '@/components/list/hook-topic-list'
 import './index.module.scss'
+
+
+@connect(state => state.user, { dispatchTopicList })
 
 @withShare({
   title: '求撩',
@@ -16,11 +19,12 @@ import './index.module.scss'
   target_type: ''
 })
 
-@connect(state => state.user, { dispatchTopicList })
-
 class Index extends Component {
   config = {
-    navigationBarTitleText: '求撩'
+    navigationBarTitleText: '求撩',
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 100,
+    backgroundTextStyle: "dark",
   }
 
   state = {
@@ -54,7 +58,8 @@ class Index extends Component {
   }
 
   async onPullDownRefresh() {
-    await this.pullDown();
+    await this.getItemList({}, { pull_down: true });
+    Taro.stopPullDownRefresh()
   }
 
   async loadMore() {
@@ -69,7 +74,6 @@ class Index extends Component {
       this.isLoading(false)
     } catch (e) {
       this.isLoading(false)
-      Taro.stopPullDownRefresh(); //停止下拉刷新
     }
   }
 
@@ -106,9 +110,9 @@ class Index extends Component {
         {
           <TopicList
             topicList={this.state.topicList}
+            loading={this.state.paginate.busy}
           />
         }
-        { this.state.paginate.busy && <AtLoadMore status="loading" /> }
       </View>
     )
   }
