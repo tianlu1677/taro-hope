@@ -46,15 +46,21 @@
   }
 
   .detail {
+    display: flex;
     margin-top: 50px;
     height: 40px;
     line-height:40px;
     font-size: 20px;
     font-weight:400;
+    .icon {
+      font-size: 30px;
+    }
     .location {
+      border-radius:2px;
       margin-left: 15px;
+      padding: 0 10px;
+      background: rgba(245,246,251,1);
       color: rgba(123,123,123,1);
-      background:rgba(245,246,251,1);
     }
   }
   .numbers {

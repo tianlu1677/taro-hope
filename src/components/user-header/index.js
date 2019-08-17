@@ -1,5 +1,6 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
+import UIcon from '@/components/uicon'
 
 import './index.module.scss'
 
@@ -47,8 +48,12 @@ class UserHeader extends Component {
         </View>
 
         <View className="detail">
-          <Text>{user.gender_text}</Text>
-          <Text className="location">{user.location || ''}</Text>
+          <UIcon icon={user.gender_text === '男' ? 'man' : 'girl'} ex-class="icon"/>
+          {/*<Text>{user.gender_text}</Text>*/}
+          <View className="location">
+            <Text>{user.location || ''}</Text>
+          </View>
+
         </View>
 
         <View className="numbers">

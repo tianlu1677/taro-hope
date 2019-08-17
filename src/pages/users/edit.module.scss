@@ -7,7 +7,7 @@
       line-height: 100px;
       .label {
         font-size: 28px;
-        width: 80px;
+        min-width: 100px;
       }
 
       .content {
@@ -29,38 +29,8 @@
           line-height: 48px;
           margin-top: 20px;
         }
-
-        i.icon-arrow-right {
-          position: absolute;
-          right: 30px;
-          line-height: 100px;
-          font-size: 24px;
-          color: black;
-        }
-
       }
     }
 
   }
-
-  .publish-button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    line-height: 60px;
-    width: 100%;
-    //text-align: center;
-    //.no-ready {
-    //  background: $light_white;
-    //  color: $gray;
-    //}
-    //.ready {
-    //  background: $blue;
-    //  color: $white;
-    //}
-    font-size: 18px;
-  }
-
 }
