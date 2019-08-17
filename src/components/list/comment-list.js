@@ -2,6 +2,7 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text} from "@tarojs/components";
 import PropTypes from "prop-types";
 import Avatar from '@/components/avatar'
+import Empty from '@/components/empty'
 
 import './comment-list.module.scss';
 
@@ -12,6 +13,7 @@ class CommentList extends Component {
 
   static propTypes = {
     commentList: PropTypes.array,
+    empty: false
   }
 
   static defaultProps = {
@@ -21,7 +23,6 @@ class CommentList extends Component {
   }
 
   componentDidMount() {
-
   }
 
   choseAction = async (comment, commentIndex) => {
@@ -45,13 +46,14 @@ class CommentList extends Component {
   }
 
   render() {
-    const {commentList, comments_count} = this.props
+    const {commentList, comments_count, empty} = this.props
     return (
       <View className="comment-list">
         <View className="comment-list-title">
           <View className="text">全部评论</View>
           {/*<Text className="comments-count">{comments_count || commentList.length}</Text>*/}
         </View>
+        { comments_count <= 0 ? <Empty /> : '' }
         <View>
           {
             commentList.map((comment, comment_index) => {

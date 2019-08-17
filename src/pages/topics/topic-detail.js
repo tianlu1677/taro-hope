@@ -263,6 +263,7 @@ class TopicDetail extends Component {
         <View className="comment-wrapper">
           <CommentList
             commentList={this.state.commentList}
+            comments_count={topicDetail.replies_count}
             onReplyComment={this.onReplyComment}
             onDeletedComment={this.onDeleteComment}
           >

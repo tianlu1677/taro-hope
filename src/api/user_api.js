@@ -85,3 +85,21 @@ export async function unfollowUser(id) {
   });
   return res.data;
 }
+
+export async function getCurrentUserTopicList(id, params) {
+  const res = await request({
+    url: `/api/v1/users/${id}/topics`,
+    method: "GET",
+    data: params
+  });
+  return res.data;
+}
+
+export async function getUserTopicList(id, params) {
+  const res = await request({
+    url: `/api/v1/users/${id}/topics?q[is_hide_eq]=true`,
+    method: "GET",
+    data: params
+  });
+  return res.data;
+}

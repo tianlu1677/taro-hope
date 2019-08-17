@@ -5,6 +5,9 @@ import {dispatchCurrentUser, dispatchCurrentUserMoreInfo} from '@/actions'
 import withShare from '@/utils/with_share';
 import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
+import { getCurrentUserTopicList } from '@/api/user_api'
+import TopicList from '@/components/list/topic-list'
+
 import './mine.module.scss';
 
 @withShare({
@@ -20,41 +23,108 @@ import './mine.module.scss';
 
 class Mine extends Component {
   config = {
-    navigationBarTitleText: "我"
+    navigationBarTitleText: "我",
+    enablePullDownRefresh: true,
   };
 
   constructor() {
     super(...arguments);
+    this.current_user_id = Taro.getStorageSync('user_id')
   }
 
   state = {
-    loading: true
+    loading: false,
+    topicList: [],
+    paginate: {
+      hasMore: true,
+      nextPage: 1,
+      busy: false,
+    },
+    currentUserId: '',
   }
 
   componentDidMount() {
+    let currentUserId = Taro.getStorageSync('user_id')
+    this.setState({
+      currentUserId: currentUserId
+    })
+    if(currentUserId) {
+      this.loadCurrentUser(currentUserId)
+      this.loadMore()
+    }
     this.setState({
       loading: false
     })
-    this.props.dispatchCurrentUserMoreInfo()
   }
 
-  componentDidShow() {
-    this.props.dispatchCurrentUser((res) => {
-      // if(res) {
-
-      // }
-      this.setState({
-        loading: false
-      })
-
+  loadCurrentUser = (currentUserId) => {
+    this.setState({
+      loading: true
     })
-
+    if(currentUserId) {
+      this.props.dispatchCurrentUser()
+      this.props.dispatchCurrentUserMoreInfo()
+    }
   }
+
+  async onReachBottom () {
+    await this.loadMore();
+    Taro.stopPullDownRefresh()
+  }
+
+  async onPullDownRefresh() {
+    await this.loadCurrentUser()
+    Taro.stopPullDownRefresh()
+  }
+
+  async loadMore() {
+    let { paginate } = this.state
+    if (!paginate.hasMore) {
+      this.isLoading(false)
+      return;
+    }
+    try {
+      this.isLoading(true)
+      await this.getItemList({page: paginate.nextPage});
+      this.isLoading(false)
+    } catch (e) {
+      this.isLoading(false)
+    }
+  }
+
+  isLoading = (status = false) => {
+    this.setState((state, props) => {
+      return { ...state, paginate: {...state.paginate, busy: status}}
+    })
+  }
+
+  async getItemList(params = {}, opts = { pull_down: false }) {
+    const res = await getCurrentUserTopicList(this.current_user_id, {...params, detail: 'show'});
+    console.log('res', res)
+    if (opts.pull_down) {
+      this.setState({
+        topicList: res.topics
+      })
+    } else {
+      this.setState({
+        topicList: this.state.topicList.concat(res.topics)
+      })
+    }
+    this.pagination(res.meta);
+  }
+
+  pagination = (meta = {}) => {
+    this.setState({
+      paginate: {hasMore: meta.has_more, nextPage: meta.current_page + 1, busy: false}
+    })
+  }
+
 
   render() {
     const { currentUser } = this.props
+    const { topicList, loading, paginate } = this.state
 
-    if(this.state.loading) {
+    if(loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
     return (<View>
@@ -65,6 +135,12 @@ class Mine extends Component {
         <View className="division">
         </View>
         <View className="list">
+          <TopicList
+            topicList={topicList}
+            loading={paginate.busy}
+            showUser={false}
+            bottom={!paginate.hasMore}
+          />
         </View>
       </View>
     );

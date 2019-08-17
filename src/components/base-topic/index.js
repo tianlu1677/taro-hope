@@ -1,5 +1,5 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Text, Image,Button } from "@tarojs/components";
+import {View, Text, Image, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import Avatar from '@/components/avatar'
 import ImageBox from '@/components/image-box'
@@ -13,8 +13,11 @@ import './index.module.scss'
 class BaseTopic extends Component {
   static defaultProps = {
     baseTopic: {user: {}},
-    onClick: () => {},
-    onGetUserInfo: () => {}
+    showUser: true,
+    onClick: () => {
+    },
+    onGetUserInfo: () => {
+    }
   }
 
   componentDidMount() {
@@ -26,14 +29,21 @@ class BaseTopic extends Component {
   }
 
   render() {
-    const { baseTopic, baseTopic: { user } } = this.props
+    const {baseTopic, baseTopic: {user}, showUser} = this.props
     const username = baseTopic.is_hide ? '匿名用户' : baseTopic.user.name
-    return ( <View className="topic-item">
+    return (<View className="topic-item">
         <View className="avatar-wrapper">
-          <TopicAvatar
-            user={user}
-            is_hide={baseTopic.is_hide}
-          />
+          {
+            showUser ?
+              <TopicAvatar
+                user={user}
+                is_hide={baseTopic.is_hide}
+              />
+              :
+              <View className="created-at">
+                {baseTopic.created_at_text} 发布
+              </View>
+          }
         </View>
 
         <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
@@ -74,21 +84,21 @@ class BaseTopic extends Component {
             </View>
           </View>
           {/*<View className='action-right'>*/}
-            <Button
-              open-type="share"
-              className="share-button"
-              share-id={baseTopic.id}
-              data-nickname={username}
-              data-cover={baseTopic.medias[0]}
-              data-type="topic"
-              data-id={baseTopic.id}
-            >
-              <UIcon icon='share' ex-class="icon" />
-              <Text className="icon-text">分享</Text>
-            </Button>
+          <Button
+            open-type="share"
+            className="share-button"
+            share-id={baseTopic.id}
+            data-nickname={username}
+            data-cover={baseTopic.medias[0]}
+            data-type="topic"
+            data-id={baseTopic.id}
+          >
+            <UIcon icon='share' ex-class="icon"/>
+            <Text className="icon-text">分享</Text>
+          </Button>
           {/*</View>*/}
         </View>
-        <Division />
+
       </View>
     );
   }
