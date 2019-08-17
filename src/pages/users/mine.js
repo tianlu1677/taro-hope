@@ -55,7 +55,6 @@ class Mine extends Component {
     this.setState({
       loading: false
     })
-    this.props.dispatchCurrentUserMoreInfo()
   }
 
   loadCurrentUser = (currentUserId) => {
@@ -101,7 +100,7 @@ class Mine extends Component {
 
   async getItemList(params = {}, opts = { pull_down: false }) {
     const res = await getCurrentUserTopicList(this.current_user_id, {...params, detail: 'show'});
-    console.log('res', res)
+    // console.log('res', res)
     if (opts.pull_down) {
       this.setState({
         topicList: res.topics
@@ -123,16 +122,26 @@ class Mine extends Component {
 
   render() {
     const { currentUser } = this.props
-    const { topicList, loading, paginate } = this.state
+    const { topicList, loading, paginate, currentUserId } = this.state
+
+    const hideUser = {name: '未登录', avatar_url: 'http://file.meirixinxue.com/assets/201908171738Pb0ff11415f7f0e33ab88d18670c5ec4c.png'}
 
     if(loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
     return (<View>
-        <UserHeader
-          showEdit
-          user={currentUser}
-        />
+        {
+          currentUserId &&
+          <UserHeader
+            showEdit
+            user={currentUser}
+          />
+        }
+        {
+          !currentUserId &&
+          <UserHeader user={hideUser} showLogin />
+        }
+
         <View className="division">
         </View>
         <View className="list">

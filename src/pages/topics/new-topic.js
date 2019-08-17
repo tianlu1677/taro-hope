@@ -50,10 +50,6 @@ class NewTopic extends Component {
     }
   }
 
-  componentDidHide() {
-    console.log('ddd', this.topic_id)
-  }
-
   // 新建与编辑
   async loadTopicDetail(topic_id) {
     const res = await getTopicDetail(topic_id)
@@ -348,16 +344,4 @@ class NewTopic extends Component {
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewTopic);
+export default NewTopic;

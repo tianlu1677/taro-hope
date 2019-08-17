@@ -49,9 +49,10 @@ const customInterceptor = function (chain) {
       return showError("服务端出现了问题", showToast);
     } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
       Taro.setStorageSync("auth_token", "");
+      Taro.setStorageSync("user_id", "");
       let path = getCurrentPageUrl();
       if (path !== "pages/login/login") {
-        Taro.navigateTo({
+        Taro.redirectTo({
           url: "/pages/login/login"
         });
       }

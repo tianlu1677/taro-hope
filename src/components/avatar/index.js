@@ -21,19 +21,23 @@ class Avatar extends Component {
   onFollow = followed => {
     let {user} = this.props;
     if (followed) {
-      followUser(user.id);
-      Taro.showToast({
-        title: "关注成功",
-        icon: "none",
-        duration: 500
-      });
+      followUser(user.id).then((res) => {
+        Taro.showToast({
+          title: "关注成功",
+          icon: "none",
+          duration: 500
+        });
+        this.setState({
+          followed: followed
+        });
+      })
     } else {
-      unfollowUser(user.id);
+      unfollowUser(user.id).then((res) => {
+        this.setState({
+          followed: followed
+        });
+      })
     }
-
-    this.setState({
-      followed: followed
-    });
   };
 
   goEditTopic = () => {

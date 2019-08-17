@@ -1,21 +1,18 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
 import BaseTopic from '@/components/base-topic'
-import {AtLoadMore, AtDivider} from 'taro-ui';
+import Empty from '@/components/empty'
+import {AtLoadMore} from 'taro-ui';
 import Division from '@/components/division'
 
 import './topic-list.module.scss'
 
 class TopicList extends Component {
-
   static defaultProps = {
     topicList: [],
     loading: false,
     showUser: true,
     bottom: false
-  }
-
-  componentDidMount() {
   }
 
   render() {
@@ -34,14 +31,17 @@ class TopicList extends Component {
           })
         }
 
-        { loading && <AtLoadMore status="loading"/> }
-
-        { bottom && <View className="bottom">
-                     <Text>到底啦</Text>
-                    </View>
+        {
+          loading && <AtLoadMore status="loading"/>
         }
 
+        {
+          bottom && <View className="bottom"><Text>到底啦</Text></View>
+        }
 
+        {
+          topicList.length <= 0 && <Empty customStyle={{paddingTop: '100px'}} content="暂时还没有动态" />
+        }
       </View>
     );
   }

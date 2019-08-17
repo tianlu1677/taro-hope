@@ -7,8 +7,8 @@ class Empty extends Component {
 
   static defaultProps = {
     content: '',
-    onClick: () => {
-    },
+    customStyle: '',
+    onClick: () => {},
   }
 
   componentDidMount() {
@@ -17,7 +17,7 @@ class Empty extends Component {
 
   render() {
     return (
-      <View className="empty" onClick={this.props.onClick}>
+      <View className="empty" style={this.props.customStyle} onClick={this.props.onClick}>
         {this.props.content || '暂时还有内容'}
       </View>
     );

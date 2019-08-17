@@ -51,7 +51,6 @@ class Detail extends Component {
       const username = `${res.data.user.name}的主页`
       Taro.setNavigationBarTitle({title: username})
     })
-    this.props.dispatchCurrentUser()
     this.loadMore()
   }
 

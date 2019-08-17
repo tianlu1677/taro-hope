@@ -6,7 +6,7 @@
   .item-list {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     .media-item {
       font-size: 0;
@@ -17,6 +17,7 @@
       .media-multi {
         height: 222px;
         width: 222px;
+        margin-right: 12px;
       }
       .media-two {
         width: 355px;
@@ -44,7 +45,7 @@
   }
   .media-count {
     position: absolute;
-    right: 10px;
+    right: 14px;
     bottom: 14px;
     z-index: 100;
     color: $white;

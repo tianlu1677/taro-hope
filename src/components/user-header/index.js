@@ -10,16 +10,21 @@ class UserHeader extends Component {
     userMeta: {},
     showFollow: false,
     showEdit: false,
-    onFollow: () => {}
+    showLogin: false,
+    onFollow: () => {
+    }
   }
 
   onGoEditUser = () => {
     Taro.navigateTo({url: '/pages/users/edit'})
   }
 
-  render() {
+  onGoLogin = () => {
+    Taro.redirectTo({url: '/pages/login/login'})
+  }
 
-    const { showFollow, showEdit, user, userMeta} = this.props
+  render() {
+    const {showFollow, showEdit, showLogin, user, userMeta} = this.props
     return (<View className="user-header">
         <View className="avatar">
           <Image src={user.avatar_url} className="avatar-img" lazyLoad>
@@ -30,14 +35,16 @@ class UserHeader extends Component {
           </View>
 
           {
-            showFollow && userMeta.followed && <View className="follow-button" onClick={this.props.onFollow}>
-              <Text className="text">已关注</Text>
-            </View>
+            showFollow &&
+            (userMeta.followed
+              ? <View className="follow-button" onClick={this.props.onFollow}>
+                <Text className="text">已关注</Text>
+              </View>
+              :
+              <View className="unfollow-button" onClick={this.props.onFollow}>
+                <Text className="text">关注</Text>
+              </View>)
           }
-
-          {showFollow && !userMeta.followed && <View className="unfollow-button" onClick={this.props.onFollow}>
-            <Text className="text">关注</Text>
-          </View>}
 
           {
             showEdit && <View className="edit-button" onClick={this.onGoEditUser}>
@@ -45,32 +52,38 @@ class UserHeader extends Component {
             </View>
           }
 
+          {
+            showLogin && <View className="edit-button" onClick={this.onGoLogin}>
+              <Text className="text">登录</Text>
+            </View>
+          }
         </View>
 
         <View className="detail">
           <UIcon icon={user.gender_text === '男' ? 'man' : 'girl'} ex-class="icon"/>
-          {/*<Text>{user.gender_text}</Text>*/}
-          <View className="location">
-            <Text>{user.location || ''}</Text>
-          </View>
-
+          {
+            user.location &&
+            <View className="location">
+              <Text>{user.location || ''}</Text>
+            </View>
+          }
         </View>
 
         <View className="numbers">
           <View className="item">
-            <View className="num">{user.topics_count}</View>
+            <View className="num">{user.topics_count || 0}</View>
             <View className="txt">动态</View>
           </View>
           <View className="item">
-            <View className="num">{user.following_count}</View>
+            <View className="num">{user.following_count || 0}</View>
             <View className="txt">关注</View>
           </View>
           <View className="item">
-            <View className="num">{user.followers_count}</View>
+            <View className="num">{user.followers_count || 0}</View>
             <View className="txt">被关注</View>
           </View>
           <View className="item">
-            <View className="num">{user.topics_likes_hits || 0}</View>
+            <View className="num">{user.topics_likes_hits > 0 ? user.topics_likes_hits : 0}</View>
             <View className="txt">被喜欢</View>
           </View>
         </View>

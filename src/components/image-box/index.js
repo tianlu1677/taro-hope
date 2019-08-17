@@ -16,14 +16,6 @@ class ImageBox extends Component {
     onTopicDetail: () => {}
   }
 
-  componentDidMount() {
-
-  }
-
-  goTopicDetail = () => {
-
-  }
-
   previewPhoto = (medias, media, event) => {
     event.stopPropagation()
     media = media.split("?")[0];
@@ -35,7 +27,6 @@ class ImageBox extends Component {
 
   previewVideo = (event) => {
     event.stopPropagation()
-    // console.log('baseTopic.video_content', baseTopic.video_content)
     goPage.goPreviewVideo(this.props.video_content)
   }
 
@@ -85,7 +76,7 @@ class ImageBox extends Component {
           {
             medias.length > 3 &&
             <View className="media-count">
-              <Text>{medias.length - 3} +</Text>
+              <Text>{medias.length - 3}+ </Text>
             </View>
           }
         </View>
