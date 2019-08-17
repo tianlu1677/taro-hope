@@ -1,6 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
 import UIcon from '@/components/uicon'
+import Header from '@/components/header'
 
 import './index.module.scss'
 
@@ -26,6 +27,9 @@ class UserHeader extends Component {
   render() {
     const {showFollow, showEdit, showLogin, user, userMeta} = this.props
     return (<View className="user-header">
+        <View className="header">
+          <Header title={user.name} />
+        </View>
         <View className="avatar">
           <Image src={user.avatar_url} className="avatar-img" lazyLoad>
           </Image>

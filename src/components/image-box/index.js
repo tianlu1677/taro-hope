@@ -13,7 +13,6 @@ class ImageBox extends Component {
     medias: [],
     topic_id: '',
     video_content: '',
-    onTopicDetail: () => {}
   }
 
   previewPhoto = (medias, media, event) => {
@@ -30,6 +29,10 @@ class ImageBox extends Component {
     goPage.goPreviewVideo(this.props.video_content)
   }
 
+  goTopicDetail = () => {
+    goPage.goTopicDetail(this.state.topic_id)
+  }
+
   // 1 video
   // 1 pic
   // 1v + 1p
@@ -38,13 +41,13 @@ class ImageBox extends Component {
   // 3p
 
   render() {
-    const { medias, video_content, topic_id, onTopicDetail } = this.props
+    const { medias, video_content, topic_id } = this.props
     const show_medias = !!video_content ? medias.slice(0, 2) : medias.slice(0, 3)
 
     return (<View>
         {/*图片*/}
         <View className="media" onClick={this.goTopicDetail.bind(this, topic_id)}>
-          <View className="item-list" onClick={onTopicDetail}>
+          <View className="item-list" onClick={this.goTopicDetail}>
             {
               video_content &&
               <View className="media-item" onClick={this.previewVideo}>

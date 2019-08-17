@@ -25,6 +25,7 @@ class Mine extends Component {
   config = {
     navigationBarTitleText: "我",
     enablePullDownRefresh: true,
+    navigationStyle: "custom",
   };
 
   constructor() {
@@ -65,6 +66,9 @@ class Mine extends Component {
       this.props.dispatchCurrentUser()
       this.props.dispatchCurrentUserMoreInfo()
     }
+    this.setState({
+      loading: false
+    })
   }
 
   async onReachBottom () {

@@ -40,7 +40,7 @@ class TopicList extends Component {
         }
 
         {
-          topicList.length <= 0 && <Empty customStyle={{paddingTop: '100px'}} content="暂时还没有动态" />
+          !loading && topicList.length <= 0 && <Empty customStyle={{paddingTop: '100px'}} content="暂时还没有动态" />
         }
       </View>
     );

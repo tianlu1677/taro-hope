@@ -7,6 +7,9 @@ import { AtActivityIndicator } from 'taro-ui'
 import { getUserTopicList } from '@/api/user_api'
 import TopicList from '@/components/list/topic-list'
 import UserHeader from '@/components/user-header';
+import UIcon from '@/components/uicon'
+import ShareIcon from '@/components/share-icon'
+
 import './detail.module.scss'
 
 @withShare({
@@ -22,7 +25,8 @@ import './detail.module.scss'
 
 class Detail extends Component {
   config = {
-    navigationBarTitleText: "Ta的主页"
+    navigationBarTitleText: "Ta的主页",
+    navigationStyle: "custom",
   };
 
   constructor() {
@@ -124,7 +128,7 @@ class Detail extends Component {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
 
-    return ( <View>
+    return ( <View className="user-detail">
         <UserHeader
           showFollow
           user={userDetail}
@@ -143,6 +147,15 @@ class Detail extends Component {
             bottom={!paginate.hasMore}
           />
         </View>
+
+        {/*<View className="bottom">*/}
+          {/*<View className="item">*/}
+            {/*<UIcon icon={true ?  'liked' : 'like'} ex-class="icon like" /><Text>喜欢</Text>*/}
+          {/*</View>*/}
+          {/*<View className="item">*/}
+            {/*<ShareIcon size='middle' />*/}
+          {/*</View>*/}
+        {/*</View>*/}
       </View>
     );
   }
