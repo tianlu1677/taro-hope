@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Input, Image, Swiper, SwiperItem} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {getTopicReplies} from "@/api/topic_api"
+import {getTopicReplies} from "@/api/topic_api";
 import withShare from '@/utils/with_share';
 import {
   dispatchCurrentUser,
@@ -19,6 +19,8 @@ import {AtActivityIndicator} from 'taro-ui'
 import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
 import Header from '@/components/header'
 import UIcon from '@/components/uicon'
+import goPage from "@/utils/page_path"
+import ShareIcon from '@/components/share-icon'
 import './topic-detail.module.scss'
 
 @withShare({
@@ -38,7 +40,6 @@ import './topic-detail.module.scss'
   dispatchUnLikeTopic
 })
 
-
 class TopicDetail extends Component {
   config = {
     navigationBarTitleText: "动态详情",
@@ -57,9 +58,9 @@ class TopicDetail extends Component {
     this.topic_id = this.$router.params.topic_id
   }
 
-  $setShareTargetId = () => (this.props.topicDetail.id)
+  $setShareTargetId = () => (this.topic_id)
   $setSharePath = () => (`/pages/topics/topic-detail?topic_id=${this.topic_id}`)
-  $setShareTitle = () => (this.props.topicDetail.user.name + '学习心得')
+  $setShareTitle = () => ('动态详情')
 
   componentDidMount() {
     this.props.dispatchTopicDetail({topic_id: this.topic_id}).then((res) => {
@@ -79,16 +80,20 @@ class TopicDetail extends Component {
 
   onPreview = (currentImg) => {
     let currentImgUrl = currentImg.split("?")[0];
-
     Taro.previewImage({
       urls: this.props.topic.topicDetail.medias.map((file) => (file.split("?")[0])),
       current: currentImgUrl
     });
   }
 
+  previewVideo = (video_content, event) => {
+    event.stopPropagation()
+    goPage.goPreviewVideo(video_content)
+  }
+
   //1. 删除评论
   onDeleteComment = (comment_id, commentIndex) => {
-    console.log('comment', comment_id, commentIndex)
+    // console.log('comment', comment_id, commentIndex)
     let commentList = this.state.commentList
     commentList.splice(commentIndex, 1)
     this.setState({
@@ -190,16 +195,16 @@ class TopicDetail extends Component {
     const {currentComment, show_comment, loading} = this.state
 
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
-
+    let video_content = topicDetail.video_content ? topicDetail.video_content + '?vframe/jpg/offset/1/rotate/auto' : ''
     if (loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
 
     return (
       <View className="topic-detail">
-        <Header
-          title='动态详情'
-        />
+        <View className="header">
+          <Header title='动态详情' />
+        </View>
         <View className="avatar-wrapper border-top-1px">
           <Avatar
             user={topicDetail.user}
@@ -232,6 +237,17 @@ class TopicDetail extends Component {
                     </Image>
                   </SwiperItem>
                 })}
+                {
+                  video_content &&
+                  <SwiperItem className="media" key={video_content}>
+                    <Image
+                      src={video_content}
+                      className="media-img"
+                      onClick={this.previewVideo.bind(this, video_content)}
+                      lazyLoad>
+                    </Image>
+                  </SwiperItem>
+                }
               </View>
             </Swiper>
           </View>
@@ -253,12 +269,9 @@ class TopicDetail extends Component {
           </View>
         </View>
 
-        <Division/>
+        <Division />
 
-        <View className="topic-bottom border-top-1px">
-
-        </View>
-
+        <View className="topic-bottom border-top-1px" />
 
         <View className="comment-wrapper">
           <CommentList
@@ -266,20 +279,20 @@ class TopicDetail extends Component {
             comments_count={topicDetail.replies_count}
             onReplyComment={this.onReplyComment}
             onDeletedComment={this.onDeleteComment}
-          >
-          </CommentList>
+          />
         </View>
 
         {
           !show_comment && <View className="bottom inside border-top-1px">
             <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
-              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class="icon" /> <Text className="txt">喜欢</Text>
+              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class="icon like" />
+              <Text className="txt">喜欢</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>
               <UIcon icon="comment" ex-class="icon" /> <Text className="txt">撩ta</Text>
             </View>
             <View className="item">
-              <UIcon icon="share" ex-class="icon" /> <Text className="txt">分享</Text>
+              <ShareIcon size='middle' />
             </View>
           </View>
         }
@@ -310,7 +323,6 @@ class TopicDetail extends Component {
             </View>
           </View>
         }
-
       </View>
     );
   }

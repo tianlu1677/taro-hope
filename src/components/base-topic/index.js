@@ -31,6 +31,7 @@ class BaseTopic extends Component {
   render() {
     const {baseTopic, baseTopic: {user}, showUser} = this.props
     const username = baseTopic.is_hide ? '匿名用户' : baseTopic.user.name
+    const body = baseTopic.body && baseTopic.body.replace(/[\n\r]/g, "<br/>");
     return (<View className="topic-item">
         <View className="avatar-wrapper">
           {
@@ -48,7 +49,7 @@ class BaseTopic extends Component {
 
         <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
           <View className="body-text">
-            {baseTopic.body}
+            {body}
           </View>
           {
             baseTopic.body.length > 120

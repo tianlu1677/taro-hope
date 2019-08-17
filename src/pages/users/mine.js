@@ -55,6 +55,7 @@ class Mine extends Component {
     this.setState({
       loading: false
     })
+    this.props.dispatchCurrentUserMoreInfo()
   }
 
   loadCurrentUser = (currentUserId) => {

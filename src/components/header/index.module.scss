@@ -1,9 +1,13 @@
 .header {
-  margin: 55px 20px 20px 20px;
+  padding-top: 55px;
+  padding-bottom: 20px;
   display: flex;
   align-items: center;
   text-align: center;
+  border-bottom: 1PX solid red;
+  background-color: white;
   .left {
+    margin-left: 20px;
     width: 150px;
     display: flex;
     justify-content: space-around;
@@ -15,6 +19,7 @@
       height: 55px;
       line-height: 55px;
       font-size: 29px;
+      font-weight: 600;
     }
     .line {
       color: rgba(0,0,0,0.08);

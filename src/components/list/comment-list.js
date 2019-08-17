@@ -13,7 +13,8 @@ class CommentList extends Component {
 
   static propTypes = {
     commentList: PropTypes.array,
-    empty: false
+    comments_count: PropTypes.number,
+    empty: PropTypes.bool
   }
 
   static defaultProps = {

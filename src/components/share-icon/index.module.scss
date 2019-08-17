@@ -1,0 +1,30 @@
+.share-button {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+  background-color: white;
+  color: gray;
+  line-height: 1;
+  .icon {
+    font-size: 37px;
+    margin-right: 10px;
+    color: #BDBDBD;
+  }
+  .icon-text {
+    color: #BDBDBD;
+    font-size: 22px;
+  }
+  .icon-middle {
+    font-size: 44px;
+  }
+  .text-middle {
+    font-size: 24px;
+  }
+}
+button {
+  padding: 0;
+}
+button::after {
+  border: none;
+}
