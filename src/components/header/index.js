@@ -10,7 +10,7 @@ class Header extends Component {
   static defaultProps = {
     title: '',
     handleBack: () => {
-      Taro.navigateBack({})
+      Taro.navigateBack({delta: 1})
     }
   }
 

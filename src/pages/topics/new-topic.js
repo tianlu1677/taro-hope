@@ -6,7 +6,9 @@ import addVideoImg from '@/assets/images/add-video.png';
 import addPhotoImg from '@/assets/images/add-photo.png';
 import removeMediaImg from '@/assets/images/close.png'
 import playVideoImg from '@/assets/images/play-video.png'
-import { AtTextarea, AtForm, AtSwitch  } from 'taro-ui'
+import Header from '@/components/header'
+import goPage from '@/utils/page_path'
+import { AtTextarea, AtSwitch  } from 'taro-ui'
 import { uploadImages, uploadVideo } from "@/utils/upload_images"
 import {
   dispatchCurrentUser,
@@ -32,6 +34,7 @@ const defaultState = {
 class NewTopic extends Component {
   config = {
     navigationBarTitleText: "发布动态",
+    navigationStyle: "custom",
   };
   constructor() {
     super(...arguments);
@@ -131,8 +134,7 @@ class NewTopic extends Component {
   }
 
   onPreviewVideo = () => {
-    let videoContext = Taro.createVideoContext("videoPreview");
-    videoContext.requestFullScreen({ direction: 0 });
+    goPage.goPreviewVideo(this.state.video_content)
   }
 
   chooseLocalVideo = async () => {
@@ -244,6 +246,10 @@ class NewTopic extends Component {
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
+        <Header
+          title='发布动态'
+          handleBack={() => (Taro.navigateBack({delta: 2}))}
+        />
         <View className="new-topic-detail">
           <View className="content">
             <View className="plain-content-block">
@@ -255,24 +261,6 @@ class NewTopic extends Component {
                 placeholder='此刻说出你想对Ta说的话...'
               />
             </View>
-            {/*<View className="plain-content-block">*/}
-              {/*{this.state.showTextarea && <Textarea*/}
-                {/*onBlur={this.addPlainText}*/}
-                {/*placeholder="写下这一刻的学习心得...\n\n"*/}
-                {/*maxlength="500"*/}
-                {/*className="plain-content"*/}
-                {/*autoHeight*/}
-                {/*showConfirmBar*/}
-
-                {/*value={body}*/}
-                {/*placeholderClass="plain-content-place-holder"*/}
-              {/*/>*/}
-              {/*}*/}
-            {/*</View>*/}
-
-            {/*<View className='plain-content-block' style="height: 150px">*/}
-            {/*<View>{body}</View>*/}
-            {/*</View>*/}
 
             {/*图片*/}
             <View className="medias-block">
@@ -316,11 +304,16 @@ class NewTopic extends Component {
                 video_content_m3u8 &&
                 <View className="media-item">
                   <View className="photo video-wrapper">
-                    <Image src={video_content + '?vframe/jpg/offset/1/rotate/auto'} alt="" className="photo" mode="aspectFill" lazyLoad />
+                    <Image
+                      src={video_content + '?vframe/jpg/offset/1/rotate/auto'}
+                      alt=""
+                      className="photo"
+                      mode="aspectFill"
+                      lazyLoad />
                     <View className="remove" onClick={this.onRemoveVideo}>
                       <Image className="topic-close" src={removeMediaImg}/>
                     </View>
-                    <Image src={playVideoImg} alt="" className="play-video"/>
+                    <Image src={playVideoImg} alt="" className="play-video" onClick={this.onPreviewVideo}/>
                   </View>
                 </View>
               }
@@ -342,17 +335,9 @@ class NewTopic extends Component {
             </View>
           </View>
 
-          {/*<View className="chose border-top-1px border-bottom-1px">*/}
-            {/*<AtSwitch title='是否匿名发布' checked={this.state.anonymous} border={false} onChange={this.chooseAnonymous} />*/}
-          {/*</View>*/}
-
-          {/*<AtForm>*/}
           <View className="is-hide">
-
-
             <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" border={false} onChange={this.chooseAnonymous} />
           </View>
-          {/*</AtForm>*/}
 
           <View className="publish-button" onClick={this.onSubmit}>
             <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
