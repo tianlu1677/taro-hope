@@ -12,7 +12,7 @@ export default function Reducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         userDetail: {...state.userDetail, ...action.payload.data.user},
-        userMeta: action.payload.data.meta,
+        userMeta: { ...state.userMeta, ...action.payload.data.meta }
       }
     case CURRENT_USER_DETAIL:
       return {

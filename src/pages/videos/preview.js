@@ -3,7 +3,7 @@ import {View, Video} from "@tarojs/components";
 
 class TopicVideo extends Component {
   config = {
-    navigationBarTitleText: "",
+    navigationBarTitleText: " ",
     enablePullDownRefresh: false,
     navigationBarTextStyle: "white",
     navigationBarBackgroundColor: "#000000",

@@ -299,7 +299,7 @@ class TopicDetail extends Component {
         {
           !show_comment && <View className="bottom inside border-top-1px">
             <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
-              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class="icon like" />
+              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
               <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>
