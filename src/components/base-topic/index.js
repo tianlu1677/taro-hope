@@ -31,7 +31,7 @@ class BaseTopic extends Component {
   render() {
     const {baseTopic, baseTopic: {user}, showUser} = this.props
     const username = baseTopic.is_hide ? '匿名用户' : baseTopic.user.name
-    const body = baseTopic.body && baseTopic.body.replace(/[\n\r]/g, "<br/>");
+    const body = baseTopic.body //&& baseTopic.body.replace(/[\n\r]/g, "<br/>");
     return (<View className="topic-item">
         <View className="avatar-wrapper">
           {
@@ -52,10 +52,7 @@ class BaseTopic extends Component {
             {body}
           </View>
           {
-            baseTopic.body.length > 120
-            && <View className="body-more">
-              更多
-            </View>
+            baseTopic.body.length > 100 && <View className="body-more">更多</View>
           }
         </View>
 
@@ -81,7 +78,7 @@ class BaseTopic extends Component {
             </View>
             <View className="action">
               <UIcon icon="comment" ex-class="icon"/>
-              <Text className='icon-text'>撩ta</Text>
+              <Text className='icon-text'>{baseTopic.replies_count > 0 ? baseTopic.replies_count : '撩ta'}</Text>
             </View>
           </View>
           {/*<View className='action-right'>*/}

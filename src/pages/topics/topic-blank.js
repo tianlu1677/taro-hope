@@ -15,7 +15,7 @@ class TopicBlank extends Component {
   }
 
   render() {
-    return (<View>x</View>
+    return (<View />
     );
   }
 }

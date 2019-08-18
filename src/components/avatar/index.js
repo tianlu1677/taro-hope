@@ -12,7 +12,8 @@ class Avatar extends Component {
     user: {},
     showFollow: false,
     canEdit: false,
-    topic_id: ''
+    topic_id: '',
+    is_hide: false
   }
   state = {
     followed: false
@@ -51,11 +52,19 @@ class Avatar extends Component {
   }
 
   goUserDetail() {
-    goPage.goUserDetail(this.props.user.id)
+    const { is_hide, user } = this.props
+    if(is_hide) {
+      Taro.showToast({
+        title: '无法查看匿名用户个人主页',
+        icon: 'none'
+      })
+    } else {
+      goPage.goUserDetail(user.id)
+    }
   }
 
   render() {
-    const {user, showFollow, canEdit} = this.props
+    const {user, showFollow, canEdit, is_hide} = this.props
     return (
       <View className="avatar">
         <View className="left" onClick={this.goUserDetail}>
@@ -63,12 +72,12 @@ class Avatar extends Component {
             <Image src={user.avatar_url} className="cover-img"/>
           </View>
           <View className="name">
-            {user.name}
+            {is_hide ? '匿名用户' : user.name }
           </View>
         </View>
 
         {
-          showFollow && <View className="right">
+          !is_hide && showFollow && <View className="right">
             {this.state.followed &&
             <View className="follow" onClick={this.onFollow.bind(this, !this.state.followed)}>
               <Text className="txt">已关注</Text>

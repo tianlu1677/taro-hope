@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Input, Image, Swiper, SwiperItem} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {getTopicReplies} from "@/api/topic_api";
+import {getTopicReplies, createTopicReplies} from "@/api/topic_api";
 import withShare from '@/utils/with_share';
 import {
   dispatchCurrentUser,
@@ -16,7 +16,7 @@ import Avatar from '@/components/avatar'
 import Division from '@/components/division'
 import CommentList from '@/components/list/comment-list'
 import {AtActivityIndicator} from 'taro-ui'
-import {createReply, deleteReply, createSecondReply} from '@/api/reply_api'
+import {deleteReply} from '@/api/reply_api'
 import Header from '@/components/header'
 import UIcon from '@/components/uicon'
 import goPage from "@/utils/page_path"
@@ -133,12 +133,7 @@ class TopicDetail extends Component {
     const {currentComment} = this.state
     if (currentComment.body.length >= 2) {
       Taro.showLoading({title: "发送中...", mask: true});
-      let res = {}
-      if (currentComment.reply_to_id) {
-        res = await createSecondReply(this.topic_id, currentComment)
-      } else {
-        res = await createReply(this.topic_id, currentComment);
-      }
+      let res = await createTopicReplies(this.topic_id, currentComment);
 
       if (res.status === 'failed') {
         Taro.hideLoading();
@@ -212,6 +207,7 @@ class TopicDetail extends Component {
             followed_user={topicMeta.followed_user}
             topic_id={topicDetail.id}
             canEdit={canEdit}
+            is_hide={topicDetail.is_hide}
           >
           </Avatar>
         </View>

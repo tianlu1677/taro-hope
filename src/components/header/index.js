@@ -35,7 +35,7 @@ class Header extends Component {
         </View>
 
         <View className="title">
-          {title}
+          {title.substr(0,10)}
         </View>
       </View>
     );

@@ -38,16 +38,17 @@ export async function updateTopicDetail(id, body) {
 
 export async function getTopicReplies(id) {
   const res = await request({
-    url: `/api/v1/topics/${id}/replies`,
+    url: `/api/v1/topics/${id}/replies?category=user`,
     method: "GET",
   });
   return res.data;
 }
 
-export async function createTopicReplies(id) {
+export async function createTopicReplies(id, body = {}) {
   const res = await request({
     url: `/api/v1/topics/${id}/replies`,
     method: "POST",
+    data: body
   });
   return res.data;
 }

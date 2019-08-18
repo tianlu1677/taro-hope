@@ -32,6 +32,7 @@ class Detail extends Component {
   constructor() {
     super(...arguments);
     this.user_id = this.$router.params.user_id
+    this.currentUserId = Taro.getStorageSync('user_id')
   }
 
   state = {
@@ -124,13 +125,15 @@ class Detail extends Component {
   render() {
     const { userDetail, userMeta } = this.props
     const { topicList, loading, paginate } = this.state
+    const isCurrentUser = this.user_id && (this.currentUserId.toString() === this.user_id.toString())
     if(this.state.loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
 
     return ( <View className="user-detail">
         <UserHeader
-          showFollow
+          showFollow={!isCurrentUser}
+          showEdit={isCurrentUser}
           user={userDetail}
           userMeta={userMeta}
           onFollow={this.onFollow}

@@ -228,7 +228,7 @@ class NewTopic extends Component {
       let has_text = body.length > 0;
       let has_image = selectImages.length > 0;
       let has_video = video_content && video_content.indexOf('meirixinxue') >= 0
-      status = has_text && (has_image || has_video);
+      status = has_text || (has_image || has_video);
     }
 
     return status
@@ -250,8 +250,9 @@ class NewTopic extends Component {
               <AtTextarea
                 value={body}
                 onChange={this.addPlainText}
-                maxLength={1000}
+                maxLength={2000}
                 height={300}
+                count={false}
                 placeholder='此刻说出你想对Ta说的话...'
               />
             </View>
