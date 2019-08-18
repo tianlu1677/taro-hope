@@ -206,11 +206,12 @@ class NewTopic extends Component {
 
   _formatTopicForm = () => {
     const {  selectImages, body, video_content, is_hide } = this.state
+    const blank_body = video_content ? '分享视频' : '分享图片'
     return {
       id: this.topic_id,
       is_hide: is_hide,
       medias: selectImages.map((file) => (file.split("?")[0])),
-      body: body || '分享图片',
+      body: body || blank_body,
       video_content: video_content
     };
   }

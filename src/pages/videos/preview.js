@@ -13,7 +13,7 @@ class TopicVideo extends Component {
   constructor() {
     super(...arguments);
     // this.videoUrl = this.$router.params.video_url
-    // this.videoContext = ''
+    this.videoContext = ''
   }
 
   state = {
@@ -34,7 +34,7 @@ class TopicVideo extends Component {
       })
     }
 
-    // this.videoContext = Taro.createVideoContext("topic_video_content");
+    this.videoContext = Taro.createVideoContext("topic_video_content");
     // this.videoContext.play();
 
     //iphone x下隐藏状态栏，仅对IPHONE X生效

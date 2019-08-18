@@ -249,7 +249,11 @@ class TopicDetail extends Component {
                       onClick={this.previewVideo.bind(this, video_content)}
                       lazyLoad>
                     </Image>
-                    <Image src={playVideoImg} alt="" className="play-video" />
+                    <Image
+                      src={playVideoImg}
+                      alt=""
+                      onClick={this.previewVideo.bind(this, video_content)}
+                      className="play-video" />
                   </SwiperItem>
                 }
               </View>
