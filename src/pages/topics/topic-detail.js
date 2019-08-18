@@ -21,6 +21,8 @@ import Header from '@/components/header'
 import UIcon from '@/components/uicon'
 import goPage from "@/utils/page_path"
 import ShareIcon from '@/components/share-icon'
+import playVideoImg from '@/assets/images/play-video.png'
+
 import './topic-detail.module.scss'
 
 @withShare({
@@ -56,6 +58,7 @@ class TopicDetail extends Component {
   constructor() {
     super(...arguments);
     this.topic_id = this.$router.params.topic_id
+    this.currentUserId = parseInt((Taro.getStorageSync('user_id') || 0))
   }
 
   $setShareTargetId = () => (this.topic_id)
@@ -107,9 +110,10 @@ class TopicDetail extends Component {
       show_comment: true
     })
     if (comment.id) {
+      let username = this.state.topicDetail.is_hide ? '匿名用户' : comment.user.name
       this.setState({
         currentComment: {
-          placeholder: "回复: @" + comment.user.name,
+          placeholder: "回复: @" + username,
           body: '',
           topic_id: this.topic_id,
           reply_to_id: comment.id,
@@ -188,10 +192,11 @@ class TopicDetail extends Component {
     const {topic: { topicDetail} } = this.props
     const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
-
-    const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0]))
+    const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'))
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
+    const MediaLenth = topicMedias.length + (topicDetail.video_content ? 1 : 0)
     let video_content = topicDetail.video_content ? topicDetail.video_content + '?vframe/jpg/offset/1/rotate/auto' : ''
+
     if (loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
@@ -206,7 +211,8 @@ class TopicDetail extends Component {
             user={topicDetail.user}
             showFollow={!canEdit}
             followed_user={topicMeta.followed_user}
-            topic_id={topicDetail.id}
+            topic={topicDetail}
+            currentUserId={this.currentUserId}
             canEdit={canEdit}
             is_hide={topicDetail.is_hide}
           >
@@ -216,12 +222,12 @@ class TopicDetail extends Component {
         {
           topicDetail.medias && <View className="images">
             <Swiper
-              indicatorDots={topicDetail.medias.length > 1}
+              indicatorDots={MediaLenth > 1}
               indicatorColor="#E6E6E6"
               indicatorActiveColor="#FD7C97"
               circular
               className="media-list"
-              style={{height: '490rpx'}}
+              style={{height: Taro.pxTransform(490)}}
             >
               <View>
                 {topicMedias.map((media) => {
@@ -230,7 +236,6 @@ class TopicDetail extends Component {
                       src={media}
                       className="media-img"
                       onClick={this.onPreview.bind(this, media)}
-                      mode="widthFix"
                       lazyLoad>
                     </Image>
                   </SwiperItem>
@@ -242,9 +247,9 @@ class TopicDetail extends Component {
                       src={video_content}
                       className="media-img"
                       onClick={this.previewVideo.bind(this, video_content)}
-                      mode="widthFix"
                       lazyLoad>
                     </Image>
+                    <Image src={playVideoImg} alt="" className="play-video" />
                   </SwiperItem>
                 }
               </View>
@@ -282,6 +287,8 @@ class TopicDetail extends Component {
             comments_count={topicDetail.replies_count}
             onReplyComment={this.onReplyComment}
             onDeletedComment={this.onDeleteComment}
+            currentUserId={this.currentUserId}
+            topic={topicDetail}
           />
         </View>
 
@@ -289,7 +296,7 @@ class TopicDetail extends Component {
           !show_comment && <View className="bottom inside border-top-1px">
             <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
               <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class="icon like" />
-              <Text className="txt">喜欢</Text>
+              <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>
               <UIcon icon="comment" ex-class="icon" /> <Text className="txt">撩ta</Text>

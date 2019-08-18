@@ -9,8 +9,15 @@ class Header extends Component {
 
   static defaultProps = {
     title: '',
-    handleBack: () => {
-      Taro.navigateBack({delta: 1})
+    handleBack: async () => {
+      let pages = Taro.getCurrentPages()
+      // console.log('getCurrentPageUrl', pages.length)
+
+      if(pages.length > 1) {
+        Taro.navigateBack({delta: 1})
+      } else {
+        goPage.goHomeUrl()
+      }
     }
   }
 

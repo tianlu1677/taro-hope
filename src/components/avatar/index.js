@@ -2,19 +2,20 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
 import {followUser, unfollowUser} from "@/api/user_api";
 import goPage from '@/utils/page_path'
-import {connect} from "@tarojs/redux";
+import hideMan from '@/assets/images/qiuliao-man.png'
+import hideWoMan from '@/assets/images/qiuliao-woman.png'
 
 import './index.module.scss'
 
 class Avatar extends Component {
-
   static defaultProps = {
     user: {},
     showFollow: false,
     canEdit: false,
-    topic_id: '',
+    topic: {},
     is_hide: false,
-    size: 'middle'
+    size: 'middle',
+    currentUserId: '',
   }
   state = {
     followed: false
@@ -43,7 +44,7 @@ class Avatar extends Component {
   };
 
   goEditTopic = () => {
-    Taro.navigateTo({url: '/pages/topics/new-topic?topic_id=' + this.props.topic_id})
+    Taro.navigateTo({url: '/pages/topics/new-topic?topic_id=' + this.props.topic.id})
   }
 
   componentDidMount() {
@@ -65,17 +66,30 @@ class Avatar extends Component {
   }
 
   render() {
-    const {user, showFollow, canEdit, is_hide, size} = this.props
+    const {user, showFollow, canEdit, is_hide, topic, currentUserId, size} = this.props
+    const hide_user_avatar_url = user.gender === 'man' ? hideMan : hideWoMan
+
     return (
       <View className="avatar">
-        <View className="left" onClick={this.goUserDetail}>
+        {
+          is_hide &&  <View className="left" onClick={this.goUserDetail}>
+            <View className="cover">
+              <Image src={hide_user_avatar_url} className={`cover-img ${size}-cover-img`}/>
+            </View>
+            <View className={`name ${size}-name`}>
+              { user.id === currentUserId ? '匿名用户(自己)' : '匿名用户' }
+            </View>
+          </View>
+        }
+        {!is_hide && <View className="left" onClick={this.goUserDetail}>
           <View className="cover">
             <Image src={user.avatar_url} className={`cover-img ${size}-cover-img`}/>
           </View>
           <View className={`name ${size}-name`}>
-            {is_hide ? '匿名用户' : user.name }
+            { user.name }
           </View>
         </View>
+        }
 
         {
           !is_hide && showFollow && <View className="right">

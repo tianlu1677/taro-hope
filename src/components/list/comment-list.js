@@ -9,12 +9,13 @@ import './comment-list.module.scss';
 class CommentList extends Component {
   constructor() {
     super(...arguments);
+    this.currentUserId = Taro.getStorageSync('user_id')
   }
 
   static propTypes = {
     commentList: PropTypes.array,
     comments_count: PropTypes.number,
-    empty: PropTypes.bool
+    empty: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -47,14 +48,14 @@ class CommentList extends Component {
   }
 
   render() {
-    const {commentList, comments_count, empty} = this.props
+    const {commentList, comments_count, empty, topic} = this.props
     return (
       <View className="comment-list">
         <View className="comment-list-title">
           <View className="text">全部评论</View>
           {/*<Text className="comments-count">{comments_count || commentList.length}</Text>*/}
         </View>
-        { commentList.length <= 0 ? <Empty title="快去评论吧" /> : '' }
+        { commentList.length <= 0 ? <Empty content="快去评论吧" /> : '' }
         <View>
           {
             commentList.map((comment, comment_index) => {
@@ -62,6 +63,8 @@ class CommentList extends Component {
                 <Avatar
                   user={comment.user}
                   showFollow={false}
+                  is_hide={topic.is_hide}
+                  currentUserId={parseInt(this.currentUserId)}
                 >
                 </Avatar>
                 <View className="content">
@@ -70,7 +73,7 @@ class CommentList extends Component {
                     {
                       comment.reply_to_id &&
                       <View className="reply">
-                        <Text className="account-name">{comment.reply_user ? comment.reply_user.name + ':' : ''} </Text>
+                        <Text className="account-name">{comment.reply_user ? (topic.is_hide ? '匿名用户 :' : comment.reply_user.name + ':' ): ''} </Text>
                         <Text className="text">{comment.reply_body || '原评论已删除'}</Text>
                       </View>
                     }

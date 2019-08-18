@@ -7,8 +7,7 @@ import { AtActivityIndicator } from 'taro-ui'
 import { getUserTopicList } from '@/api/user_api'
 import TopicList from '@/components/list/topic-list'
 import UserHeader from '@/components/user-header';
-import UIcon from '@/components/uicon'
-import ShareIcon from '@/components/share-icon'
+import Division from '@/components/division'
 
 import './detail.module.scss'
 
@@ -138,8 +137,7 @@ class Detail extends Component {
           onFollow={this.onFollow}
         />
 
-        <View className="division">
-        </View>
+        <Division/>
 
         <View className="list">
           <TopicList

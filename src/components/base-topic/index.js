@@ -12,7 +12,7 @@ import './index.module.scss'
 
 class BaseTopic extends Component {
   static defaultProps = {
-    baseTopic: {user: {}},
+    baseTopic: {user: {}, body: ''},
     showUser: true,
     onClick: () => {
     },
@@ -31,7 +31,7 @@ class BaseTopic extends Component {
   render() {
     const {baseTopic, baseTopic: {user}, showUser} = this.props
     const username = baseTopic.is_hide ? '匿名用户' : baseTopic.user.name
-    const body = baseTopic.body //&& baseTopic.body.replace(/[\n\r]/g, "<br/>");
+    const body = baseTopic.body.split("\n")
     return (<View className="topic-item">
         <View className="avatar-wrapper">
           {
@@ -50,13 +50,13 @@ class BaseTopic extends Component {
         <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
           <View className="body-text">
             {
-              body && body.split("\n").map(i => {
+              baseTopic.body && body.slice(0,5).map(i => {
                 return <View key={i}>{i}</View>
               })
             }
           </View>
           {
-            baseTopic.body.length > 100 && <View className="body-more">更多</View>
+            (body.length-1 > 5 || baseTopic.body.length > 110) && <View className="body-more">更多</View>
           }
         </View>
 

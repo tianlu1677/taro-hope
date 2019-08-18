@@ -1,6 +1,8 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
 import goPage from '@/utils/page_path'
+import hideMan from '@/assets/images/qiuliao-man.png'
+import hideWoMan from '@/assets/images/qiuliao-woman.png'
 
 import './topic-avatar.module.scss'
 
@@ -24,11 +26,12 @@ class TopicAvatar extends Component {
 
   render() {
     const { user, is_hide } = this.props
+    const user_avatar = is_hide ? (user.gender === 'man' ? hideMan : hideWoMan) : user.avatar_url
     return (
       <View className="avatar">
         <View className="left" onClick={this.goUserDetail}>
           <View className="cover">
-            <Image src={is_hide ? 'http://file.meirixinxue.com/assets/201908160114P781f3210085aa854d1e8dcfc397e824a.jpg?imageView2/0/h/100/interlace/1|imageslim' : user.avatar_url} className="cover-img"/>
+            <Image src={user_avatar} className="cover-img"/>
           </View>
           <View className="name">
             {is_hide ? '匿名用户' : user.name}

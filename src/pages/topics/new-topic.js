@@ -242,7 +242,6 @@ class NewTopic extends Component {
     return (<View>
         <Header
           title='发布动态'
-          handleBack={() => (Taro.navigateBack({delta: 2}))}
         />
         <View className="new-topic-detail">
           <View className="content">
@@ -253,7 +252,7 @@ class NewTopic extends Component {
                 maxLength={2000}
                 height={300}
                 count={false}
-                placeholder='此刻说出你想对Ta说的话...'
+                placeholder='此刻说出你想对Ta说的话吧 ~'
                 placeholderClass="plain-content-place-holder"
               />
             </View>
