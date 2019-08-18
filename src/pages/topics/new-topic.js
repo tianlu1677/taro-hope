@@ -210,7 +210,7 @@ class NewTopic extends Component {
       id: this.topic_id,
       is_hide: is_hide,
       medias: selectImages.map((file) => (file.split("?")[0])),
-      body: body,
+      body: body || '分享图片',
       video_content: video_content
     };
   }
@@ -254,6 +254,7 @@ class NewTopic extends Component {
                 height={300}
                 count={false}
                 placeholder='此刻说出你想对Ta说的话...'
+                placeholderClass="plain-content-place-holder"
               />
             </View>
 

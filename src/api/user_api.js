@@ -97,7 +97,7 @@ export async function getCurrentUserTopicList(id, params) {
 
 export async function getUserTopicList(id, params) {
   const res = await request({
-    url: `/api/v1/users/${id}/topics?q[is_hide_eq]=false`,
+    url: `/api/v1/users/${id}/topics?q[is_hide_false]=false`,
     method: "GET",
     data: params
   });

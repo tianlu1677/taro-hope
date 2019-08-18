@@ -26,11 +26,16 @@ class UserHeader extends Component {
 
   render() {
     const {showFollow, showEdit, showLogin, user, userMeta} = this.props
+    const showHeader = !(showEdit || showLogin)
+
     return (<View className="user-header">
-        <View className="header">
-          <Header title={user.name} />
-        </View>
-        <View className="avatar">
+        {
+          showHeader && <View className="header">
+            <Header title={user.name} />
+          </View>
+
+        }
+        <View className="avatar" style={{marginTop: showHeader ? Taro.pxTransform(150) : ''}}>
           <Image src={user.avatar_url} className="avatar-img" lazyLoad>
           </Image>
 
@@ -42,7 +47,7 @@ class UserHeader extends Component {
             showFollow &&
             (userMeta.followed
               ? <View className="follow-button" onClick={this.props.onFollow}>
-                <Text className="text">已关注</Text>
+                <Text className="text">关注中</Text>
               </View>
               :
               <View className="unfollow-button" onClick={this.props.onFollow}>

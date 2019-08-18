@@ -13,7 +13,7 @@
     position: relative;
     display: flex;
     flex: 0 0 130px;
-    margin-top: 150px;
+    //margin-top: 150px;
     line-height: 130px;
     text-align: center;
     .avatar-img {
@@ -28,6 +28,7 @@
       font-weight:500;
       font-size: 32px;
       color:rgba(54,54,54,1);
+      letter-spacing: 1px;
     }
     .follow-button, .unfollow-button, .edit-button {
       position: absolute;
@@ -39,8 +40,13 @@
       background: $light_gray;
       border-radius:34px;
       .text {
-        color: white;
+        color: #B8B8B8;
         text-align: center;
+      }
+    }
+    .edit-button {
+      .text {
+        color: white;
       }
     }
     .unfollow-button {
@@ -86,8 +92,10 @@
       .num {
         font-size: 36px;
         font-weight: 600;
+        text-align: end;
       }
       .txt {
+        margin-top: 5px;
         margin-left: 10px;
         font-size: 24px;
         color: rgba(54,54,54,1);

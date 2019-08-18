@@ -13,7 +13,8 @@ class Avatar extends Component {
     showFollow: false,
     canEdit: false,
     topic_id: '',
-    is_hide: false
+    is_hide: false,
+    size: 'middle'
   }
   state = {
     followed: false
@@ -64,14 +65,14 @@ class Avatar extends Component {
   }
 
   render() {
-    const {user, showFollow, canEdit, is_hide} = this.props
+    const {user, showFollow, canEdit, is_hide, size} = this.props
     return (
       <View className="avatar">
         <View className="left" onClick={this.goUserDetail}>
           <View className="cover">
-            <Image src={user.avatar_url} className="cover-img"/>
+            <Image src={user.avatar_url} className={`cover-img ${size}-cover-img`}/>
           </View>
-          <View className="name">
+          <View className={`name ${size}-name`}>
             {is_hide ? '匿名用户' : user.name }
           </View>
         </View>

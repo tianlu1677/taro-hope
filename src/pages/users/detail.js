@@ -133,7 +133,6 @@ class Detail extends Component {
     return ( <View className="user-detail">
         <UserHeader
           showFollow={!isCurrentUser}
-          showEdit={isCurrentUser}
           user={userDetail}
           userMeta={userMeta}
           onFollow={this.onFollow}

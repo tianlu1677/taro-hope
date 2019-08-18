@@ -70,8 +70,8 @@ class CommentList extends Component {
                     {
                       comment.reply_to_id &&
                       <View className="reply">
-                        <Text className="account-name">{comment.reply_user ? comment.reply_user.name : '匿名用户'}: </Text>
-                        <Text className="text">{comment.reply_body || '已删除'}</Text>
+                        <Text className="account-name">{comment.reply_user ? comment.reply_user.name + ':' : ''} </Text>
+                        <Text className="text">{comment.reply_body || '原评论已删除'}</Text>
                       </View>
                     }
                     <View className="reply-count">

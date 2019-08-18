@@ -7,6 +7,7 @@ import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
 import { getCurrentUserTopicList } from '@/api/user_api'
 import TopicList from '@/components/list/topic-list'
+import Division from '@/components/division'
 
 import './mine.module.scss';
 
@@ -25,7 +26,7 @@ class Mine extends Component {
   config = {
     navigationBarTitleText: "我",
     enablePullDownRefresh: true,
-    navigationStyle: "custom",
+    // navigationStyle: "custom",
   };
 
   constructor() {
@@ -146,8 +147,7 @@ class Mine extends Component {
           <UserHeader user={hideUser} showLogin />
         }
 
-        <View className="division">
-        </View>
+        <Division />
         <View className="list">
           <TopicList
             topicList={topicList}

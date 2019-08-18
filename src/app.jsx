@@ -38,7 +38,7 @@ class App extends Component {
     },
     tabBar: {
       color: "#666",
-      selectedColor: "#b4282d",
+      selectedColor: "#FD7C97",
       backgroundColor: "#fafafa",
       borderStyle: 'black',
       list: [

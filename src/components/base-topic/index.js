@@ -49,7 +49,11 @@ class BaseTopic extends Component {
 
         <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
           <View className="body-text">
-            {body}
+            {
+              body && body.split("\n").map(i => {
+                return <View key={i}>{i}</View>
+              })
+            }
           </View>
           {
             baseTopic.body.length > 100 && <View className="body-more">更多</View>

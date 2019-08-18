@@ -189,6 +189,7 @@ class TopicDetail extends Component {
     const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
 
+    const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0]))
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
     let video_content = topicDetail.video_content ? topicDetail.video_content + '?vframe/jpg/offset/1/rotate/auto' : ''
     if (loading) {
@@ -223,12 +224,13 @@ class TopicDetail extends Component {
               style={{height: '490rpx'}}
             >
               <View>
-                {topicDetail.medias.map((media) => {
+                {topicMedias.map((media) => {
                   return <SwiperItem className="media" key={media}>
                     <Image
                       src={media}
                       className="media-img"
                       onClick={this.onPreview.bind(this, media)}
+                      mode="widthFix"
                       lazyLoad>
                     </Image>
                   </SwiperItem>
@@ -240,6 +242,7 @@ class TopicDetail extends Component {
                       src={video_content}
                       className="media-img"
                       onClick={this.previewVideo.bind(this, video_content)}
+                      mode="widthFix"
                       lazyLoad>
                     </Image>
                   </SwiperItem>
@@ -251,7 +254,11 @@ class TopicDetail extends Component {
 
         {
           topicDetail.body && <View className="body">
-            {topicDetail.body}
+            {
+              topicDetail.body.split("\n").map(i => {
+                return <View key={i}>{i}</View>
+              })
+            }
           </View>
         }
 
