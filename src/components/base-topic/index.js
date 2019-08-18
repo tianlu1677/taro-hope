@@ -56,7 +56,7 @@ class BaseTopic extends Component {
             }
           </View>
           {
-            (body.length-1 > 5 || baseTopic.body.length > 110) && <View className="body-more">更多</View>
+            (body.length > 4 || baseTopic.body.length > 110) && <View className="body-more">更多</View>
           }
         </View>
 

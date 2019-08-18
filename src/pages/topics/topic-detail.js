@@ -194,7 +194,7 @@ class TopicDetail extends Component {
     const {currentComment, show_comment, loading} = this.state
     const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'))
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
-    const MediaLenth = topicMedias.length + (topicDetail.video_content ? 1 : 0)
+    const MediaLength = topicMedias.length + (topicDetail.video_content ? 1 : 0)
     let video_content = topicDetail.video_content ? topicDetail.video_content + '?vframe/jpg/offset/1/rotate/auto' : ''
 
     if (loading) {
@@ -220,9 +220,9 @@ class TopicDetail extends Component {
         </View>
 
         {
-          topicDetail.medias && <View className="images">
+          MediaLength > 0 && <View className="images">
             <Swiper
-              indicatorDots={MediaLenth > 1}
+              indicatorDots={MediaLength > 1}
               indicatorColor="#E6E6E6"
               indicatorActiveColor="#FD7C97"
               circular

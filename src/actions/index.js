@@ -43,6 +43,11 @@ export const dispatchUserDetail = options => createAction({
   data: options
 })
 
+export const dispatchUserMoreInfo = options => createAction({
+  url: `/api/v1/users/${options.user_id}/more_info`,
+  type: USER_DETAIL,
+  data: options
+})
 
 export const dispatchFollowUser = options => createAction({
   url: `/api/v1/users/${options.user_id}/follow`,

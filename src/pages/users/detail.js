@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {dispatchCurrentUser, dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser} from '@/actions'
+import {dispatchCurrentUser, dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser, dispatchUserMoreInfo} from '@/actions'
 import withShare from '@/utils/with_share';
 import { AtActivityIndicator } from 'taro-ui'
 import { getUserTopicList } from '@/api/user_api'
@@ -19,7 +19,7 @@ import './detail.module.scss'
   target_type: ''
 })
 
-@connect(state => state.user, { dispatchCurrentUser, dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser })
+@connect(state => state.user, { dispatchCurrentUser,  dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser, dispatchUserMoreInfo })
 
 
 class Detail extends Component {
@@ -53,6 +53,7 @@ class Detail extends Component {
         loading: false
       })
       const username = `${res.data.user.name}的主页`
+      this.props.dispatchUserMoreInfo({user_id: this.user_id})
       Taro.setNavigationBarTitle({title: username})
     })
     this.loadMore()

@@ -11,7 +11,7 @@ export default function Reducer (state = INITIAL_STATE, action) {
     case USER_DETAIL:
       return {
         ...state,
-        userDetail: action.payload.data.user,
+        userDetail: {...state.userDetail, ...action.payload.data.user},
         userMeta: action.payload.data.meta,
       }
     case CURRENT_USER_DETAIL:
