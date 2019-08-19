@@ -236,7 +236,7 @@ class TopicDetail extends Component {
                       src={media}
                       className="media-img"
                       onClick={this.onPreview.bind(this, media)}
-                      lazyLoad>
+                      >
                     </Image>
                   </SwiperItem>
                 })}

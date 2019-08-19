@@ -24,7 +24,8 @@ class BaseTopic extends Component {
 
   }
 
-  goTopicDetail = (id) => {
+  goTopicDetail = (id, event) => {
+    event.stopPropagation();
     goPage.goTopicDetail(id)
   }
 

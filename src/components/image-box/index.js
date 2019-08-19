@@ -47,13 +47,13 @@ class ImageBox extends Component {
     return (<View>
         {/*图片*/}
         <View className="media" onClick={this.goTopicDetail.bind(this, topic_id)}>
-          <View className="item-list" onClick={this.goTopicDetail}>
+          <View className="item-list">
             {
               video_content &&
               <View className="media-item" onClick={this.previewVideo}>
                 <Image
                   src={`${video_content}?vframe/jpg/offset/1/rotate/auto`}
-                  className={medias.length === 0 ? 'media-single' : 'media-multi'}
+                  className={show_medias.length === 0 ? 'media-single' : 'media-multi'}
                   mode="aspectFill"
                   lazyLoad
                 />

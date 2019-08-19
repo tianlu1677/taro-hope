@@ -29,6 +29,7 @@ class App extends Component {
       'pages/topics/topic-detail',
       'pages/topics/topic-blank',
       'pages/videos/preview',
+      'pages/index'
     ],
     window: {
       backgroundTextStyle: 'light',

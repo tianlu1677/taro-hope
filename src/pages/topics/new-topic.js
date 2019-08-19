@@ -95,10 +95,11 @@ class NewTopic extends Component {
     })
   }
 
-  onReviewImage(image) {
+  onReviewImage(media_index) {
+    let images = this.state.selectImages.map((file) => (file.split('?')[0]))
     Taro.previewImage({
-      urls: this.state.selectImages,
-      current: image
+      urls: images,
+      current: images[media_index]
     });
   }
 
@@ -266,7 +267,12 @@ class NewTopic extends Component {
                 selectImages && selectImages.map((media, media_index) => {
                   return <View className="media-item" key={media}>
                     <View className="photo">
-                      <Image src={media} alt="" className="photo" onClick={this.onReviewImage.bind(this, media)} mode="aspectFill" lazyLoad />
+                      <Image
+                        src={media}
+                        alt=""
+                        className="photo"
+                        onClick={this.onReviewImage.bind(this, media_index)}
+                        mode="aspectFill" />
                       <View className="remove" onClick={this.onRemoveImage.bind(this, media_index)}>
                         <Image className="topic-close" src={removeMediaImg}/>
                       </View>

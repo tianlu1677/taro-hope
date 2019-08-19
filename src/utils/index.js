@@ -1,7 +1,7 @@
 export function siteConfig() {
   // let env = "staging";
   // let env = 'dev'
-  let env = 'dev'
+  let env = 'production'
   if (env === "dev") {
     return {
       identity: 'qiuliao',
