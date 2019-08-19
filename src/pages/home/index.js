@@ -85,7 +85,7 @@ class Index extends Component {
 
   async getItemList(params = {}, opts = { pull_down: false }) {
     const res = await getTopicList({...params, detail: 'show'});
-    console.log('res', res)
+    // console.log('res', res)
     if (opts.pull_down) {
       this.setState({
         topicList: res.topics
