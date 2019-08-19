@@ -39,6 +39,7 @@ const customInterceptor = function (chain) {
   const requestParams = chain.requestParams;
   const { showToast } = requestParams;
   return chain.proceed(requestParams).catch(res => {
+    // console.log('errr', res)
     // 这个catch需要放到前面才能捕获request本身的错误，因为showError返回的也是Promise.reject
     return showError(res.errMsg, showToast);
   }).then(res => {
@@ -57,7 +58,6 @@ const customInterceptor = function (chain) {
         });
       }
       return showError("需要登录", showToast);
-      // return res;
     } else if (res.statusCode >= 400) {
       let errorMsg = res.data && res.data.message;
       return showError(errorMsg, showToast);
