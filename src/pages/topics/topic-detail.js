@@ -189,7 +189,7 @@ class TopicDetail extends Component {
   }
 
   render() {
-    const {topic: { topicDetail} } = this.props
+    const {topic, topic: { topicDetail} } = this.props
     const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
     const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'))
@@ -247,6 +247,7 @@ class TopicDetail extends Component {
                       src={video_content}
                       className="media-img"
                       onClick={this.previewVideo.bind(this, video_content)}
+                      mode="widthFix"
                       lazyLoad>
                     </Image>
                     <Image
@@ -265,7 +266,7 @@ class TopicDetail extends Component {
           topicDetail.body && <View className="body">
             {
               topicDetail.body.split("\n").map(i => {
-                return <View key={i}>{i}</View>
+                return <View className={i ? '' : 'txt'} key={i}>{i}</View>
               })
             }
           </View>
@@ -299,7 +300,7 @@ class TopicDetail extends Component {
         {
           !show_comment && <View className="bottom inside border-top-1px">
             <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
-              <UIcon icon={topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
+              <UIcon icon={topic.topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
               <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>

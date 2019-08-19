@@ -44,6 +44,9 @@
     font-weight: 300;
     line-height: 50px;
     color: rgba(67, 73, 87, 1);
+    .txt {
+      height: 20px;
+    }
   }
   .numbers {
     display: flex;
@@ -88,6 +91,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 250px;
     .icon {
       font-size: 42px;
     }
@@ -101,6 +105,13 @@
       font-size: 24px;
       padding-left: 11px;
     }
+
+  }
+  .item:first-child {
+    padding-left: 100px;
+  }
+  .item:last-child {
+    padding-right: 100px;
   }
 
   /*输入评论*/
@@ -131,5 +142,5 @@
   }
 }
 .inside {
-  padding: 0 112px;
+  //padding: 0 112px;
 }

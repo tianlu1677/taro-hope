@@ -109,7 +109,7 @@ class Avatar extends Component {
 
         {
           canEdit && <View className="right">
-            <View className="unfollow" onClick={this.goEditTopic}>
+            <View className="edit-btn" onClick={this.goEditTopic}>
               <Text className="txt">编辑</Text>
             </View>
           </View>

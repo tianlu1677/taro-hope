@@ -51,7 +51,7 @@ class BaseTopic extends Component {
           <View className="body-text">
             {
               baseTopic.body && body.slice(0,5).map(i => {
-                return <View key={i}>{i}</View>
+                return <View className={i ? '' : 'txt'} key={i}>{i || '  '}</View>
               })
             }
           </View>

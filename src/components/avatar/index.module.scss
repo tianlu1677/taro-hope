@@ -28,10 +28,10 @@
     flex: 1;
     justify-content: flex-end;
     align-items: center;
-    .follow, .unfollow {
+    .follow, .unfollow, .edit-btn {
       width:110px;
       height:50px;
-      background:rgba(245,246,251,1);
+      background: rgba(245,246,251,1);
       border-radius:25px;
       text-align: center;
       .txt {
@@ -43,6 +43,12 @@
     }
     .unfollow {
       background: $red;
+      .txt {
+        color: $white;
+      }
+    }
+    .edit-btn {
+      background: $blue;
       .txt {
         color: $white;
       }

@@ -1,8 +1,16 @@
 @import "../../styles/variable";
 
+.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
 .new-topic-detail {
   position: relative;
-  margin-top: 20px;
+  margin-top: 170px;
   font-size: 0;
   .content {
     padding: 40px 60px;

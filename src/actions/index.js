@@ -80,13 +80,13 @@ export const dispatchLikeTopic = options => createAction({
 export const dispatchUnLikeTopic = options => createAction({
   url: `/api/v1/likes`,
   type: TOPIC_UN_LIKE,
-  method: 'POST',
+  method: 'DELETE',
   data: options
 })
 
 export const dispatchUnFollowTopic = options => createAction({
   url: `/api/v1/users/${options.user_id}/unfollow`,
   type: USER_UN_FOLLOW,
-  method: 'POST',
+  method: 'DELETE',
   options: options
 })

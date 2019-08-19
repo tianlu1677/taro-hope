@@ -241,9 +241,11 @@ class NewTopic extends Component {
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
-        <Header
-          title='发布动态'
-        />
+        <View className="header">
+          <Header
+            title='发布动态'
+          />
+        </View>
         <View className="new-topic-detail">
           <View className="content">
             <View className="plain-content-block">
