@@ -78,9 +78,9 @@ export const dispatchLikeTopic = options => createAction({
 })
 
 export const dispatchUnLikeTopic = options => createAction({
-  url: `/api/v1/likes`,
+  url: `/api/v1/likes/clear`,
   type: TOPIC_UN_LIKE,
-  method: 'DELETE',
+  method: 'POST',
   data: options
 })
 
