@@ -37,6 +37,7 @@ class Auth extends Component {
       Taro.removeStorageSync("last_path");
       Taro.reLaunch({url: fromPath});
     } else {
+      Taro.setStorage({key: 'session_key', data: ''})
       Taro.showToast({
         title: "未登录成功， 请点击重试",
         icon: "none",
@@ -49,21 +50,21 @@ class Auth extends Component {
     const code_res = await Taro.login()
     const res_login = await getSessionKey({code: code_res.code, app_id: CurrentAPPId, client_type: CurrentClientType});
     const session_key = res_login.session_key
-    await Taro.setStorage({key: 'session_key', data: session_key})
+    await Taro.setStorageSync('session_key', session_key)
     return session_key
   }
 
   realLogin = async (detail, relogin = false) => {
     if(relogin) {
-      await this.fetchSessionKey()
-      let session_key = Taro.getStorageSync('session_key')
+      let session_key = await this.fetchSessionKey()
+      // let session_key = Taro.getStorageSync('session_key')
       await this.getUserInfo(session_key, detail)
       return
     }
 
     let session_key = Taro.getStorageSync('session_key')
     if (session_key.length < 1) {
-      await this.fetchSessionKey()
+      session_key = await this.fetchSessionKey()
     }
 
     await this.getUserInfo(session_key, detail)
