@@ -50,6 +50,7 @@ class CommentList extends Component {
 
   render() {
     const {commentList, comments_count, empty, topic} = this.props
+    let currentUserId = Taro.getStorageSync('user_id')
     return (
       <View className="comment-list">
         <View className="comment-list-title">
@@ -64,8 +65,8 @@ class CommentList extends Component {
                 <Avatar
                   user={comment.user}
                   showFollow={false}
-                  is_hide={topic.is_hide && topic.user.id === parseInt(this.currentUserId)}
-                  currentUserId={parseInt(this.currentUserId)}
+                  is_hide={topic.is_hide && topic.user.id === comment.user.id}
+                  currentUserId={parseInt(currentUserId)}
                 >
                 </Avatar>
                 <View className="content">
@@ -74,7 +75,7 @@ class CommentList extends Component {
                     {
                       comment.reply_to_id &&
                       <View className="reply">
-                        <Text className="account-name">{comment.reply_user ? (topic.is_hide ? '匿名用户 :' : comment.reply_user.name + ':' ): ''} </Text>
+                        <Text className="account-name">{comment.reply_user ? ((topic.is_hide && topic.user.id === comment.reply_user.id) ? '匿名用户 :' : comment.reply_user.name + ':' ): ''} </Text>
                         <Text className="text">{comment.reply_body || '原评论已删除'}</Text>
                       </View>
                     }
