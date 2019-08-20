@@ -74,6 +74,10 @@ class TopicDetail extends Component {
     this.getTopicReplyList(this.topic_id)
   }
 
+  componentDidShow() {
+    this.props.dispatchCurrentUser()
+  }
+
   getTopicReplyList = async (topic_id) => {
     const res = await getTopicReplies(topic_id)
     this.setState({

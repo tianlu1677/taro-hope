@@ -12,7 +12,7 @@ class Auth extends Component {
   }
 
   getUserInfo = async (session_key, detail) => {
-    const account_response = await loginSystem({
+    let account_response = await loginSystem({
       session_key: session_key,
       encrypted_data: detail.encryptedData,
       iv: detail.iv,
@@ -21,20 +21,28 @@ class Auth extends Component {
       client_type: CurrentClientType
     });
 
-    const user = account_response.user
+    let user = account_response.user
 
-    Taro.setStorageSync("auth_token", user.auth_token);
-    Taro.setStorage({key: "user_id", data: user.id});
-    Taro.setStorage({key: "user_name", data: user.name});
-    Taro.hideLoading();
-    Taro.showToast({
-      title: "登录成功",
-      icon: "none",
-      duration: 500
-    });
-    let fromPath = Taro.getStorageSync("last_path") || "/pages/home/index";
-    Taro.removeStorageSync("last_path");
-    Taro.reLaunch({url: fromPath});
+    if(user) {
+      Taro.setStorageSync("auth_token", user.auth_token);
+      Taro.setStorage({key: "user_id", data: user.id});
+      Taro.setStorage({key: "user_name", data: user.name});
+      Taro.hideLoading();
+      Taro.showToast({
+        title: "登录成功",
+        icon: "none",
+        duration: 500
+      });
+      let fromPath = Taro.getStorageSync("last_path") || "/pages/home/index";
+      Taro.removeStorageSync("last_path");
+      Taro.reLaunch({url: fromPath});
+    } else {
+      Taro.showToast({
+        title: "未登录成功， 请点击重试",
+        icon: "none",
+        duration: 500
+      });
+    }
   }
 
   fetchSessionKey = async () => {

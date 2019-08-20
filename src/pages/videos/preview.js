@@ -23,16 +23,21 @@ class TopicVideo extends Component {
   async componentDidMount() {
     let videoUrl = this.$router.params.video_url
     const res = await Taro.getSystemInfoSync();
-    if(res.model.indexOf('iPhone') >= 0) {
-      this.setState({
-        videoUrl: videoUrl
-      })
-    } else {
-      videoUrl = videoUrl.split('.mp4')[0] + '.m3u8'
-      this.setState({
-        videoUrl: videoUrl
-      })
-    }
+    // console.log('res', res)
+    videoUrl = videoUrl.split('.mp4')[0] + '.m3u8'
+    this.setState({
+      videoUrl: videoUrl
+    })
+    // if(res.model.indexOf('iPhone') >= 0) {
+    //   this.setState({
+    //     videoUrl: videoUrl
+    //   })
+    // } else {
+    //   videoUrl = videoUrl.split('.mp4')[0] + '.m3u8'
+    //   this.setState({
+    //     videoUrl: videoUrl
+    //   })
+    // }
 
     this.videoContext = Taro.createVideoContext("topic_video_content");
     // this.videoContext.play();

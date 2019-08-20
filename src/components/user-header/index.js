@@ -7,7 +7,7 @@ import './index.module.scss'
 
 class UserHeader extends Component {
   static defaultProps = {
-    user: {},
+    user: {name: ''},
     userMeta: {},
     showFollow: false,
     showEdit: false,
@@ -40,7 +40,7 @@ class UserHeader extends Component {
           </Image>
 
           <View className="name">
-            {user.name}
+            {user.name && user.name.substr(0, 9)}
           </View>
 
           {

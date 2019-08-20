@@ -29,8 +29,9 @@ export default class Login extends Component {
     return (
       <View className="login">
         <View className="login-header">
-          <Header title="登录"
-                  handleBack={this.goHome}
+          <Header
+            title="登录"
+            handleBack={this.goHome}
           />
         </View>
 

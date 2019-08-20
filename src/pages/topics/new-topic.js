@@ -50,6 +50,10 @@ class NewTopic extends Component {
     }
   }
 
+  componentDidShow() {
+    this.props.dispatchCurrentUser()
+  }
+
   // 新建与编辑
   async loadTopicDetail(topic_id) {
     const res = await getTopicDetail(topic_id)
@@ -153,7 +157,7 @@ class NewTopic extends Component {
   }
 
   chooseAnonymous = (event) => {
-    console.log('event', event)
+    // console.log('event', event)
     this.setState({
       is_hide: event
     })
@@ -236,6 +240,14 @@ class NewTopic extends Component {
     return status
   }
 
+  handleBack = () => {
+    if(this.topic_id) {
+      Taro.redirectTo({url: '/pages/topics/new-topic?topic_id=' + this.topic_id})
+    } else {
+      goPage.goHomeUrl()
+    }
+  }
+
   render() {
     const { video_content, body, selectImages } = this.state
     let isShowPhotoUpload = (selectImages.length < 9 && !video_content) || (selectImages.length < 8 && video_content)
@@ -245,6 +257,7 @@ class NewTopic extends Component {
         <View className="header">
           <Header
             title='发布动态'
+            handleBack={this.handleBack}
           />
         </View>
         <View className="new-topic-detail">

@@ -1,16 +1,13 @@
 import Taro from "@tarojs/taro";
 
-import { siteConfig } from '@/utils/index'
+import siteConfig from '@/utils/index'
 
 import interceptors from "./interceptors";
 
 interceptors.forEach(i => Taro.addInterceptor(i));
 
-// const BASE_URL = siteConfig().API_PORT
-const BASE_URL = 'https://fans.meirixinxue.com'
-const identity = 'qiuliao'
-// const identity = siteConfig().identity
-// const BASE_URL = 'https://fans.niubibeta.com'
+const BASE_URL = siteConfig.api_port()
+const identity = siteConfig.identity()
 
 export default function request(options, url = null) {
   let data = options.data || options.payload

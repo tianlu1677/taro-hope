@@ -5,7 +5,7 @@ import { connect } from '@tarojs/redux';
 function SettingShare(opts = {}) {
 
   // 设置默认
-  const defalutPath = '/pages/home';
+  const defalutPath = '/pages/home/index';
   const defalutTitle = '';
   const defaultImageUrl = '';
 

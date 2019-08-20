@@ -20,6 +20,7 @@ class CommentList extends Component {
 
   static defaultProps = {
     commentList: [],
+    topic: {},
     onDeletedComment: () => {},
     onReplyComment: () => {}
   }
@@ -63,7 +64,7 @@ class CommentList extends Component {
                 <Avatar
                   user={comment.user}
                   showFollow={false}
-                  is_hide={topic.is_hide}
+                  is_hide={topic.is_hide && topic.user.id === parseInt(this.currentUserId)}
                   currentUserId={parseInt(this.currentUserId)}
                 >
                 </Avatar>

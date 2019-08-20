@@ -26,6 +26,7 @@ class Detail extends Component {
   config = {
     navigationBarTitleText: "Ta的主页",
     navigationStyle: "custom",
+    enablePullDownRefresh: true,
   };
 
   constructor() {
@@ -59,6 +60,10 @@ class Detail extends Component {
     this.loadMore()
   }
 
+  componentDidShow() {
+    this.props.dispatchCurrentUser()
+  }
+
   componentDidUpdate() {
   }
 
@@ -76,6 +81,7 @@ class Detail extends Component {
   }
 
   async onPullDownRefresh() {
+    this.props.dispatchUserMoreInfo({user_id: this.user_id})
     await this.getItemList({}, { pull_down: true });
     Taro.stopPullDownRefresh()
   }

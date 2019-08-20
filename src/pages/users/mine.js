@@ -78,7 +78,7 @@ class Mine extends Component {
   }
 
   async onPullDownRefresh() {
-    await this.loadCurrentUser()
+    await this.loadCurrentUser(this.state.currentUserId)
     Taro.stopPullDownRefresh()
   }
 

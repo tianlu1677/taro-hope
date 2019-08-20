@@ -5,7 +5,6 @@ import {connect} from "@tarojs/redux";
 import withShare from '@/utils/with_share';
 import {dispatchCurrentUser, dispatchUpdateCurrentUser} from "@/actions"
 import { uploadImages } from "@/utils/upload_images"
-import {siteConfig} from "@/utils"
 
 
 import './edit.module.scss'

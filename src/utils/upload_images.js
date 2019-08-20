@@ -1,9 +1,9 @@
 import Taro from "@tarojs/taro"
-import { siteConfig } from "@/utils/index"
+import siteConfig from "@/utils/index"
 
 export async function uploadImages(localImages = []) {
   let auth_token = Taro.getStorageSync('auth_token')
-  let upload_url = `${siteConfig().API_PORT}/api/v1/photos.json?auth_token=${auth_token}`;
+  let upload_url = `${siteConfig.api_port()}/api/v1/photos.json?auth_token=${auth_token}`;
 
   const images = localImages.map((file) => {
     return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ export async function uploadImages(localImages = []) {
 
 export async function uploadVideo(videoFile) {
   let auth_token = Taro.getStorageSync('auth_token')
-  let upload_url = `${siteConfig().API_PORT}/api/v1/photos/video.json?auth_token=${auth_token}`;
+  let upload_url = `${siteConfig.api_port()}/api/v1/photos/video.json?auth_token=${auth_token}`;
   let isLocalVideo = videoFile.indexOf("meirixinxue") < 0;
   if (isLocalVideo) {
     const res = await Taro.uploadFile({
