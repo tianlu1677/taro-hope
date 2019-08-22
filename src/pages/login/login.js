@@ -18,6 +18,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
+
   }
 
   goHome = () => {

@@ -10,4 +10,8 @@ export default class siteConfig {
     return "https://fans.meirixinxue.com"
     // return 'https://fans.niubibeta.com'
   }
+
+  static app_id() {
+    return ''
+  }
 }
