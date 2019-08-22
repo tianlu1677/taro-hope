@@ -108,7 +108,9 @@ class Auth extends Component {
 
 
   onSignIn = async (event) => {
-    if(event.errMsg !== 'getUserInfo:ok') {
+    const { detail } = event
+
+    if(detail.errMsg !== 'getUserInfo:ok') {
       Taro.showToast({
         title: "请授权当前用户",
         icon: "none",
@@ -118,11 +120,11 @@ class Auth extends Component {
     }
 
     Taro.showToast({
-      title: "登录中",
+      title: "登录中...",
       icon: "none",
-      duration: 500
+      duration: 1500
     });
-    const { detail } = event
+
     const code_res = await Taro.login()
     // console.log('xxxx', detail)
     const res_login = await getSessionKey({
@@ -132,7 +134,7 @@ class Auth extends Component {
       user_info: detail.userInfo
     });
     const session_key = res_login.session_key
-    const userInfo = await Taro.getUserInfo()
+    // const userInfo = await Taro.getUserInfo()
     // console.log('userinfo', userInfo)
 
     const user = res_login.user
@@ -144,7 +146,7 @@ class Auth extends Component {
     Taro.showToast({
       title: "登录成功",
       icon: "none",
-      duration: 500
+      duration: 800
     });
     let fromPath = Taro.getStorageSync("last_path") || "/pages/home/index";
     Taro.removeStorageSync("last_path");
