@@ -15,10 +15,10 @@ export default class Login extends Component {
 
   constructor() {
     super(...arguments);
+    this.tenant = Taro.getStorageSync('tenant')
   }
 
   componentDidMount() {
-
   }
 
   goHome = () => {
@@ -26,7 +26,7 @@ export default class Login extends Component {
   }
 
   render() {
-    let img_path = 'http://file.meirixinxue.com/assets/201908171738Pb0ff11415f7f0e33ab88d18670c5ec4c.png'
+    let img_path = this.tenant.cover_url //'http://file.meirixinxue.com/assets/201908171738Pb0ff11415f7f0e33ab88d18670c5ec4c.png'
     return (
       <View className="login">
         <View className="login-header">
@@ -38,7 +38,7 @@ export default class Login extends Component {
 
         <Image src={img_path} alt="" className="logo"/>
         <View className="intro">
-          求撩
+          { this.tenant.nickname }
         </View>
         <Auth />
       </View>

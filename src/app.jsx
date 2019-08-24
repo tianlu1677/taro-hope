@@ -1,6 +1,7 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
+import { getTenant } from "@/api/tenant_api"
 
 import Index from './pages/index'
 
@@ -63,7 +64,14 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    getTenant().then((res) => {
+      // console.log('res', res)
+      if(res){
+        Taro.setStorage({key: 'tenant', data: res.tenant})
+      }
+    }).catch()
+  }
 
   componentDidShow () {}
 

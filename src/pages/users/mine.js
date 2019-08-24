@@ -32,6 +32,7 @@ class Mine extends Component {
   constructor() {
     super(...arguments);
     this.current_user_id = Taro.getStorageSync('user_id')
+    this.tenant = Taro.getStorageSync('tenant')
   }
 
   state = {
@@ -129,9 +130,9 @@ class Mine extends Component {
     const { currentUser } = this.props
     const { topicList, loading, paginate, currentUserId } = this.state
 
-    const hideUser = {name: '未登录', avatar_url: 'http://file.meirixinxue.com/assets/201908171738Pb0ff11415f7f0e33ab88d18670c5ec4c.png'}
+    const hideUser = {name: '未登录', avatar_url: this.tenant.cover_url}
 
-    if(loading) {
+      if(loading) {
       return <AtActivityIndicator content='加载中...' mode="center"/>
     }
     return (<View>

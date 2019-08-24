@@ -39,6 +39,7 @@ class NewTopic extends Component {
   constructor() {
     super(...arguments);
     this.topic_id = this.$router.params.topic_id
+    this.tenant = Taro.getStorageSync('tenant')
   }
 
   state = defaultState
@@ -269,7 +270,7 @@ class NewTopic extends Component {
                 maxLength={2000}
                 height={300}
                 count={false}
-                placeholder='此刻说出你想对Ta说的话吧 ~'
+                placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}
                 placeholderClass="plain-content-place-holder"
               />
             </View>
@@ -352,9 +353,11 @@ class NewTopic extends Component {
             </View>
           </View>
 
-          <View className="is-hide">
-            <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" border={false} onChange={this.chooseAnonymous} />
-          </View>
+          {
+            this.tenant && this.tenant.permissions.show_anonymous === 'yes' && <View className="is-hide">
+              <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" border={false} onChange={this.chooseAnonymous} />
+            </View>
+          }
 
           <View className="publish-button" onClick={this.onSubmit}>
             <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
