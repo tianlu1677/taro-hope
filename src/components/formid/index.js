@@ -10,7 +10,10 @@ export default class FormId extends Component {
   handleSubmit = (e) => {
     // let key = 'form_ids';
     // // console.log('e', e.detail)
-    // let form_id = e.detail.formId
+    if(Taro.getStorageSync('auth_token')) {
+      let form_id = e.detail.formId
+      createFormId({form_ids: [form_id]})
+    }
     // let form_ids = Taro.getStorageSync(key);
     // if (form_ids.length > 0) {
     //   form_ids.push(form_id);
