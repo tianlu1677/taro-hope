@@ -6,6 +6,8 @@ import { dispatchTopicList } from "@/actions";
 import { getTopicList } from '@/api/topic_api'
 import TopicList from '@/components/list/topic-list'
 import HookTopicList from '@/components/list/hook-topic-list'
+import { AtNoticebar } from 'taro-ui'
+
 import './index.module.scss'
 
 
@@ -25,6 +27,11 @@ class Index extends Component {
     enablePullDownRefresh: true,
     onReachBottomDistance: 100,
     backgroundTextStyle: "dark",
+  }
+
+  constructor() {
+    super(...arguments);
+    this.tenant = Taro.getStorageSync('tenant')
   }
 
   state = {
@@ -58,7 +65,13 @@ class Index extends Component {
   }
 
   async onPullDownRefresh() {
-    await this.getItemList({}, { pull_down: true });
+    const { paginate } = this.state
+    if(paginate.hasMore) {
+      // let nextPage = paginate.nextPage
+      await this.getItemList({page: paginate.nextPage}, { pull_down: true });
+    } else {
+      await this.getItemList({}, { pull_down: true });
+    }
     Taro.stopPullDownRefresh()
   }
 
@@ -107,6 +120,13 @@ class Index extends Component {
   render () {
     return (
       <View className='index'>
+        {
+          this.tenant && this.tenant.home_notice &&
+          <AtNoticebar marquee speed={60}>
+            { this.tenant.home_notice }
+          </AtNoticebar>
+        }
+
         {
           <TopicList
             topicList={this.state.topicList}
