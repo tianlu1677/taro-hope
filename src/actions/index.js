@@ -3,7 +3,7 @@ import {createAction} from '@/utils/redux'
 import {
   USER_DETAIL,
   USER_UPDATE, CURRENT_USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW, TOPIC_DETAIL, TOPIC_LIKE, TOPIC_UN_LIKE,
-  CURRENT_USER_MORE_INFO,
+  CURRENT_USER_MORE_INFO, CURRENT_USER_UNREAD_NOTIFICATION,
 }
   from '@/constants'
 
@@ -89,4 +89,12 @@ export const dispatchUnFollowTopic = options => createAction({
   type: USER_UN_FOLLOW,
   method: 'DELETE',
   options: options
+})
+
+
+export const dispatchUserUnReadNotification = options => createAction({
+  url: `/api/v1/notifications/unread_count`,
+  type: CURRENT_USER_UNREAD_NOTIFICATION,
+  method: 'GET',
+  data: options
 })

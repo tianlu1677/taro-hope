@@ -2,6 +2,10 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Image} from "@tarojs/components";
 import UIcon from '@/components/uicon'
 import Header from '@/components/header'
+import HasNotice from '@/assets/images/has-notice.png'
+import NoNotice from '@/assets/images/no-notice.png'
+import {AtBadge} from 'taro-ui'
+
 
 import './index.module.scss'
 
@@ -12,6 +16,7 @@ class UserHeader extends Component {
     showFollow: false,
     showEdit: false,
     showLogin: false,
+    unreadNotification: 0,
     onFollow: () => {
     }
   }
@@ -24,14 +29,18 @@ class UserHeader extends Component {
     Taro.redirectTo({url: '/pages/login/login'})
   }
 
+  onGoNotice = () => {
+    Taro.navigateTo({url: '/pages/notifications/index'})
+  }
+
   render() {
-    const {showFollow, showEdit, showLogin, user, userMeta} = this.props
+    const {showFollow, showEdit, showLogin, user, userMeta, unreadNotification} = this.props
     const showHeader = !(showEdit || showLogin)
 
     return (<View className="user-header">
         {
           showHeader && <View className="header">
-            <Header title={user.name} />
+            <Header title={user.name}/>
           </View>
 
         }
@@ -56,8 +65,20 @@ class UserHeader extends Component {
           }
 
           {
-            showEdit && <View className="edit-button" onClick={this.onGoEditUser}>
-              <Text className="text">编辑</Text>
+            showEdit &&
+            <View className="logined-user">
+              <View className="edit-button" onClick={this.onGoEditUser}>
+                <Text className="text">编辑</Text>
+              </View>
+              <View className="notice" onClick={this.onGoNotice}>
+                {unreadNotification > 0 ? <AtBadge value={unreadNotification} maxValue={99}>
+                    <Image src={HasNotice} className="img"/>
+                  </AtBadge>
+                  : <AtBadge dot={false}>
+                    <Image src={NoNotice} className="img"/>
+                  </AtBadge>
+                }
+              </View>
             </View>
           }
 

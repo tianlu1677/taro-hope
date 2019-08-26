@@ -1,0 +1,35 @@
+.notify {
+  margin-top: 30px;
+  .content {
+    padding-top: 15px;
+    margin-left: 64px;
+    font-size:26px;
+    font-weight: 300;
+    color: rgba(67,73,87,1);
+    line-height:40px;
+    letter-spacing: 1px;
+    border-bottom: 1PX solid #EBEBEB;
+
+    .root-reply {
+      padding: 24px 26px;
+      font-size: 24px;
+      font-weight: 500;
+      color: #9C9C9C;
+      line-height:40px;
+      background: rgba(245,246,251,1);
+      .me {
+        color: rgba(54,54,54,1);
+      }
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      text-align: center;
+
+      margin: 15px 0;
+    }
+  }
+
+}

@@ -1,9 +1,10 @@
-import {CURRENT_USER_DETAIL, CURRENT_USER_MORE_INFO, USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW, USER_UPDATE} from '@/constants'
+import {CURRENT_USER_DETAIL, CURRENT_USER_MORE_INFO, USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW, USER_UPDATE, CURRENT_USER_UNREAD_NOTIFICATION} from '@/constants'
 
 const INITIAL_STATE = {
   currentUser: {},
   userDetail: {},
   userMeta: {},
+  unreadNotification: 0
 }
 
 export default function Reducer (state = INITIAL_STATE, action) {
@@ -29,6 +30,11 @@ export default function Reducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         currentUser: {...state.currentUser, ...user}
+      }
+    case CURRENT_USER_UNREAD_NOTIFICATION:
+      return {
+        ...state,
+        unreadNotification: action.payload.data.count
       }
     case USER_FOLLOW:
     case USER_UN_FOLLOW:

@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {dispatchCurrentUser, dispatchCurrentUserMoreInfo} from '@/actions'
+import {dispatchCurrentUser, dispatchCurrentUserMoreInfo, dispatchUserUnReadNotification} from '@/actions'
 import withShare from '@/utils/with_share';
 import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
@@ -19,7 +19,7 @@ import './mine.module.scss';
   target_type: ''
 })
 
-@connect(state => state.user, { dispatchCurrentUser, dispatchCurrentUserMoreInfo })
+@connect(state => state.user, { dispatchCurrentUser, dispatchCurrentUserMoreInfo, dispatchUserUnReadNotification })
 
 
 class Mine extends Component {
@@ -67,6 +67,7 @@ class Mine extends Component {
     if(currentUserId) {
       this.props.dispatchCurrentUser()
       this.props.dispatchCurrentUserMoreInfo()
+      this.props.dispatchUserUnReadNotification()
     }
     this.setState({
       loading: false
@@ -127,7 +128,7 @@ class Mine extends Component {
 
 
   render() {
-    const { currentUser } = this.props
+    const { currentUser, unreadNotification } = this.props
     const { topicList, loading, paginate, currentUserId } = this.state
 
     const hideUser = {name: '未登录', avatar_url: this.tenant.cover_url}
@@ -141,6 +142,7 @@ class Mine extends Component {
           <UserHeader
             showEdit
             user={currentUser}
+            unreadNotification={unreadNotification}
           />
         }
         {

@@ -30,6 +30,19 @@
       color:rgba(54,54,54,1);
       letter-spacing: 1px;
     }
+    .logined-user {
+      display: flex;
+      flex-direction: column;
+      .notice {
+        position: absolute;
+        right: 1px;
+        top: 30px;
+      }
+      .img {
+        width: 68px;
+        height: 68px;
+      }
+    }
     .follow-button, .unfollow-button, .edit-button {
       position: absolute;
       right: 1px;
@@ -45,10 +58,12 @@
       }
     }
     .edit-button {
+      right: 83px;
       .text {
         color: white;
       }
     }
+
     .unfollow-button {
       background: $red;
       .text {
