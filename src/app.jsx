@@ -30,7 +30,8 @@ class App extends Component {
       'pages/topics/topic-detail',
       'pages/topics/topic-blank',
       'pages/videos/preview',
-      'pages/index'
+      'pages/index',
+      'pages/notifications/index'
     ],
     window: {
       backgroundTextStyle: 'light',
