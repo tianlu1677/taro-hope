@@ -4,6 +4,8 @@ import {dispatchCurrentUser} from '@/actions'
 import {connect} from "@tarojs/redux";
 import { getNotificationList } from '@/api/notification_api'
 import BaseNotify from '@/components/notification/base_notify'
+import {AtLoadMore} from 'taro-ui'
+import Empty from '@/components/empty'
 
 import './index.module.scss'
 
@@ -81,7 +83,8 @@ class Notification extends Component {
   }
 
   render() {
-    const { notificationList } = this.state
+    const { notificationList, loading } = this.state
+
     return (
       <View className="notifications">
         {
@@ -93,6 +96,13 @@ class Notification extends Component {
           })
         }
 
+        {
+          loading && <AtLoadMore status="loading"/>
+        }
+
+        {
+          notificationList.length <= 0 && <Empty customStyle={{paddingTop: '100px'}} content="暂时还没有消息" />
+        }
       </View>
     );
   }
