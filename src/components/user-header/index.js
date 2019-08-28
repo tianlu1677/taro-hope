@@ -75,7 +75,7 @@ class UserHeader extends Component {
                 <Text className="text">编辑</Text>
               </View>
               <View className="notice" onClick={this.onGoNotice}>
-                {unreadNotification > 0 ? <AtBadge value={unreadNotification} maxValue={99}>
+                {unreadNotification > 0 ? <AtBadge value={1} maxValue={99}>
                     <Image src={NoNotice} className="img"/>
                   </AtBadge>
                   : <AtBadge dot={false}>

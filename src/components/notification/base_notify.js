@@ -12,10 +12,9 @@ class BaseNotify extends Component {
     compStyle: '',
     textStyle: '',
     user: {},
-    notification: {mention: {}, reply: {}},
+    notification: {mention: {}, reply: {}, topic: {}},
 
     onClick: () => {},
-    onGetUserInfo: () => {}
   }
 
   componentDidMount() {
@@ -29,6 +28,8 @@ class BaseNotify extends Component {
     const { user, notification, notification: { created_at_text, notify_type, reply, topic, mention, target_type, target_id} } = this.props
 
     const topic_id = (topic && topic.id) || (reply && reply.topic_id) || (mention  && mention.topic_id)
+
+    // console.log('xxx', topic_id)
 
     return ( <View className="notify">
         <Avatar user={user} />
@@ -68,7 +69,7 @@ class BaseNotify extends Component {
 
           {/*赞*/}
 
-          <View className="bottom">
+          <View className="bottom" onClick={this.goTopicDetail.bind(this, topic_id)}>
             <View>{created_at_text}</View> ·
             <View>回复</View>
           </View>
