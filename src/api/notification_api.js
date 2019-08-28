@@ -11,7 +11,7 @@ export async function getNotificationList(params = {}) {
 
 export async function readNotification(params = {}) {
   const res = await request({
-    url: `/api/v1/notifications`,
+    url: `/api/v1/notifications/read_all`,
     method: "POST",
     data: params
   });

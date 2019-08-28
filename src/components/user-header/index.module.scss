@@ -33,10 +33,23 @@
     .logined-user {
       display: flex;
       flex-direction: column;
+
+      .at-badge {
+        .at-badge__num {
+          top: 0;
+          right: 0;
+        }
+      }
       .notice {
         position: absolute;
         right: 1px;
         top: 30px;
+        .at-badge {
+          .at-badge__num {
+            top: 0;
+            right: 0;
+          }
+        }
       }
       .img {
         width: 68px;

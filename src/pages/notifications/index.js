@@ -2,7 +2,7 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text} from "@tarojs/components";
 import {dispatchCurrentUser} from '@/actions'
 import {connect} from "@tarojs/redux";
-import { getNotificationList } from '@/api/notification_api'
+import { getNotificationList, readNotification } from '@/api/notification_api'
 import BaseNotify from '@/components/notification/base_notify'
 import {AtLoadMore} from 'taro-ui'
 import Empty from '@/components/empty'
@@ -29,6 +29,7 @@ class Notification extends Component {
 
   componentDidMount() {
     this.props.dispatchCurrentUser()
+    readNotification()
   }
 
   componentDidShow() {

@@ -10,6 +10,10 @@ import {AtBadge} from 'taro-ui'
 import './index.module.scss'
 
 class UserHeader extends Component {
+  static options = {
+    addGlobalClass: true
+  }
+
   static defaultProps = {
     user: {name: ''},
     userMeta: {},
@@ -72,7 +76,7 @@ class UserHeader extends Component {
               </View>
               <View className="notice" onClick={this.onGoNotice}>
                 {unreadNotification > 0 ? <AtBadge value={unreadNotification} maxValue={99}>
-                    <Image src={HasNotice} className="img"/>
+                    <Image src={NoNotice} className="img"/>
                   </AtBadge>
                   : <AtBadge dot={false}>
                     <Image src={NoNotice} className="img"/>

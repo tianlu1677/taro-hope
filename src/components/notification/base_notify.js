@@ -26,7 +26,9 @@ class BaseNotify extends Component {
   }
 
   render() {
-    const { user, notification, notification: { created_at_text, notify_type, topic, mention, target_type, target_id} } = this.props
+    const { user, notification, notification: { created_at_text, notify_type, reply, topic, mention, target_type, target_id} } = this.props
+
+    const topic_id = (topic && topic.id) || (reply && reply.topic_id) || (mention  && mention.topic_id)
 
     return ( <View className="notify">
         <Avatar user={user} />
