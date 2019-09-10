@@ -41,25 +41,26 @@ class App extends Component {
     },
     tabBar: {
       color: "#666",
-      selectedColor: "#FD7C97",
+      selectedColor: "black",
       backgroundColor: "#fafafa",
       borderStyle: 'black',
       list: [
-        {
-        pagePath: "pages/home/index",
-        iconPath: "./assets/tab-bar/qiuliao-1.png",
-        selectedIconPath: "./assets/tab-bar/qiuliao-11.png",
-        text: "首页"
-      }, {
+         {
           pagePath: "pages/topics/topic-blank",
-          iconPath: "./assets/tab-bar/qiuliao-2.png",
-          selectedIconPath: "./assets/tab-bar/qiuliao-2.png",
+          iconPath: "./assets/tab-bar/heart-1.png",
+          selectedIconPath: "./assets/tab-bar/heart-2.png",
           text: "发布"
         },
       {
+        pagePath: "pages/home/index",
+        iconPath: "./assets/tab-bar/home-1.png",
+        selectedIconPath: "./assets/tab-bar/home-2.png",
+        text: "首页"
+      },
+      {
         pagePath: "pages/users/mine",
-        iconPath: "./assets/tab-bar/qiuliao-3.png",
-        selectedIconPath: "./assets/tab-bar/qiuliao-31.png",
+        iconPath: "./assets/tab-bar/user-1.png",
+        selectedIconPath: "./assets/tab-bar/user-2.png",
         text: "我"
       }]
     }

@@ -14,7 +14,7 @@ import './index.module.scss'
 @connect(state => state.user, { dispatchTopicList })
 
 @withShare({
-  title: '求撩',
+  title: '心愿清单',
   imageUrl: '',
   path: '/pages/home/index',
   target_id: '',
@@ -23,7 +23,7 @@ import './index.module.scss'
 
 class Index extends Component {
   config = {
-    navigationBarTitleText: '求撩',
+    navigationBarTitleText: '心愿清单',
     enablePullDownRefresh: true,
     onReachBottomDistance: 100,
     backgroundTextStyle: "dark",
