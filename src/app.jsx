@@ -31,37 +31,38 @@ class App extends Component {
       'pages/topics/topic-blank',
       'pages/videos/preview',
       'pages/index',
-      'pages/notifications/index'
+      'pages/notifications/index',
+      'pages/users/todo-list'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: '心愿清单',
       navigationBarTextStyle: 'black'
     },
     tabBar: {
       color: "#666",
-      selectedColor: "black",
+      selectedColor: "#666",
       backgroundColor: "#fafafa",
       borderStyle: 'black',
       list: [
          {
-          pagePath: "pages/topics/topic-blank",
+          pagePath: "pages/users/todo-list",
           iconPath: "./assets/tab-bar/heart-1.png",
           selectedIconPath: "./assets/tab-bar/heart-2.png",
-          text: "发布"
+          text: "心愿"
         },
       {
         pagePath: "pages/home/index",
         iconPath: "./assets/tab-bar/home-1.png",
         selectedIconPath: "./assets/tab-bar/home-2.png",
-        text: "首页"
+        text: "广场"
       },
       {
         pagePath: "pages/users/mine",
         iconPath: "./assets/tab-bar/user-1.png",
         selectedIconPath: "./assets/tab-bar/user-2.png",
-        text: "我"
+        text: "账号"
       }]
     }
   }

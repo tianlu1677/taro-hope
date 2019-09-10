@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "taro-blueocean",
-  "description": "blueocean",
-  "appid": "wxee56e8f240c9e89b",
+  "projectname": "taro-hope",
+  "description": "taro-home",
+  "appid": "wx116f2e8d033b6792",
   "setting": {
     "urlCheck": false,
     "es6": false,

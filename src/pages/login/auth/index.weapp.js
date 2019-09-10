@@ -3,7 +3,7 @@ import {View, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {getSessionKey} from '@/api/user_api'
 
-const CurrentAPPId = 'wxee56e8f240c9e89b'
+const CurrentAPPId = 'wx116f2e8d033b6792'
 const CurrentClientType = 'wechat'
 
 class Auth extends Component {
@@ -26,7 +26,7 @@ class Auth extends Component {
     Taro.showToast({
       title: "登录中...",
       icon: "none",
-      duration: 1500
+      duration: 2500
     });
 
     const code_res = await Taro.login()

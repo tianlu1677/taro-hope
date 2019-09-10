@@ -2,7 +2,7 @@ import Taro from "@tarojs/taro/types/index"
 
 export default class siteConfig {
   static identity() {
-    return 'qiuliao'
+    return 'hope'
   }
 
   static api_port() {
