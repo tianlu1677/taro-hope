@@ -3,7 +3,9 @@ import {View, Text} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import AddTopic from '@/components/add-topic';
 import withShare from '@/utils/with_share';
-
+import { dispatchCurrentUser, dispatchCurrentUserMoreInfo, dispatchUserUnReadNotification} from '@/actions'
+import { getMineTopicList, getDefaultUserTopicList } from '@/api/user_api'
+import goPage from "@/utils/page_path"
 import './todo-list.module.scss'
 
 @withShare({
@@ -14,19 +16,7 @@ import './todo-list.module.scss'
   target_type: ''
 })
 
-// @connect(({topic: {currentAccount}}) => ({
-//   currentAccount
-// }), (dispatch) => ({
-//   asyncTopicDetail(topic_id) {
-//     dispatch(asyncTopicDetail(topic_id))
-//   },
-//   topicCreateAction(topic_id, action_type) {
-//     dispatch(topicCreateAction(topic_id, action_type))
-//   },
-//   topicDestroyAction(topic_id, action_type) {
-//     dispatch(topicDestroyAction(topic_id, action_type))
-//   },
-// }))
+@connect(state => state.user, { dispatchCurrentUser, dispatchCurrentUserMoreInfo, dispatchUserUnReadNotification })
 
 class TodoList extends Component {
   config = {
@@ -35,48 +25,59 @@ class TodoList extends Component {
 
   constructor() {
     super(...arguments);
+    this.auth_token = Taro.getStorageSync('auth_token')
+  }
+
+  state = {
+    topicList: []
   }
 
   componentDidMount() {
+    if(this.auth_token) {
+      this.currentUserTopicList()
+    } else {
+      this.defaultTopicList()
+    }
+  }
 
+  defaultTopicList = () => {
+    getDefaultUserTopicList().then((res) => {
+      this.setState({
+        topicList: res.topics
+      })
+    })
+  }
+
+  currentUserTopicList = () => {
+    this.props.dispatchCurrentUser()
+    getMineTopicList().then((res) => {
+      this.setState({
+        topicList: res.topics
+      })
+    })
   }
 
   render() {
+
+    const { topicList } = this.state
+
     return ( <View className="todo-list">
-        <View className="blank"></View>
-        <View className="todo">
-          <View className="content">
-            <View>国庆要做的十件事情</View>
-            <View className="time">刚刚</View>
-          </View>
+        <View className="blank" />
 
-          <View className="status">
-            <View>ok</View>
-          </View>
-        </View>
+        {
+          topicList.map((topic) => {
+            return <View className="todo" key={topic.id} onClick={() => (goPage.goTopicDetail(topic.id))}>
+              <View className="content">
+                <View className="title">{topic.title}</View>
+                <View className="time">{topic.created_at_text}</View>
+              </View>
 
-        <View className="todo">
-          <View className="content">
-            <View>国庆要做的十件事情</View>
-            <View className="time">刚刚</View>
-          </View>
-
-          <View className="status">
-            <View>ok</View>
-          </View>
-        </View>
-
-        <View className="todo">
-          <View className="content">
-            <View>国庆要做的十件事情</View>
-            <View className="time">刚刚</View>
-          </View>
-
-          <View className="status">
-            <View>ok</View>
-          </View>
-        </View>
-
+              <View className="status">
+                <View>{topic.public_at ? 'ok' : 'no'}</View>
+              </View>
+            </View>
+          })
+        }
         <View className="new-topic">
           <AddTopic />
         </View>

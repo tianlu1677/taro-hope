@@ -95,6 +95,26 @@ export async function getCurrentUserTopicList(id, params) {
   return res.data;
 }
 
+//获取当前用户的心得
+export async function getMineTopicList(params) {
+  const res = await request({
+    url: `/api/v1/mine/topics`,
+    method: "GET",
+    data: params
+  });
+  return res.data;
+}
+
+// 获取默认用户的心得
+export async function getDefaultUserTopicList(params) {
+  const res = await request({
+    url: `/api/v1/mine/default_topics`,
+    method: "GET",
+    data: params
+  });
+  return res.data;
+}
+
 export async function getUserTopicList(id, params) {
   const res = await request({
     url: `/api/v1/users/${id}/topics?q%5Bis_hide_false%5D=true`,

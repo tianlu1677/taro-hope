@@ -1,6 +1,6 @@
+@import "../../styles/mixin";
 page{
   height: 100%;
-
 }
 
 .todo-list {
@@ -28,10 +28,15 @@ page{
     flex-direction: column;
     justify-content: flex-start;
     padding: 25px;
+    padding-right: 35px;
     font-size: 32px;
     font-weight: 400;
     color: rgba(61,61,61,1);
     line-height: 43px;
+    .title {
+      @include multi-line-text(1);
+      line-height: 1.2;
+    }
     .time {
       font-size:22px;
       font-weight:400;
