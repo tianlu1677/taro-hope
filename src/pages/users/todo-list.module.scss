@@ -1,0 +1,46 @@
+page{
+  height: 100%;
+
+}
+
+.todo-list {
+  background: #F5F6FB;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.blank {
+  height: 20px;
+}
+.todo {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 124px;
+  margin: 20px;
+  margin-top: 0;
+  box-shadow:6px 6px 12px 0 rgba(240,241,243,1);
+  background:rgba(255,255,255,1);
+  border-radius:12px;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 25px;
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(61,61,61,1);
+    line-height: 43px;
+    .time {
+      font-size:22px;
+      font-weight:400;
+      color: rgba(179,179,179,1);
+    }
+  }
+  .status {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+}

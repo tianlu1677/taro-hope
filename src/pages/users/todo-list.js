@@ -4,6 +4,8 @@ import {connect} from "@tarojs/redux";
 
 import withShare from '@/utils/with_share';
 
+import './todo-list.module.scss'
+
 @withShare({
   title: '',
   imageUrl: '',
@@ -40,7 +42,41 @@ class TodoList extends Component {
   }
 
   render() {
-    return ( <View>我的心愿</View>
+    return ( <View className="todo-list">
+        <View className="blank"></View>
+        <View className="todo">
+          <View className="content">
+            <View>国庆要做的十件事情</View>
+            <View className="time">刚刚</View>
+          </View>
+
+          <View className="status">
+            <View>ok</View>
+          </View>
+        </View>
+
+        <View className="todo">
+          <View className="content">
+            <View>国庆要做的十件事情</View>
+            <View className="time">刚刚</View>
+          </View>
+
+          <View className="status">
+            <View>ok</View>
+          </View>
+        </View>
+
+        <View className="todo">
+          <View className="content">
+            <View>国庆要做的十件事情</View>
+            <View className="time">刚刚</View>
+          </View>
+
+          <View className="status">
+            <View>ok</View>
+          </View>
+        </View>
+      </View>
     );
   }
 }
