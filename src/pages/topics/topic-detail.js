@@ -10,7 +10,8 @@ import {
   dispatchUserDetail,
   dispatchTopicDetail,
   dispatchLikeTopic,
-  dispatchUnLikeTopic
+  dispatchUnLikeTopic,
+  dispatchTopicDetailSuggestions
 } from "@/actions"
 import Avatar from '@/components/avatar'
 import Division from '@/components/division'
@@ -39,7 +40,8 @@ import './topic-detail.module.scss'
   dispatchUnFollowUser,
   dispatchTopicDetail,
   dispatchLikeTopic,
-  dispatchUnLikeTopic
+  dispatchUnLikeTopic,
+  dispatchTopicDetailSuggestions,
 })
 
 class TopicDetail extends Component {
@@ -72,6 +74,7 @@ class TopicDetail extends Component {
       })
     })
     this.getTopicReplyList(this.topic_id)
+    this.props.dispatchTopicDetailSuggestions(this.topic_id)
   }
 
   componentDidShow() {
@@ -267,6 +270,12 @@ class TopicDetail extends Component {
         }
 
         {
+          topicDetail.title && <View className="title">
+            {topicDetail.title}
+          </View>
+        }
+
+        {
           topicDetail.body && <View className="body">
             {
               topicDetail.body.split("\n").map(i => {
@@ -274,6 +283,10 @@ class TopicDetail extends Component {
               })
             }
           </View>
+        }
+
+        {
+
         }
 
         <View className="numbers">

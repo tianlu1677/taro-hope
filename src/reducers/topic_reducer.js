@@ -1,11 +1,21 @@
-import {TOPIC_DETAIL, TOPIC_FOLLOW, TOPIC_UN_FOLLOW, TOPIC_FOLLOW_USER, TOPIC_UN_FOLLOW_USER, TOPIC_LIKE, TOPIC_UN_LIKE} from '@/constants'
+import {
+  TOPIC_DETAIL,
+  TOPIC_FOLLOW,
+  TOPIC_UN_FOLLOW,
+  TOPIC_FOLLOW_USER,
+  TOPIC_UN_FOLLOW_USER,
+  TOPIC_LIKE,
+  TOPIC_UN_LIKE,
+  TOPIC_SUGGESTIONS,
+} from '@/constants'
 
 const INITIAL_STATE = {
   topicDetail: {user: {}, medias: [], ability: {}},
-  topicMeta: { liked: false, followed_user: false }
+  topicMeta: {liked: false, followed_user: false},
+  topicSuggestions: [],
 }
 
-export default function Reducer (state = INITIAL_STATE, action) {
+export default function Reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case TOPIC_DETAIL:
       return {
@@ -33,7 +43,12 @@ export default function Reducer (state = INITIAL_STATE, action) {
         ...state,
         topicMeta: {...state.topicMeta, liked: false}
       }
-   default:
-     return state
+    case TOPIC_SUGGESTIONS:
+      return {
+        ...state,
+        topicSuggestions: action.payload.data.suggestions
+      }
+    default:
+      return state
   }
 }

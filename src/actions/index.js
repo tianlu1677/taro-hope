@@ -2,8 +2,16 @@ import {createAction} from '@/utils/redux'
 
 import {
   USER_DETAIL,
-  USER_UPDATE, CURRENT_USER_DETAIL, USER_FOLLOW, USER_UN_FOLLOW, TOPIC_DETAIL, TOPIC_LIKE, TOPIC_UN_LIKE,
-  CURRENT_USER_MORE_INFO, CURRENT_USER_UNREAD_NOTIFICATION,
+  USER_UPDATE,
+  CURRENT_USER_DETAIL,
+  USER_FOLLOW,
+  USER_UN_FOLLOW,
+  TOPIC_DETAIL,
+  TOPIC_LIKE,
+  TOPIC_UN_LIKE,
+  CURRENT_USER_MORE_INFO,
+  CURRENT_USER_UNREAD_NOTIFICATION,
+  TOPIC_SUGGESTIONS,
 }
   from '@/constants'
 
@@ -70,6 +78,14 @@ export const dispatchTopicDetail = options => createAction({
   type: TOPIC_DETAIL,
   data: options
 })
+
+// 心得下的todo
+export const dispatchTopicDetailSuggestions = topic_id => createAction({
+  url: `/api/v1/suggestions?topic_id=${topic_id}`,
+  type: TOPIC_SUGGESTIONS,
+  data: {}
+})
+
 export const dispatchLikeTopic = options => createAction({
   url: `/api/v1/likes`,
   type: TOPIC_LIKE,
