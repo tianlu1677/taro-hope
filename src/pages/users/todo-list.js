@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-
+import AddTopic from '@/components/add-topic';
 import withShare from '@/utils/with_share';
 
 import './todo-list.module.scss'
@@ -76,6 +76,11 @@ class TodoList extends Component {
             <View>ok</View>
           </View>
         </View>
+
+        <View className="new-topic">
+          <AddTopic />
+        </View>
+
       </View>
     );
   }
