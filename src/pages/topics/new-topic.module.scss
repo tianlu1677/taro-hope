@@ -11,19 +11,48 @@
 
 .new-topic-detail {
   position: relative;
-  margin-top: 170px;
+  margin-top: 134px;
   font-size: 0;
+  .title-content {
+    padding-left: 60px;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 42px;
+    min-height: 100px;
+    .title-placeholder {
+      font-size: 32px;
+      font-weight: 300;
+      color: rgba(189,189,189,1);
+    }
+    .title {
+      height: 100px;
+      border: none;
+      border-bottom: 1PX solid rgba(0,0,0,0.08);
+      border-radius: 0;
+      padding: 24px 30px 24px 15px;
+      font-size: 32px;
+      font-weight: 400;
+      color: rgba(61,61,61,1);
+      letter-spacing: 1px;
+      //text-align: center;
+    }
+    .empty-title {
+      height: 70px;
+      padding: 24px 30px 25px 15px;
+    }
+  }
+
   .content {
-    padding: 40px 60px;
-    padding-top: 10px;
-    padding-bottom: 50px;
+    padding: 24px 30px 1px 60px;
+    //padding-top: 10px;
+    //padding-bottom: 50px;
     .plain-content-block {
       min-height: 150px;
       font-size: 30px;
       .at-textarea {
         border: none;
-        padding: 40px 0 0 0;
-        font-size:30px;
+
+        font-size: 30px;
         font-weight: 300;
         color:rgba(67,73,87,1);
         line-height:43px;
@@ -118,6 +147,11 @@
   }
   .is-hide {
     padding: 0 30px;
+    .at-switch {
+      .at-switch__title {
+        color: #B3B3B3;
+      }
+    }
   }
   .publish-button {
     position: fixed;

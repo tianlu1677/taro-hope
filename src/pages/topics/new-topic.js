@@ -1,5 +1,5 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Video, Text, Button, Textarea, RichText, Radio, Image, CoverView, CoverImage} from "@tarojs/components";
+import {View, Video, Text, Button, Textarea, RichText, Radio, Input, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import { createTopic, getTopicDetail, updateTopicDetail } from "@/api/topic_api";
 import addVideoImg from '@/assets/images/add-video.png';
@@ -8,7 +8,7 @@ import removeMediaImg from '@/assets/images/close.png'
 import playVideoImg from '@/assets/images/play-video.png'
 import Header from '@/components/header'
 import goPage from '@/utils/page_path'
-import { AtTextarea, AtSwitch  } from 'taro-ui'
+import { AtTextarea, AtSwitch, AtInput  } from 'taro-ui'
 import { uploadImages, uploadVideo } from "@/utils/upload_images"
 import {
   dispatchCurrentUser,
@@ -17,6 +17,7 @@ import {
 import './new-topic.module.scss';
 
 const defaultState = {
+  title: '',
   topic_id: "",
   node_id: '',
   selectImages: [],
@@ -24,6 +25,7 @@ const defaultState = {
   video_content: "",
   validateForm: false,
   submitting: false,
+  public_at: '',
   is_hide: false
 }
 
@@ -58,12 +60,20 @@ class NewTopic extends Component {
   // 新建与编辑
   async loadTopicDetail(topic_id) {
     const res = await getTopicDetail(topic_id)
-    const { body, medias, video_content, is_hide } = res.topic;
+    const { title, body, public_at, medias, video_content, is_hide } = res.topic;
     this.setState({
+      title: title,
       body: body,
+      public_at: public_at,
       selectImages: medias,
       is_hide: is_hide,
       video_content: video_content
+    })
+  }
+  // 文字
+  addTitle = (event) => {
+    this.setState({
+      title: event.detail.value
     })
   }
 
@@ -164,6 +174,19 @@ class NewTopic extends Component {
     })
   }
 
+  choosePublic = (event) => {
+    let public_at = new Date()
+    if(event) {
+      this.setState({
+        public_at: public_at
+      })
+    } else {
+      this.setState({
+        public_at: ''
+      })
+    }
+  }
+
   // 提交保存以及修改保存
   onSubmit = async () => {
     if (!this.isValidateForm() || this.state.submitting) { return; }
@@ -211,11 +234,13 @@ class NewTopic extends Component {
   }
 
   _formatTopicForm = () => {
-    const {  selectImages, body, video_content, is_hide } = this.state
+    const {  selectImages, title, body, public_at, video_content, is_hide } = this.state
     const blank_body = video_content ? '分享视频' : '分享图片'
     return {
       id: this.topic_id,
       is_hide: is_hide,
+      title: title,
+      public_at: public_at,
       medias: selectImages.map((file) => (file.split("?")[0])),
       body: body || blank_body,
       video_content: video_content
@@ -250,18 +275,31 @@ class NewTopic extends Component {
   }
 
   render() {
-    const { video_content, body, selectImages } = this.state
+    const { title, video_content, body, selectImages } = this.state
     let isShowPhotoUpload = (selectImages.length < 9 && !video_content) || (selectImages.length < 8 && video_content)
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
         <View className="header">
           <Header
-            title='发布动态'
+            title='发布心愿'
             handleBack={this.handleBack}
           />
         </View>
         <View className="new-topic-detail">
+
+          <View className="title-content">
+            <Textarea
+              placeholder='给心愿清单起个标题名字吧'
+              placeholderClass="title-placeholder"
+              autoHeight
+              maxLength={140}
+              value={title}
+              onInput={this.addTitle}
+              className={!!title ? `title` : `title empty-title`}
+            />
+
+          </View>
           <View className="content">
             <View className="plain-content-block">
               <AtTextarea
@@ -354,8 +392,8 @@ class NewTopic extends Component {
           </View>
 
           {
-            this.tenant && this.tenant.permissions.show_anonymous === 'yes' && <View className="is-hide">
-              <AtSwitch title='是否匿名发布' checked={this.state.is_hide} color="#FD7C97" border={false} onChange={this.chooseAnonymous} />
+            <View className="is-hide">
+              <AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />
             </View>
           }
 
