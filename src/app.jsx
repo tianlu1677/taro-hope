@@ -20,6 +20,7 @@ const store = configStore()
 class App extends Component {
   config = {
     pages: [
+      'pages/users/todo-list',
       'pages/home/index',
       'pages/users/mine',
       'pages/users/detail',
@@ -32,7 +33,6 @@ class App extends Component {
       'pages/videos/preview',
       'pages/index',
       'pages/notifications/index',
-      'pages/users/todo-list'
     ],
     window: {
       backgroundTextStyle: 'light',
