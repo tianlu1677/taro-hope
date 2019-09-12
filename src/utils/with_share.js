@@ -65,7 +65,7 @@ function SettingShare(opts = {}) {
             let { nickname, cover, id } = options.target.dataset;
             // createAction({ target_id: id, target_type: 'Topic', type: 'share' });
             return {
-              title: `${nickname}的动态`,
+              title: `${nickname}的心愿`,
               path: `/pages/topics/topic-detail?topic_id=${id}`,
               imageUrl: `${cover}`
             };

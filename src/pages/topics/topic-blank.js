@@ -3,7 +3,7 @@ import {View, Text} from "@tarojs/components";
 
 class TopicBlank extends Component {
   config = {
-    navigationBarTitleText: "发布动态"
+    navigationBarTitleText: "发布心愿"
   };
 
   constructor() {

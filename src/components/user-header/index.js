@@ -106,7 +106,7 @@ class UserHeader extends Component {
         <View className="numbers">
           <View className="item">
             <View className="num">{user.topics_count || 0}</View>
-            <View className="txt">动态</View>
+            <View className="txt">心愿</View>
           </View>
           <View className="item">
             <View className="num">{user.following_count || 0}</View>

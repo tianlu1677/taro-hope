@@ -35,7 +35,7 @@ const defaultState = {
 
 class NewTopic extends Component {
   config = {
-    navigationBarTitleText: "发布动态",
+    navigationBarTitleText: "发布心愿",
     navigationStyle: "custom",
   };
   constructor() {

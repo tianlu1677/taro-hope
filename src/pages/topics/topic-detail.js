@@ -46,7 +46,7 @@ import './topic-detail.module.scss'
 
 class TopicDetail extends Component {
   config = {
-    navigationBarTitleText: "动态详情",
+    navigationBarTitleText: "心愿详情",
     navigationStyle: "custom",
   };
 
@@ -65,7 +65,7 @@ class TopicDetail extends Component {
 
   $setShareTargetId = () => (this.topic_id)
   $setSharePath = () => (`/pages/topics/topic-detail?topic_id=${this.topic_id}`)
-  $setShareTitle = () => ('动态详情')
+  $setShareTitle = () => ('心愿详情')
 
   componentDidMount() {
     this.props.dispatchTopicDetail({topic_id: this.topic_id}).then((res) => {
@@ -211,7 +211,7 @@ class TopicDetail extends Component {
     return (
       <View className="topic-detail">
         <View className="header">
-          <Header title='动态详情' />
+          <Header title='心愿详情' />
         </View>
         <View className="topic-wrapper">
         <View className="avatar-wrapper border-top-1px">

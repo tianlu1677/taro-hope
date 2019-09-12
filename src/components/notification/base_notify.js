@@ -37,7 +37,7 @@ class BaseNotify extends Component {
         <View className="content">
           {/*创建topic*/}
           {
-            notify_type === 'topic' && topic && <View onClick={this.goTopicDetail.bind(this, topic.id)}>发布了新动态</View>
+            notify_type === 'topic' && topic && <View onClick={this.goTopicDetail.bind(this, topic.id)}>发布了新心愿</View>
           }
           {/*回复topic*/}
 
@@ -45,7 +45,7 @@ class BaseNotify extends Component {
             notify_type === 'topic_reply' &&
             <View onClick={this.goTopicDetail.bind(this, notification.reply.topic_id)}>
               <View>{notification.reply.body}</View>
-              <View className="root-reply"><Text className="me">我: </Text> 原动态</View>
+              <View className="root-reply"><Text className="me">我: </Text> 原心愿</View>
             </View>
           }
 
