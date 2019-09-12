@@ -287,11 +287,15 @@ class TopicDetail extends Component {
         }
 
         {
-          topicSuggestions.map((suggestion) => {
-            return <View key={suggestion.id}>
-              {suggestion.title}
-            </View>
-          })
+          <View className="suggestions-wrap">
+            {
+              topicSuggestions.map((suggestion) => {
+                return <View key={suggestion.id}>
+                  {suggestion.id} - {suggestion.title}
+                </View>
+              })
+            }
+          </View>
         }
 
         <View className="numbers">
