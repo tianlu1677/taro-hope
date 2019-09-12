@@ -3,9 +3,12 @@
 
 .topic-item {
   background-color: #ffffff;
+  margin: 0 20px;
   padding-top: 24px;
-  margin-bottom: 15px;
-  margin-top: 1px;
+  padding-bottom: 24px;
+  margin-bottom: 20px;
+  //margin-top: 1px;
+  border-radius: 20px;
   .avatar-wrapper {
     padding: 0 30px;
     .created-at {

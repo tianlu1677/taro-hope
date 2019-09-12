@@ -74,15 +74,15 @@ class UserHeader extends Component {
               <View className="edit-button" onClick={this.onGoEditUser}>
                 <Text className="text">编辑</Text>
               </View>
-              <View className="notice" onClick={this.onGoNotice}>
-                {unreadNotification > 0 ? <AtBadge value={1} maxValue={99}>
-                    <Image src={NoNotice} className="img"/>
-                  </AtBadge>
-                  : <AtBadge dot={false}>
-                    <Image src={NoNotice} className="img"/>
-                  </AtBadge>
-                }
-              </View>
+              {/*<View className="notice" onClick={this.onGoNotice}>*/}
+                {/*{unreadNotification > 0 ? <AtBadge value={1} maxValue={99}>*/}
+                    {/*<Image src={NoNotice} className="img"/>*/}
+                  {/*</AtBadge>*/}
+                  {/*: <AtBadge dot={false}>*/}
+                    {/*<Image src={NoNotice} className="img"/>*/}
+                  {/*</AtBadge>*/}
+                {/*}*/}
+              {/*</View>*/}
             </View>
           }
 

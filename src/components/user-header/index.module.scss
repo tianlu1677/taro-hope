@@ -1,7 +1,9 @@
 @import "../../styles/variable";
 
 .user-header {
+  background-color: white;
   padding: 34px 34px 34px 34px;
+  margin: 20px 20px 0 20px;
   .header {
     position: fixed;
     left: 0;
@@ -71,9 +73,9 @@
       }
     }
     .edit-button {
-      right: 83px;
+      //right: 45px;
       .text {
-        color: white;
+        color: rgba(54,54,54,1);
       }
     }
 
@@ -85,7 +87,7 @@
 
     }
     .edit-button {
-      background: $blue;
+      background: rgba(245,246,251,1);;
     }
   }
 

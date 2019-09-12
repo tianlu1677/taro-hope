@@ -196,7 +196,7 @@ class TopicDetail extends Component {
   }
 
   render() {
-    const {topic, topic: { topicDetail} } = this.props
+    const {topic, topic: { topicDetail, topicSuggestions} } = this.props
     const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
     const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'))
@@ -213,6 +213,7 @@ class TopicDetail extends Component {
         <View className="header">
           <Header title='动态详情' />
         </View>
+        <View className="topic-wrapper">
         <View className="avatar-wrapper border-top-1px">
           <Avatar
             user={topicDetail.user}
@@ -286,7 +287,11 @@ class TopicDetail extends Component {
         }
 
         {
-
+          topicSuggestions.map((suggestion) => {
+            return <View key={suggestion.id}>
+              {suggestion.title}
+            </View>
+          })
         }
 
         <View className="numbers">
@@ -299,7 +304,11 @@ class TopicDetail extends Component {
           </View>
         </View>
 
-        <Division />
+
+
+        </View>
+
+        {/*<Division />*/}
 
         <View className="topic-bottom border-top-1px" />
 

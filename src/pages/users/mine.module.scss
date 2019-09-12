@@ -5,6 +5,19 @@
   width: 100%;
   background-color: $light_white;
 }
-.list {
 
+.list-content {
+  padding: 20px;
+  .item {
+    display: flex;
+    justify-content: left;
+    height: 124px;
+    margin-bottom: 20px;
+    padding: 0 25px;
+    font-size: 32px;
+    line-height: 124px;
+    box-shadow: 6px 6px 12px 0px rgba(240,241,243,1);
+    border-radius: 12px;
+    background-color: white;
+  }
 }

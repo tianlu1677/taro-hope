@@ -6,8 +6,8 @@ import withShare from '@/utils/with_share';
 import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
 import { getCurrentUserTopicList } from '@/api/user_api'
-import TopicList from '@/components/list/topic-list'
-import Division from '@/components/division'
+// import TopicList from '@/components/list/topic-list'
+// import Division from '@/components/division'
 
 import './mine.module.scss';
 
@@ -150,14 +150,15 @@ class Mine extends Component {
           <UserHeader user={hideUser} showLogin />
         }
 
-        <Division />
-        <View className="list">
-          <TopicList
-            topicList={topicList}
-            loading={paginate.busy}
-            showUser={false}
-            bottom={!paginate.hasMore}
-          />
+        {/*<Division />*/}
+
+        <View className="list-content">
+          <View className="item" onClick={() => Taro.navigateTo({url: '/pages/notifications/index'})}>
+            <Text>消息中心</Text>
+          </View>
+          <View className="item">
+            <Text>意见反馈</Text>
+          </View>
         </View>
       </View>
     );

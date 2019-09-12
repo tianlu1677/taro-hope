@@ -26,7 +26,6 @@ class TopicList extends Component {
                 baseTopic={baseTopic}
                 showUser={showUser}
               />
-              {baseTopicIndex !== topicList.length - 1 &&  <Division /> }
             </View>
           })
         }

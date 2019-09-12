@@ -5,6 +5,7 @@ import withShare from '@/utils/with_share';
 import { dispatchTopicList } from "@/actions";
 import { getTopicList } from '@/api/topic_api'
 import TopicList from '@/components/list/topic-list'
+import AddTopic from '@/components/add-topic';
 import HookTopicList from '@/components/list/hook-topic-list'
 import { AtNoticebar } from 'taro-ui'
 
@@ -133,6 +134,10 @@ class Index extends Component {
             loading={this.state.paginate.busy}
           />
         }
+
+        <View className="new-topic">
+          <AddTopic />
+        </View>
       </View>
     )
   }
