@@ -83,7 +83,7 @@ class BaseTopic extends Component {
             </View>
             <View className="action">
               <UIcon icon="comment" ex-class="icon"/>
-              <Text className='icon-text'>{baseTopic.replies_count > 0 ? baseTopic.replies_count : '撩ta'}</Text>
+              <Text className='icon-text'>{baseTopic.replies_count > 0 ? baseTopic.replies_count : '评论'}</Text>
             </View>
           </View>
           {/*<View className='action-right'>*/}

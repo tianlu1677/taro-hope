@@ -12,6 +12,12 @@ import {
   CURRENT_USER_MORE_INFO,
   CURRENT_USER_UNREAD_NOTIFICATION,
   TOPIC_SUGGESTIONS,
+
+  ADD_SUGGESTION,
+  EDIT_SUGGESTION,
+  DELETE_SUGGESTION,
+  UPDATE_SUGGESTION,
+  INIT_SUGGESTION_LIST
 }
   from '@/constants'
 
@@ -114,3 +120,41 @@ export const dispatchUserUnReadNotification = options => createAction({
   method: 'GET',
   data: options
 })
+
+export const dispatchInitSuggestions = options => createAction({
+  url: `/api/v1/suggestions`,
+  type: INIT_SUGGESTION_LIST,
+  method: 'GET',
+  data: options
+})
+
+
+// 增加清单列表
+export const dispathAddSuggestion = baseSuggestion => {
+  return {
+    type: ADD_SUGGESTION,
+    payload: baseSuggestion
+  }
+}
+
+export const dispathEditSuggestion = (baseSuggestion, index) => {
+  return {
+    type: EDIT_SUGGESTION,
+    payload: { baseSuggestion: baseSuggestion, index: index }
+  }
+}
+
+export const dispathUpdateSuggestion = (baseSuggestion, index) => {
+  return {
+    type: UPDATE_SUGGESTION,
+    payload: { baseSuggestion: baseSuggestion, index: index }
+  }
+}
+
+export const dispathDeleteSuggestion = index => {
+  return {
+    type: DELETE_SUGGESTION,
+    payload: {index: index }
+  }
+}
+

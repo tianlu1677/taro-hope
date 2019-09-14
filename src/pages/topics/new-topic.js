@@ -1,13 +1,17 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Video, Text, Button, Textarea, RichText, Radio, Input, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import { createTopic, getTopicDetail, updateTopicDetail } from "@/api/topic_api";
+import { createTopic, getTopicDetail, updateTopicDetail, deleteTopic } from "@/api/topic_api";
+import { createSuggestions } from '@/api/suggestions_api'
 import addVideoImg from '@/assets/images/add-video.png';
 import addPhotoImg from '@/assets/images/add-photo.png';
 import removeMediaImg from '@/assets/images/close.png'
 import playVideoImg from '@/assets/images/play-video.png'
 import Header from '@/components/header'
 import goPage from '@/utils/page_path'
+import SuggestionList from '@/components/suggestion'
+import UIcon from '@/components/uicon'
+
 import { AtTextarea, AtSwitch, AtInput  } from 'taro-ui'
 import { uploadImages, uploadVideo } from "@/utils/upload_images"
 import {
@@ -26,7 +30,8 @@ const defaultState = {
   validateForm: false,
   submitting: false,
   public_at: '',
-  is_hide: false
+  is_hide: false,
+  suggestionList: []
 }
 
 @connect(state => state, {
@@ -216,6 +221,24 @@ class NewTopic extends Component {
     Taro.hideLoading({});
   }
 
+  deleteTopic = async () => {
+    const res = await Taro.showModal({
+      title: '您确定要删除吗？',
+    })
+    if(res.confirm) {
+      deleteTopic(this.topic_id)
+      Taro.showToast({
+        title: '删除成功',
+        icon: 'success',
+        duration: 1500,
+        mask: true,
+        success: () => {
+          Taro.switchTab({url: '/pages/users/todo-list'})
+        }
+      })
+    }
+  }
+
   async _submitFormTopic(topic_id) {
     const data = this._formatTopicForm()
     let topic_res = {}
@@ -223,11 +246,13 @@ class NewTopic extends Component {
       topic_res = await updateTopicDetail(topic_id, data)
     } else {
       topic_res = await createTopic(data)
-      // console.log('topic', topic_res)
+
     }
     if (topic_res.status === 'failed') {
       Taro.showModal({title: "提示", content: topic_res.msg, showCancel: false, confirmColor: "#00D2FF"});
     } else {
+      // console.log('topic', topic_res)
+      this._submitSuggestions(topic_res.topic.id)
       Taro.redirectTo({url: `/pages/topics/topic-detail?topic_id=${topic_res.topic.id}` });
       this.resetTopicForm();
     }
@@ -243,9 +268,16 @@ class NewTopic extends Component {
       public_at: public_at,
       medias: selectImages.map((file) => (file.split("?")[0])),
       body: body || blank_body,
-      video_content: video_content
+      video_content: video_content,
+      node_id: 12,
     };
   }
+
+  _submitSuggestions = (topic_id) => {
+    let suggestions = this.props.topic.editSuggestionList
+    createSuggestions({data: suggestions, topic_id: topic_id})
+  }
+
 
   resetTopicForm() {
     // this._clearCacheTopic();
@@ -254,16 +286,21 @@ class NewTopic extends Component {
   isValidateForm = () => {
     let status = false
     const { selectImages, video_content, body } = this.state
-    if (!selectImages && !video_content) {
-      status = false;
+    if (this.props.topic.editSuggestionList.length > 0 &&  this.props.topic.editSuggestionList[0].title.length > 1) {
+      return true;
     } else {
-      let has_text = body.length > 0;
-      let has_image = selectImages.length > 0;
-      let has_video = video_content && video_content.indexOf('meirixinxue') >= 0
-      status = has_text || (has_image || has_video);
+      return false;
     }
+    // if (!selectImages && !video_content) {
+    //   status = false;
+    // } else {
+    //   let has_text = body.length > 0;
+    //   let has_image = selectImages.length > 0;
+    //   let has_video = video_content && video_content.indexOf('meirixinxue') >= 0
+    //   status = has_text || (has_image || has_video);
+    // }
 
-    return status
+    // return status
   }
 
   handleBack = () => {
@@ -306,10 +343,17 @@ class NewTopic extends Component {
                 value={body}
                 onChange={this.addPlainText}
                 maxLength={2000}
-                height={300}
+                height={150}
                 count={false}
                 placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}
                 placeholderClass="plain-content-place-holder"
+              />
+            </View>
+
+            <View className="suggestions-wrap">
+              <SuggestionList
+                suggestionList={this.state.suggestionList}
+                topic_id={this.topic_id}
               />
             </View>
 
@@ -397,11 +441,24 @@ class NewTopic extends Component {
             </View>
           }
 
-          <View className="publish-button" onClick={this.onSubmit}>
-            <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
-              发布
+          {
+            this.topic_id && <View className="edit-publish-button">
+              <View className={this.isValidateForm() ? 'ready save-btn' : 'no-ready save-btn'} onClick={this.onSubmit}>
+                发布
+              </View>
+              <View className="delete-btn" onClick={this.deleteTopic}>
+                <UIcon icon="trash" ex-class="trash-color" />
+              </View>
             </View>
-          </View>
+          }
+          {
+            !this.topic_id && <View className="publish-button" onClick={this.onSubmit}>
+              <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
+                发布
+              </View>
+            </View>
+          }
+
         </View>
       </View>
     )

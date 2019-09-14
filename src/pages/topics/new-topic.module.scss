@@ -21,7 +21,7 @@ page {
     font-size: 32px;
     font-weight: 400;
     line-height: 42px;
-    min-height: 100px;
+    //min-height: 100px;
     .title-placeholder {
       font-size: 32px;
       font-weight: 300;
@@ -29,15 +29,16 @@ page {
     }
     .title {
       height: 100px;
+      width: 100%;
       border: none;
       border-bottom: 1PX solid rgba(0,0,0,0.08);
       border-radius: 0;
-      padding: 24px 30px 24px 15px;
+      padding: 24px 0 24px 15px;
       font-size: 32px;
       font-weight: 400;
       color: rgba(61,61,61,1);
       letter-spacing: 1px;
-      //text-align: center;
+
     }
     .empty-title {
       height: 70px;
@@ -46,7 +47,7 @@ page {
   }
 
   .content {
-    padding: 24px 30px 1px 60px;
+    padding: 24px 0 1px 60px;
     //padding-top: 10px;
     //padding-bottom: 50px;
     .plain-content-block {
@@ -74,11 +75,19 @@ page {
         height: 150px;
         font-size: 30px;
         letter-spacing: 1px;
+      }
+    }
 
+    .suggestions-wrap {
+      .add-sug {
+        color: $red;
+        font-size: 30px;
+        font-weight: 300;
       }
     }
     .medias-block {
       margin-top: 56px;
+      padding-right: 30px;
       //margin-bottom: 100px;
       display: flex;
       flex: 1;
@@ -176,6 +185,37 @@ page {
     font-size: 36px;
     .text {
 
+    }
+  }
+  .edit-publish-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    line-height: 100px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    font-size: 36px;
+    .no-ready {
+      background: rgba(255,165,188,1);;
+      color: rgba(255,197,212,1);;
+    }
+    .ready {
+      background: $red;
+      color: $white;
+    }
+
+    .save-btn {
+      width: 80%;
+    }
+    .delete-btn {
+      width: 20%;
+      background: rgba(243,243,243,1);
+      .trash-color {
+        color: #C6C6C6;
+      }
     }
   }
 }

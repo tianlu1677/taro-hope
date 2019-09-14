@@ -7,12 +7,19 @@ import {
   TOPIC_LIKE,
   TOPIC_UN_LIKE,
   TOPIC_SUGGESTIONS,
+
+  ADD_SUGGESTION,
+  EDIT_SUGGESTION,
+  DELETE_SUGGESTION,
+  INIT_SUGGESTION_LIST,
+  UPDATE_SUGGESTION,
 } from '@/constants'
 
 const INITIAL_STATE = {
   topicDetail: {user: {}, medias: [], ability: {}},
   topicMeta: {liked: false, followed_user: false},
   topicSuggestions: [],
+  editSuggestionList: [],
 }
 
 export default function Reducer(state = INITIAL_STATE, action) {
@@ -48,7 +55,38 @@ export default function Reducer(state = INITIAL_STATE, action) {
         ...state,
         topicSuggestions: action.payload.data.suggestions
       }
+    case INIT_SUGGESTION_LIST:
+      return {
+        ...state,
+        editSuggestionList: action.payload.data.suggestions
+      }
+
+    case ADD_SUGGESTION:
+      return {
+        ...state,
+        editSuggestionList:  state.editSuggestionList.concat([action.payload])
+      }
+
+    case EDIT_SUGGESTION:
+      return {
+        ...state,
+        editSuggestionList:  state.editSuggestionList.map((sug, sug_index) => (action.payload.index === sug_index ?  { ...sug, ...action.payload.baseSuggestion} : sug)) //editSuggestion(state.editSuggestionList, action.payload.index, action.payload.baseSuggestion)
+      }
+
+    case DELETE_SUGGESTION: {
+      return {
+        ...state,
+        editSuggestionList: state.editSuggestionList.filter((sug, sug_index) => (sug_index !== action.payload.index))
+      }
+    }
     default:
       return state
   }
+}
+
+
+function editSuggestion(suggestions = [], index, suggestion) {
+  suggestions.map((sug, sug_index) => {
+    return sug_index === index ? { ...sug, ...suggestion} : sug
+  })
 }

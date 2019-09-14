@@ -6,6 +6,7 @@ import withShare from '@/utils/with_share';
 import { dispatchCurrentUser, dispatchCurrentUserMoreInfo, dispatchUserUnReadNotification} from '@/actions'
 import { getMineTopicList, getDefaultUserTopicList } from '@/api/user_api'
 import goPage from "@/utils/page_path"
+import UIcon from '@/components/uicon'
 import './todo-list.module.scss'
 
 @withShare({
@@ -73,7 +74,7 @@ class TodoList extends Component {
               </View>
 
               <View className="status">
-                <View>{topic.public_at ? 'ok' : 'no'}</View>
+                <View className="icons">{topic.public_at ? <UIcon icon="public" /> : <UIcon icon="private" />}</View>
               </View>
             </View>
           })

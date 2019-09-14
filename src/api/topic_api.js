@@ -35,6 +35,14 @@ export async function updateTopicDetail(id, body) {
   return res.data;
 }
 
+export async function deleteTopic(id) {
+  const res = await request({
+    url: "/api/v1/topics/" + id,
+    method: 'DELETE',
+    data: {}
+  });
+  return res.data;
+}
 
 export async function getTopicReplies(id) {
   const res = await request({

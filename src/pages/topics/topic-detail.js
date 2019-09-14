@@ -23,6 +23,7 @@ import UIcon from '@/components/uicon'
 import goPage from "@/utils/page_path"
 import ShareIcon from '@/components/share-icon'
 import playVideoImg from '@/assets/images/play-video.png'
+import SuggestionList from '@/components/suggestion/suggestion-list'
 
 import './topic-detail.module.scss'
 
@@ -288,13 +289,7 @@ class TopicDetail extends Component {
 
         {
           <View className="suggestions-wrap">
-            {
-              topicSuggestions.map((suggestion) => {
-                return <View key={suggestion.id}>
-                  {suggestion.id} - {suggestion.title}
-                </View>
-              })
-            }
+            <SuggestionList suggestionList={topicSuggestions} />
           </View>
         }
 
@@ -334,7 +329,7 @@ class TopicDetail extends Component {
               <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
             </View>
             <View className="item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">撩ta</Text>
+              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">评论</Text>
             </View>
             <View className="item">
               <ShareIcon size='middle' />
