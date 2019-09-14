@@ -70,7 +70,7 @@ class TodoList extends Component {
             return <View className="todo" key={topic.id} onClick={() => (goPage.goTopicDetail(topic.id))}>
               <View className="content">
                 <View className="title">{topic.title}</View>
-                <View className="time">{topic.created_at_text}</View>
+                <View className="time">{topic.changed_at_text}</View>
               </View>
 
               <View className="status">

@@ -6,6 +6,7 @@ import withShare from '@/utils/with_share';
 import UserHeader from '@/components/user-header';
 import { AtActivityIndicator } from 'taro-ui'
 import { getCurrentUserTopicList } from '@/api/user_api'
+import UIcon from '@/components/uicon'
 // import TopicList from '@/components/list/topic-list'
 // import Division from '@/components/division'
 
@@ -154,10 +155,12 @@ class Mine extends Component {
 
         <View className="list-content">
           <View className="item" onClick={() => Taro.navigateTo({url: '/pages/notifications/index'})}>
-            <Text>消息中心</Text>
+            <Text className="txt">消息中心</Text>
+            <UIcon icon="arrow-right" ex-class="icon-item"/>
           </View>
           <View className="item">
-            <Text>意见反馈</Text>
+            <Text className="txt">意见反馈</Text>
+            <UIcon icon="arrow-right" ex-class="icon-item"/>
           </View>
         </View>
       </View>

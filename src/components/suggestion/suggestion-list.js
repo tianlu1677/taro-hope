@@ -18,7 +18,7 @@ class SuggestionList extends Component {
     return (<View>
         {
           suggestionList.map((sug) => {
-            return <BaseSuggestion baseSuggestion={sug}/>
+            return <BaseSuggestion baseSuggestion={sug} key={sug.id}/>
           })
         }
       </View>

@@ -269,7 +269,7 @@ class NewTopic extends Component {
       medias: selectImages.map((file) => (file.split("?")[0])),
       body: body || blank_body,
       video_content: video_content,
-      node_id: 12,
+      // node_id: 12,
     };
   }
 
@@ -346,7 +346,7 @@ class NewTopic extends Component {
                 height={150}
                 count={false}
                 placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}
-                placeholderClass="plain-content-place-holder"
+                placeholderStyle="color: #BDBDBD"
               />
             </View>
 

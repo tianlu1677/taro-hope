@@ -10,7 +10,8 @@
   padding: 20px;
   .item {
     display: flex;
-    justify-content: left;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     height: 124px;
     margin-bottom: 20px;
     padding: 0 25px;
@@ -19,5 +20,12 @@
     box-shadow: 6px 6px 12px 0px rgba(240,241,243,1);
     border-radius: 12px;
     background-color: white;
+    .txt {
+      justify-content: flex-start;
+    }
+    .icon-item {
+      justify-content: flex-end;
+      color: #E2E2E2;
+    }
   }
 }

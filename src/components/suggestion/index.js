@@ -12,6 +12,20 @@ import {
 } from "@/actions"
 
 import './index.module.scss'
+const options = [{
+  text: '取消',
+  type: 'cancel',
+  style: {
+    backgroundColor: '#6190E8'
+  }
+},
+  {
+    text: '删除',
+    type: 'success',
+    style: {
+      backgroundColor: '#FF4949'
+    }
+  }]
 
 @connect(state => state.topic, {
   dispathAddSuggestion, dispathEditSuggestion, dispathDeleteSuggestion,dispatchInitSuggestions,
@@ -66,22 +80,13 @@ class Suggestion extends Component {
           {
             editSuggestionList.map((baseSuggestion, index) => {
 
-              return <AtSwipeAction autoClose className="delete-wrap" onClick={this.onDeleteSuggestion.bind(this, index)} options={[
-                {
-                  text: '取消',
-                  type: 'cancel',
-                  style: {
-                    backgroundColor: '#6190E8'
-                  }
-                },
-                {
-                  text: '确认',
-                  type: 'success',
-                  style: {
-                    backgroundColor: '#FF4949'
-                  }
-                }
-              ]}>
+              return <AtSwipeAction
+                autoClose
+                className="delete-wrap"
+                key={baseSuggestion.id}
+                onClick={this.onDeleteSuggestion.bind(this, index)}
+                options={options}
+              >
               <View className="base-suggestion" key={baseSuggestion.id}>
                 <View className="select-box" onClick={this.onChangeSuggestionStatus.bind(this, baseSuggestion, index)}>
                   { baseSuggestion.status === 'finish' ? <UIcon icon="plus" ex-class="finished"/> : '' }
