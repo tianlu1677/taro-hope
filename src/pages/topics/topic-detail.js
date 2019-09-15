@@ -200,7 +200,7 @@ class TopicDetail extends Component {
     const {topic, topic: { topicDetail, topicSuggestions} } = this.props
     const {topic: { topicMeta } } = this.props
     const {currentComment, show_comment, loading} = this.state
-    const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!750x490r/gravity/Center/crop/750x490'))
+    const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!1125x735r/gravity/Center/crop/1125x735'))
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
     const MediaLength = topicMedias.length + (topicDetail.video_content ? 1 : 0)
     let video_content = topicDetail.video_content ? topicDetail.video_content + '?vframe/jpg/offset/1/rotate/auto' : ''

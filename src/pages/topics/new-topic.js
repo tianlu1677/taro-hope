@@ -429,11 +429,11 @@ class NewTopic extends Component {
             </View>
           </View>
 
-          {/*{*/}
-            {/*<View className="is-hide">*/}
-              {/*<AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />*/}
-            {/*</View>*/}
-          {/*}*/}
+          {
+            <View className="is-hide">
+              <AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />
+            </View>
+          }
 
           {
             this.topic_id && <View className="edit-publish-button">
