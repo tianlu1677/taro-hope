@@ -144,17 +144,20 @@ export const dispathEditSuggestion = (baseSuggestion, index) => {
   }
 }
 
-export const dispathUpdateSuggestion = (baseSuggestion, index) => {
-  return {
-    type: UPDATE_SUGGESTION,
-    payload: { baseSuggestion: baseSuggestion, index: index }
-  }
-}
 
 export const dispathDeleteSuggestion = index => {
   return {
     type: DELETE_SUGGESTION,
     payload: {index: index }
+  }
+}
+
+export const dispathEmptySuggestions = options => {
+  return {
+    type: INIT_SUGGESTION_LIST,
+    payload: {
+      data: {suggestions: []}
+    }
   }
 }
 

@@ -9,9 +9,11 @@ import {
   dispathEditSuggestion,
   dispathDeleteSuggestion,
   dispatchInitSuggestions,
+  dispathEmptySuggestions,
 } from "@/actions"
 
 import './index.module.scss'
+
 const options = [{
   text: '取消',
   type: 'cancel',
@@ -28,7 +30,11 @@ const options = [{
   }]
 
 @connect(state => state.topic, {
-  dispathAddSuggestion, dispathEditSuggestion, dispathDeleteSuggestion,dispatchInitSuggestions,
+  dispathAddSuggestion,
+  dispathEditSuggestion,
+  dispathDeleteSuggestion,
+  dispatchInitSuggestions,
+  dispathEmptySuggestions,
 })
 
 class Suggestion extends Component {
@@ -42,6 +48,8 @@ class Suggestion extends Component {
   componentDidMount() {
     if(this.props.topic_id) {
       this.props.dispatchInitSuggestions({topic_id: this.props.topic_id})
+    } else {
+      this.props.dispathEmptySuggestions()
     }
   }
 

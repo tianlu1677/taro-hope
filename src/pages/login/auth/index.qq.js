@@ -3,7 +3,7 @@ import {View, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {getSessionKey} from '@/api/user_api'
 
-const CurrentAPPId = '1109668561'
+const CurrentAPPId = '1109653097'
 const CurrentClientType = 'qq'
 
 class Auth extends Component {

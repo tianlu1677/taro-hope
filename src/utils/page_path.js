@@ -2,7 +2,7 @@ import Taro from "@tarojs/taro";
 
 export default class goPage {
   static goHomeUrl(params = "") {
-    Taro.switchTab({url: "/pages/home/index"});
+    Taro.switchTab({url: "/pages/users/todo-list"});
   }
   // 兴趣广场
   // static goCategoryListUrl() {

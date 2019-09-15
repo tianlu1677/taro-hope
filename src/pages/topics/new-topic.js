@@ -223,7 +223,8 @@ class NewTopic extends Component {
 
   deleteTopic = async () => {
     const res = await Taro.showModal({
-      title: '您确定要删除吗？',
+      title: '提示',
+      content: '确定删除后将无法找回，是否仍要删除？',
     })
     if(res.confirm) {
       deleteTopic(this.topic_id)
