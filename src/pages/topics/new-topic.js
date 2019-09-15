@@ -260,16 +260,14 @@ class NewTopic extends Component {
 
   _formatTopicForm = () => {
     const {  selectImages, title, body, public_at, video_content, is_hide } = this.state
-    const blank_body = video_content ? '分享视频' : '分享图片'
     return {
       id: this.topic_id,
       is_hide: is_hide,
-      title: title,
+      title: title || '',
       public_at: public_at,
       medias: selectImages.map((file) => (file.split("?")[0])),
-      body: body || blank_body,
+      body: body || '',
       video_content: video_content,
-      // node_id: 12,
     };
   }
 
@@ -330,7 +328,7 @@ class NewTopic extends Component {
               placeholder='给心愿清单起个标题名字吧'
               placeholderClass="title-placeholder"
               autoHeight
-              maxLength={140}
+              maxLength={30}
               value={title}
               onInput={this.addTitle}
               className={!!title ? `title` : `title empty-title`}
@@ -435,11 +433,11 @@ class NewTopic extends Component {
             </View>
           </View>
 
-          {
-            <View className="is-hide">
-              <AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />
-            </View>
-          }
+          {/*{*/}
+            {/*<View className="is-hide">*/}
+              {/*<AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />*/}
+            {/*</View>*/}
+          {/*}*/}
 
           {
             this.topic_id && <View className="edit-publish-button">

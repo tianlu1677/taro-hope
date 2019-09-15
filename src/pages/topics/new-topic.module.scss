@@ -2,6 +2,8 @@
 
 page {
   background-color: white;
+  width: auto;
+  height: auto;
 }
 .header {
   position: fixed;
@@ -29,12 +31,12 @@ page {
     }
     .title {
       height: 100px;
-      width: 100%;
+      width: 93.5%;
       border: none;
       border-bottom: 1PX solid rgba(0,0,0,0.08);
       border-radius: 0;
-      padding: 24px 0 24px 15px;
-      margin-right: 30px;
+      padding: 24px 1px 24px 15px;
+      //margin-right: 30px;
       font-size: 32px;
       font-weight: 400;
       color: rgba(61,61,61,1);
@@ -48,12 +50,13 @@ page {
   }
 
   .content {
-    padding: 24px 0 1px 60px;
+    padding: 24px 30px 1px 60px;
     //padding-top: 10px;
     //padding-bottom: 50px;
     .plain-content-block {
       min-height: 150px;
       font-size: 30px;
+      padding-right: 30px;
       .at-textarea {
         border: none;
 
@@ -84,6 +87,7 @@ page {
     }
 
     .suggestions-wrap {
+      //padding-right: 30px;
       .add-sug {
         color: $red;
         font-size: 30px;

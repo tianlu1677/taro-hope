@@ -21,7 +21,8 @@ import './todo-list.module.scss'
 
 class TodoList extends Component {
   config = {
-    navigationBarTitleText: "我的心愿"
+    navigationBarTitleText: "我的心愿",
+    enablePullDownRefresh: true,
   };
 
   constructor() {
@@ -56,6 +57,15 @@ class TodoList extends Component {
         topicList: res.topics
       })
     })
+  }
+
+  async onPullDownRefresh() {
+    if(this.auth_token) {
+      this.currentUserTopicList()
+    } else {
+      this.defaultTopicList()
+    }
+    Taro.stopPullDownRefresh()
   }
 
   render() {
