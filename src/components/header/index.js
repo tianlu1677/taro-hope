@@ -18,25 +18,24 @@ class Header extends Component {
       } else {
         goPage.goHomeUrl()
       }
+    },
+    handleHome: () => {
+      goPage.goHomeUrl()
     }
   }
 
   componentDidMount() {
   }
 
-  goHome = () => {
-    goPage.goHomeUrl()
-  }
-
   render() {
-    const {handleBack, title} = this.props
+    const {handleBack, title, handleHome} = this.props
     return (<View className="header">
         <View className="left">
           <View onClick={handleBack}>
             <UIcon icon="arrow-left" ex-class="i-back"/>
           </View>
           <View className="line">|</View>
-          <View onClick={this.goHome}>
+          <View onClick={handleHome}>
             <UIcon icon="home" ex-class="i-home"/>
           </View>
         </View>

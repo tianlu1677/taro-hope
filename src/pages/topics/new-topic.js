@@ -302,11 +302,7 @@ class NewTopic extends Component {
   }
 
   handleBack = () => {
-    if(this.topic_id) {
-      Taro.redirectTo({url: '/pages/topics/new-topic?topic_id=' + this.topic_id})
-    } else {
-      Taro.switchTab({url: '/pages/mine/todo-list'})
-    }
+    Taro.navigateBack({delta: 1})
   }
 
   render() {
@@ -317,7 +313,7 @@ class NewTopic extends Component {
     return (<View>
         <View className="header">
           <Header
-            title='发布心愿'
+            title={ this.topic_id ? '编辑心愿' : '发布心愿' }
             handleBack={this.handleBack}
           />
         </View>
@@ -442,7 +438,7 @@ class NewTopic extends Component {
           {
             this.topic_id && <View className="edit-publish-button">
               <View className={this.isValidateForm() ? 'ready save-btn' : 'no-ready save-btn'} onClick={this.onSubmit}>
-                发布
+                保存
               </View>
               <View className="delete-btn" onClick={this.deleteTopic}>
                 <UIcon icon="trash" ex-class="trash-color" />
