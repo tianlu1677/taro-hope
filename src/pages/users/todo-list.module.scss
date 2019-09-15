@@ -28,7 +28,7 @@ page{
     flex-direction: column;
     justify-content: flex-start;
     padding: 25px;
-    padding-right: 35px;
+    padding-right: 0;
     font-size: 32px;
     font-weight: 400;
     color: rgba(61,61,61,1);
@@ -44,9 +44,11 @@ page{
     }
   }
   .status {
+    //width: 30%;
+    padding-left: 40px;
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    padding-right: 20px;
     color: #DBDBDB;
   }
 }

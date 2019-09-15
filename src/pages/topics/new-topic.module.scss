@@ -10,7 +10,7 @@ page {
   left: 0;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background-color: $white;
 }
 
@@ -184,6 +184,7 @@ page {
     line-height: 100px;
     width: 100%;
     text-align: center;
+    z-index: 1000;
     .no-ready {
       background: rgba(255,165,188,1);;
       color: rgba(255,197,212,1);;
@@ -208,6 +209,7 @@ page {
     text-align: center;
     display: flex;
     font-size: 36px;
+    z-index: 1000;
     .no-ready {
       background: rgba(255,165,188,1);;
       color: rgba(255,197,212,1);;

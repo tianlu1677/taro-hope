@@ -47,7 +47,7 @@ class BaseTopic extends Component {
               </View>
           }
         </View>
-        <View className="title">
+        <View className="title" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
           { baseTopic.title }
         </View>
 

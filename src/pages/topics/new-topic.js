@@ -263,7 +263,7 @@ class NewTopic extends Component {
 
   _formatTopicForm = () => {
     const {  selectImages, title, body, public_at, video_content, is_hide } = this.state
-    let topicTitle = title || this.props.topic.editSuggestionList[0].title || ''
+    let topicTitle = title || body || this.props.topic.editSuggestionList[0].title || ''
     return {
       id: this.topic_id,
       is_hide: is_hide,
@@ -328,7 +328,7 @@ class NewTopic extends Component {
               placeholder='给心愿清单起个标题名字吧'
               placeholderClass="title-placeholder"
               autoHeight
-              maxlength={30}
+              maxlength={100}
               value={title}
               onInput={this.addTitle}
               className={!!title ? `title` : `title empty-title`}

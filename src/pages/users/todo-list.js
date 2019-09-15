@@ -71,6 +71,16 @@ class TodoList extends Component {
     Taro.stopPullDownRefresh()
   }
 
+  goEditTopic = (topic_id, event) => {
+    event.stopPropagation()
+    goPage.goEditTopic(topic_id)
+  }
+
+  goTopicDetail = (topic_id, event) => {
+    event.stopPropagation()
+    goPage.goTopicDetail(topic_id)
+  }
+
   render() {
 
     const { topicList } = this.state
@@ -80,13 +90,13 @@ class TodoList extends Component {
 
         {
           topicList.map((topic) => {
-            return <View className="todo" key={topic.id} onClick={() => (goPage.goTopicDetail(topic.id))}>
+            return <View className="todo" key={topic.id} onClick={this.goEditTopic.bind(this, topic.id) }>
               <View className="content">
                 <View className="title">{topic.title}</View>
                 <View className="time">{topic.changed_at_text}</View>
               </View>
 
-              <View className="status">
+              <View className="status" onClick={this.goTopicDetail.bind(this, topic.id)}>
                 <View className="icons">{topic.public_at ? <UIcon icon="public" /> : <UIcon icon="private" />}</View>
               </View>
             </View>
