@@ -21,7 +21,7 @@ import './todo-list.module.scss'
 
 class TodoList extends Component {
   config = {
-    navigationBarTitleText: "我的心愿",
+    navigationBarTitleText: "心愿清单",
     enablePullDownRefresh: true,
   };
 

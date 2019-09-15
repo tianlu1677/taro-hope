@@ -30,7 +30,7 @@ const defaultState = {
   video_content: "",
   validateForm: false,
   submitting: false,
-  public_at: '',
+  public_at: new Date(),
   is_hide: false,
   suggestionList: []
 }
@@ -263,7 +263,7 @@ class NewTopic extends Component {
 
   _formatTopicForm = () => {
     const {  selectImages, title, body, public_at, video_content, is_hide } = this.state
-    let topicTitle = title || body || this.props.topic.editSuggestionList[0].title || ''
+    let topicTitle = title || (body && body.substr(0, 15)) || this.props.topic.editSuggestionList[0].title || ''
     return {
       id: this.topic_id,
       is_hide: is_hide,
