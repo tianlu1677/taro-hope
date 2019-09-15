@@ -27,6 +27,7 @@ class Mine extends Component {
   config = {
     navigationBarTitleText: "我",
     enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
     // navigationStyle: "custom",
   };
 

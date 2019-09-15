@@ -74,7 +74,7 @@ class NewTopic extends Component {
       public_at: public_at,
       selectImages: medias,
       is_hide: is_hide,
-      video_content: video_content
+      video_content: video_content || ''
     })
   }
   // 文字
@@ -288,7 +288,7 @@ class NewTopic extends Component {
   isValidateForm = () => {
     let status = false
     const { selectImages, video_content, body } = this.state
-    if (this.props.topic.editSuggestionList.length > 0 &&  this.props.topic.editSuggestionList[0].title.length > 1) {
+    if (this.props.topic.editSuggestionList.length > 0 &&  this.props.topic.editSuggestionList[0].title.length >= 1) {
       return true;
     } else {
       return false;

@@ -23,6 +23,7 @@ class TodoList extends Component {
   config = {
     navigationBarTitleText: "心愿清单",
     enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
   };
 
   constructor() {
