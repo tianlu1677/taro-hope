@@ -16,6 +16,7 @@ import { AtTextarea, AtSwitch, AtInput  } from 'taro-ui'
 import { uploadImages, uploadVideo } from "@/utils/upload_images"
 import {
   dispatchCurrentUser,
+  dispatchInitSuggestions,
 } from "@/actions"
 
 import './new-topic.module.scss';
@@ -36,6 +37,7 @@ const defaultState = {
 
 @connect(state => state, {
   dispatchCurrentUser,
+  dispatchInitSuggestions
 })
 
 class NewTopic extends Component {
@@ -261,10 +263,11 @@ class NewTopic extends Component {
 
   _formatTopicForm = () => {
     const {  selectImages, title, body, public_at, video_content, is_hide } = this.state
+    let topicTitle = title || this.props.topic.editSuggestionList[0].title || ''
     return {
       id: this.topic_id,
       is_hide: is_hide,
-      title: title || '',
+      title: topicTitle,
       public_at: public_at,
       medias: selectImages.map((file) => (file.split("?")[0])),
       body: body || '',
@@ -325,7 +328,7 @@ class NewTopic extends Component {
               placeholder='给心愿清单起个标题名字吧'
               placeholderClass="title-placeholder"
               autoHeight
-              maxLength={30}
+              maxlength={30}
               value={title}
               onInput={this.addTitle}
               className={!!title ? `title` : `title empty-title`}
