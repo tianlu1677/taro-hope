@@ -35,11 +35,10 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    if(this.auth_token) {
-      this.currentUserTopicList()
-    } else {
-      this.defaultTopicList()
-    }
+  }
+
+  componentDidShow() {
+    this.loadDefaultTopic()
   }
 
   defaultTopicList = () => {
@@ -48,6 +47,14 @@ class TodoList extends Component {
         topicList: res.topics
       })
     })
+  }
+
+  loadDefaultTopic = () => {
+    if(this.auth_token) {
+      this.currentUserTopicList()
+    } else {
+      this.defaultTopicList()
+    }
   }
 
   currentUserTopicList = () => {
@@ -60,11 +67,7 @@ class TodoList extends Component {
   }
 
   async onPullDownRefresh() {
-    if(this.auth_token) {
-      this.currentUserTopicList()
-    } else {
-      this.defaultTopicList()
-    }
+    this.loadDefaultTopic()
     Taro.stopPullDownRefresh()
   }
 

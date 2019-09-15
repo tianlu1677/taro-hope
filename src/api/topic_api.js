@@ -2,7 +2,7 @@ import request from "./request.js";
 
 export async function getTopicList(body = {}) {
   const res = await request({
-    url: "/api/v1/topics",
+    url: "/api/v1/todos",
     method: "GET",
     data: body
   });
@@ -11,7 +11,7 @@ export async function getTopicList(body = {}) {
 
 export async function createTopic(body = {}) {
   const res = await request({
-    url: "/api/v1/topics",
+    url: "/api/v1/todos/create_topic",
     method: "POST",
     data: body
   });
@@ -28,7 +28,7 @@ export async function getTopicDetail(id) {
 
 export async function updateTopicDetail(id, body) {
   const res = await request({
-    url: "/api/v1/topics/" + id,
+    url: "/api/v1/todos/update_topic?topic_id=" + id,
     method: 'POST',
     data: body
   });

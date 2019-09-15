@@ -305,7 +305,7 @@ class NewTopic extends Component {
     if(this.topic_id) {
       Taro.redirectTo({url: '/pages/topics/new-topic?topic_id=' + this.topic_id})
     } else {
-      goPage.goHomeUrl()
+      Taro.switchTab({url: '/pages/mine/todo-list'})
     }
   }
 
