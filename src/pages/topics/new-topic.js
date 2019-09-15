@@ -337,15 +337,27 @@ class NewTopic extends Component {
           </View>
           <View className="content">
             <View className="plain-content-block">
-              <AtTextarea
-                value={body}
-                onChange={this.addPlainText}
-                maxLength={2000}
-                height={150}
-                count={false}
-                placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}
+
+              <Textarea
+                placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
                 placeholderStyle="color: #BDBDBD"
+                autoHeight
+                maxlength={2000}
+                value={body}
+                onInput={this.addPlainText}
+                className="body-content"
               />
+
+
+              {/*<AtTextarea*/}
+                {/*value={body}*/}
+                {/*onChange={this.addPlainText}*/}
+                {/*maxLength={2000}*/}
+                {/*height={150}*/}
+                {/*count={false}*/}
+                {/*placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}*/}
+                {/*placeholderStyle="color: #BDBDBD"*/}
+              {/*/>*/}
             </View>
 
             <View className="suggestions-wrap">

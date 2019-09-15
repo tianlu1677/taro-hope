@@ -59,7 +59,7 @@ class Edit extends Component {
 
   render() {
     const {currentUser} = this.props
-    return (<View>
+    return (
         <View className="edit-account">
           <View className="edit-form">
             <View className="group">
@@ -132,7 +132,6 @@ class Edit extends Component {
             <View className="border-top-1px"/>
           </View>
         </View>
-      </View>
     );
   }
 }

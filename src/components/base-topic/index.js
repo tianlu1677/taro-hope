@@ -51,18 +51,20 @@ class BaseTopic extends Component {
           { baseTopic.title }
         </View>
 
-        <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
-          <View className="body-text">
+        {
+          baseTopic.body &&  <View className="body" onClick={this.goTopicDetail.bind(this, baseTopic.id)}>
+            <View className="body-text">
+              {
+                baseTopic.body && body.slice(0,5).map(i => {
+                  return <View className={i ? '' : 'txt'} key={i}>{i || '  '}</View>
+                })
+              }
+            </View>
             {
-              baseTopic.body && body.slice(0,5).map(i => {
-                return <View className={i ? '' : 'txt'} key={i}>{i || '  '}</View>
-              })
+              (body.length > 4 || baseTopic.body.length > 110) && <View className="body-more">更多</View>
             }
           </View>
-          {
-            (body.length > 4 || baseTopic.body.length > 110) && <View className="body-more">更多</View>
-          }
-        </View>
+        }
 
         <View className="medias">
           <ImageBox

@@ -51,7 +51,7 @@ class Auth extends Component {
       icon: "none",
       duration: 800
     });
-    let fromPath = Taro.getStorageSync("last_path") || "/pages/home/index";
+    let fromPath = Taro.getStorageSync("last_path") || "/pages/users/todo-list";
     Taro.removeStorageSync("last_path");
     Taro.reLaunch({url: fromPath});
   }

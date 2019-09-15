@@ -26,8 +26,8 @@ page{
   .content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 25px;
+    justify-content: center;
+    padding-left: 25px;
     padding-right: 0;
     font-size: 32px;
     font-weight: 400;
@@ -38,8 +38,10 @@ page{
       line-height: 1.2;
     }
     .time {
-      font-size:22px;
-      font-weight:400;
+      margin-top: 5px;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 43px;
       color: rgba(179,179,179,1);
     }
   }

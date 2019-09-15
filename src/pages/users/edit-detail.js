@@ -57,17 +57,27 @@ class EditDetail extends Component {
 
   render() {
     const { name, tagline } = this.props.currentUser
-    return (<View>
+    return (
         <View className="edit-account-input">
           {
             this.editColumn === 'name' && <View className="textarea-wrp">
-              <Textarea autoFocus value={name} onInput={this.addPlainText} maxlength="20"/>
+              <Textarea
+                autoFocus
+                focus
+                value={name}
+                onInput={this.addPlainText}
+                maxlength="20"/>
             </View>
           }
 
           {
             this.editColumn === 'tagline' && <View className="textarea-wrp">
-            <Textarea autoFocus value={tagline} maxlength="50" onInput={this.addTaglineText}/>
+            <Textarea
+              autoFocus
+              focus
+              value={tagline}
+              maxlength="50"
+              onInput={this.addTaglineText}/>
             </View>
           }
 
@@ -76,9 +86,7 @@ class EditDetail extends Component {
               保存
             </View>
           </View>
-
         </View>
-      </View>
     );
   }
 }
