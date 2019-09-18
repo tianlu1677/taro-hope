@@ -8,17 +8,17 @@
     top: 0;
     z-index: 100;
   }
-  padding-bottom: 70px;
+  padding-bottom: 120px;
 
   .topic-wrapper {
-    margin: 20px;
-    margin-top: 150px;
+    margin: 148px 20px 20px 20px;
     background-color: white;
-    padding-bottom: 20px;
-    border-radius:20px;
+    padding-bottom: 32px;
+    border-radius: 20px;
+    box-shadow:6px 6px 12px 0px rgba(240,241,243,1);
   }
   .avatar-wrapper {
-    padding: 26px 30px 0 26px;
+    padding: 25px 25px 0 25px;
   }
   .images {
     margin-top: 24px;
@@ -47,10 +47,10 @@
   }
   .title {
     margin-top: 25px;
-    padding: 0 30px;
+    padding: 0 25px;
     font-size: 32px;
-    font-weight:400;
-    color: rgba(61,61,61,1);
+    font-weight: 400;
+    color: #3D3D3D;
     line-height: 42px;
   }
   .body {
@@ -59,28 +59,27 @@
     font-size: 30px;
     font-weight: 300;
     line-height: 50px;
-    color: rgba(67, 73, 87, 1);
+    color: #3D3D3D;
     .txt {
       height: 20px;
     }
   }
   .suggestions-wrap {
-    padding: 0 30px;
-    padding-bottom: 30px;
-    line-height:43px;
-    font-size:30px;
-    font-weight:300;
-    color:rgba(61,61,61,1);
+    padding: 25px 25px 0 25px;
+    line-height: 43px;
+    font-size: 30px;
+    font-weight: 300;
+    color: rgba(61,61,61,1);
 
   }
   .numbers {
     display: flex;
-    margin-top: 10px;
+    margin-top: 32px;
     //margin-bottom: 34px;
-    padding: 0 30px;
+    padding: 0 25px;
     font-size: 24px;
     line-height: 40px;
-    color: rgba(189, 189, 189, 1);
+    color: #BDBDBD;
     .created_at {
       margin-right: 8px;
     }

@@ -217,7 +217,7 @@ class TopicDetail extends Component {
           <Header title='心愿详情' />
         </View>
         <View className="topic-wrapper">
-        <View className="avatar-wrapper border-top-1px">
+        <View className="avatar-wrapper">
           <Avatar
             user={topicDetail.user}
             showFollow={!canEdit}

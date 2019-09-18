@@ -63,7 +63,7 @@ class ImageBox extends Component {
             {
               show_medias.map((media) => {
                 return <View className="media-item" key={media} onClick={this.previewPhoto.bind(this, medias, media)}>
-                  <FormId customStyle={{borderRadius: '12px'}}>
+                  <FormId customStyle={{borderRadius: '18rpx'}}>
                     <Image
                       src={media}
                       className={medias.length + (video_content ? 1 : 0) >= 2 ? 'media-multi' : 'media-single'}

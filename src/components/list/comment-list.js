@@ -57,7 +57,7 @@ class CommentList extends Component {
           <View className="text">全部评论</View>
           {/*<Text className="comments-count">{comments_count || commentList.length}</Text>*/}
         </View>
-        { commentList.length <= 0 ? <Empty content="快去评论吧" /> : '' }
+        { commentList.length <= 0 ? <Empty customStyle={{height: '200rpx', lineHeight: '145rpx'}} content="快去评论吧" /> : '' }
         <View>
           {
             commentList.map((comment, comment_index) => {
