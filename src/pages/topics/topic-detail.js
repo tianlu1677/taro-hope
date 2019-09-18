@@ -62,11 +62,12 @@ class TopicDetail extends Component {
     super(...arguments);
     this.topic_id = this.$router.params.topic_id
     this.currentUserId = parseInt((Taro.getStorageSync('user_id') || 0))
+    this.currentUserName = Taro.getStorageSync('username')
   }
 
   $setShareTargetId = () => (this.topic_id)
   $setSharePath = () => (`/pages/topics/topic-detail?topic_id=${this.topic_id}`)
-  $setShareTitle = () => ('心愿详情')
+  $setShareTitle = () => (this.currentUserName + '心愿详情')
 
   componentDidMount() {
     this.props.dispatchTopicDetail({topic_id: this.topic_id}).then((res) => {
@@ -76,6 +77,7 @@ class TopicDetail extends Component {
     })
     this.getTopicReplyList(this.topic_id)
     this.props.dispatchTopicDetailSuggestions(this.topic_id)
+
   }
 
   componentDidShow() {

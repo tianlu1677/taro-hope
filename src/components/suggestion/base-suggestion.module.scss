@@ -1,9 +1,10 @@
+@import "../../styles/variable";
 .base-suggestion {
   display: flex;
   padding: 22px 0;
   font-size: 30px;
   //border-top: 1PX solid #EBEBEB;
-  border-bottom: 1PX solid #EBEBEB;
+  border-bottom: 1PX solid $color-row-line;
   .select-box {
     position: relative;
     width: 42px;

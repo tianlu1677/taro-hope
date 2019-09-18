@@ -16,7 +16,7 @@ page {
 
 .new-topic-detail {
   position: relative;
-  margin-top: 134px;
+  //margin-top: 134px;
   padding-bottom: 140px;
   font-size: 0;
   .title-content {
@@ -24,25 +24,24 @@ page {
     font-size: 32px;
     font-weight: 400;
     line-height: 42px;
-    //min-height: 100px;
-    .title-placeholder {
-      font-size: 32px;
-      font-weight: 300;
-      color: rgba(189,189,189,1);
-    }
     .title {
       height: 100px;
-      width: 93.5%;
+      width: 92.5%;
       border: none;
-      border-bottom: 1PX solid rgba(0,0,0,0.08);
+      border-top: 1PX solid #F3F3F3;
+      border-bottom: 1PX solid #F3F3F3;
       border-radius: 0;
       padding: 24px 1px 24px 0;
       //margin-right: 30px;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 400;
       color: rgba(61,61,61,1);
       letter-spacing: 1px;
-
+    }
+    .title-placeholder {
+      font-size: 32px;
+      font-weight: 300;
+      color: #B3B3B3;
     }
     .empty-title {
       height: 70px;
@@ -55,38 +54,22 @@ page {
     //padding-top: 10px;
     //padding-bottom: 50px;
     .plain-content-block {
-      min-height: 150px;
+      min-height: 170px;
       font-size: 30px;
       padding-right: 30px;
 
       .body-content {
-        height: 150px;
+        height: 200px;
         width: 100%;
         border: none;
         font-size: 30px;
         font-weight: 300;
-        line-height:43px;
+        line-height: 43px;
         letter-spacing: 1px;
         color:rgba(61,61,61,1);
       }
-      //.at-textarea {
-      //  border: none;
-      //  font-size: 30px;
-      //  font-weight: 300;
-      //  line-height:43px;
-      //  letter-spacing: 1px;
-      //  color:rgba(61,61,61,1);
-      //
-      //  .at-textarea__textarea {
-      //    line-height:43px;
-      //  }
-      //  .plain-content-place-holder {
-      //    color: #BDBDBD;
-      //    font-weight: 300;
-      //  }
-      //}
       .plain-content-place-holder {
-        color: #BDBDBD;
+        color: #B3B3B3;
         font-weight: 300;
       }
       //.plain-content {
@@ -178,10 +161,13 @@ page {
     color: gray;
   }
   .is-hide {
-    padding: 0 30px;
+    padding: 0 0 0 30px;
     .at-switch {
+      padding-right: 18px;
       .at-switch__title {
         color: #B3B3B3;
+        font-size: 30px;
+        font-weight: 300;
       }
     }
   }
@@ -196,8 +182,8 @@ page {
     text-align: center;
     z-index: 1000;
     .no-ready {
-      background: rgba(255,165,188,1);;
-      color: rgba(255,197,212,1);;
+      background: #FF8999;;
+      color: #FFC5D4;
     }
     .ready {
       background: $red;
@@ -221,8 +207,8 @@ page {
     font-size: 36px;
     z-index: 1000;
     .no-ready {
-      background: rgba(255,165,188,1);;
-      color: rgba(255,197,212,1);;
+      background: #FF8999;
+      color: #FFC5D4;
     }
     .ready {
       background: $red;

@@ -43,7 +43,7 @@ const defaultState = {
 class NewTopic extends Component {
   config = {
     navigationBarTitleText: "发布心愿",
-    navigationStyle: "custom",
+    // navigationStyle: "custom",
   };
   constructor() {
     super(...arguments);
@@ -315,18 +315,19 @@ class NewTopic extends Component {
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
     return (<View>
-        <View className="header">
-          <Header
-            title={ this.topic_id ? '编辑心愿' : '发布心愿' }
-            handleBack={this.handleBack}
-          />
-        </View>
+        {/*<View className="header">*/}
+          {/*<Header*/}
+            {/*title={ this.topic_id ? '编辑心愿' : '发布心愿' }*/}
+            {/*handleBack={this.handleBack}*/}
+          {/*/>*/}
+        {/*</View>*/}
         <View className="new-topic-detail">
 
           <View className="title-content">
             <Textarea
               placeholder='给心愿清单起个标题名字吧'
               placeholderClass="title-placeholder"
+              // placeholderStyle="font-weight: 300; color: #B3B3B3;"
               autoHeight
               maxlength={100}
               value={title}
@@ -340,7 +341,7 @@ class NewTopic extends Component {
 
               <Textarea
                 placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
-                placeholderStyle="color: #BDBDBD"
+                placeholderStyle="color: #B3B3B3; font-weight: 300;"
                 autoHeight
                 maxlength={2000}
                 value={body}
@@ -447,7 +448,7 @@ class NewTopic extends Component {
 
           {
             <View className="is-hide">
-              <AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FD7C97" border={false} onChange={this.choosePublic} />
+              <AtSwitch title='是否公开可见' checked={!!this.state.public_at} color="#FE586F" border={false} onChange={this.choosePublic} />
             </View>
           }
 
