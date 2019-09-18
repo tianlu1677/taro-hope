@@ -31,18 +31,19 @@ page{
     padding-right: 0;
     font-size: 32px;
     font-weight: 400;
-    color: rgba(61,61,61,1);
     line-height: 43px;
+    color: #3D3D3D;
     .title {
       @include multi-line-text(1);
-      line-height: 1.2;
+      line-height: 1;
+      overflow: hidden;
     }
     .time {
-      margin-top: 5px;
+      margin-top: 16px;
       font-size: 22px;
       font-weight: 400;
-      line-height: 43px;
-      color: rgba(179,179,179,1);
+      line-height: 1;
+      color: #B3B3B3;
     }
   }
   .status {
@@ -50,7 +51,7 @@ page{
     padding-left: 40px;
     display: flex;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 25px;
     color: #DBDBDB;
   }
 }
