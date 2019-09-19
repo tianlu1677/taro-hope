@@ -46,7 +46,9 @@ class UserHeader extends Component {
           showHeader && <View className="header">
             <Header title={user.name}/>
           </View>
-
+        }
+        {
+          !showHeader && <View className="header"></View>
         }
         <View className="avatar" style={{marginTop: showHeader ? Taro.pxTransform(150) : ''}}>
           <Image src={user.avatar_url} className="avatar-img" lazyLoad>

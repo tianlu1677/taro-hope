@@ -286,9 +286,10 @@ class NewTopic extends Component {
   }
 
   isValidateForm = () => {
-    let status = false
+    const {editSuggestionList} = this.props.topic
+    // let status = false
     const { selectImages, video_content, body } = this.state
-    if (this.props.topic.editSuggestionList.length > 0 &&  this.props.topic.editSuggestionList[0].title.length >= 1) {
+    if (editSuggestionList.length > 0 && editSuggestionList[0].title.length >= 1) {
       return true;
     } else {
       return false;
@@ -311,6 +312,7 @@ class NewTopic extends Component {
 
   render() {
     const { title, video_content, body, selectImages } = this.state
+    const {editSuggestionList} = this.props.topic
     let isShowPhotoUpload = (selectImages.length < 9 && !video_content) || (selectImages.length < 8 && video_content)
     let video_content_m3u8 = video_content.indexOf('meirixinxue') > 0 ? video_content.split('.mp4')[0] + '.m3u8' : ''
 
@@ -341,29 +343,16 @@ class NewTopic extends Component {
 
               <Textarea
                 placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
-                placeholderStyle="color: #B3B3B3; font-weight: 300;"
                 autoHeight
                 maxlength={2000}
                 value={body}
                 onInput={this.addPlainText}
                 className="body-content"
               />
-
-
-              {/*<AtTextarea*/}
-                {/*value={body}*/}
-                {/*onChange={this.addPlainText}*/}
-                {/*maxLength={2000}*/}
-                {/*height={150}*/}
-                {/*count={false}*/}
-                {/*placeholder={this.tenant.permissions.tip_message || '此刻说出你想对Ta说的话吧 ~'}*/}
-                {/*placeholderStyle="color: #BDBDBD"*/}
-              {/*/>*/}
             </View>
 
-            <View className="suggestions-wrap">
+            <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '35rpx' : '0'}}>
               <SuggestionList
-                suggestionList={this.state.suggestionList}
                 topic_id={this.topic_id}
               />
             </View>
@@ -465,7 +454,7 @@ class NewTopic extends Component {
           {
             !this.topic_id && <View className="publish-button" onClick={this.onSubmit}>
               <View className={this.isValidateForm() ? 'ready' : 'no-ready'}>
-                发布
+                发布心愿
               </View>
             </View>
           }

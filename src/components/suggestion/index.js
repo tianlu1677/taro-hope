@@ -104,10 +104,11 @@ class Suggestion extends Component {
                       <Input
                         className="title"
                         type="text"
-                        focus={!baseSuggestion.id}
+                        // focus={!baseSuggestion.id}
                         maxLength={200}
                         value={baseSuggestion.title}
                         placeholder="请输入您的清单"
+                        placeholderStyle="color: #B3B3B3;font-size: 30rpx"
                         adjustPosition
                         cursorSpacing={10}
                         onInput={this.onChangeSuggestion.bind(this, baseSuggestion, index)}

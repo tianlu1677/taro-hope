@@ -137,14 +137,14 @@ class Detail extends Component {
     }
 
     return ( <View className="user-detail">
-        <UserHeader
-          showFollow={!isCurrentUser}
-          user={userDetail}
-          userMeta={userMeta}
-          onFollow={this.onFollow}
-        />
-
-        <Division/>
+        <View className="user-detail-header">
+          <UserHeader
+            showFollow={!isCurrentUser}
+            user={userDetail}
+            userMeta={userMeta}
+            onFollow={this.onFollow}
+          />
+        </View>
 
         <View className="list">
           <TopicList

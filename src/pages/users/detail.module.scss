@@ -1,12 +1,13 @@
 @import "../../styles/variable";
 
 .user-detail {
-  .division {
-    height: 15px;
-    width: 100%;
-    background-color: $light_white;
+  //padding-top: 100px;
+  //.user-detail-header {
+  //  margin-top: 20px;
+  //}
+  .list {
+    margin-top: 20px;
   }
-
   .bottom {
     position: fixed;
     left: 0;
