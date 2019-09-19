@@ -2,7 +2,7 @@
 
 .user-header {
   background-color: white;
-  padding: 20px 34px 34px 34px;
+  padding: 0 0 0 0;
   margin: 20px 20px 0 20px;
   box-shadow: 6px 6px 12px 0px rgba(240,241,243,1);
   border-radius: 12px;
@@ -13,8 +13,14 @@
     top: 0;
     z-index: 100;
   }
+  .header-blank {
+    height: 132px;
+    background-color: #F5F6FB;
+  }
   .avatar {
+    padding: 25px 25px 0 25px;
     position: relative;
+    border-radius: 12px 12px 0 0;
     display: flex;
     flex: 0 0 130px;
     //margin-top: 20px;
@@ -62,7 +68,7 @@
     }
     .follow-button, .unfollow-button, .edit-button {
       position: absolute;
-      right: 1px;
+      right: 25px;
       top: 30px;
       width:180px;
       height:68px;
@@ -95,6 +101,7 @@
 
   .detail {
     display: flex;
+    padding: 0 25px 0 25px;
     margin-top: 50px;
     height: 40px;
     line-height:40px;
@@ -113,6 +120,7 @@
   }
   .numbers {
     display: flex;
+    padding: 0 25px 45px 25px;
     margin-top: 32px;
     font-size: 0;
     .item {

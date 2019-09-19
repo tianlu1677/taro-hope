@@ -340,7 +340,6 @@ class NewTopic extends Component {
           </View>
           <View className="content">
             <View className="plain-content-block">
-
               <Textarea
                 placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
                 autoHeight
@@ -351,7 +350,7 @@ class NewTopic extends Component {
               />
             </View>
 
-            <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '35rpx' : '0'}}>
+            <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '20rpx' : '0'}}>
               <SuggestionList
                 topic_id={this.topic_id}
               />

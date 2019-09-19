@@ -11,7 +11,7 @@
   padding-bottom: 120px;
 
   .topic-wrapper {
-    margin: 148px 20px 20px 20px;
+    margin: 153px 20px 20px 20px;
     background-color: white;
     padding-bottom: 32px;
     border-radius: 20px;
@@ -46,7 +46,7 @@
     }
   }
   .title {
-    margin-top: 25px;
+    margin-top: 30px;
     padding: 0 25px;
     font-size: 32px;
     font-weight: 400;
@@ -54,8 +54,8 @@
     line-height: 42px;
   }
   .body {
-    margin-top: 25px;
-    padding: 0 30px;
+    margin-top: 15px;
+    padding: 0 25px;
     font-size: 30px;
     font-weight: 300;
     line-height: 50px;
@@ -65,7 +65,7 @@
     }
   }
   .suggestions-wrap {
-    padding: 25px 25px 0 25px;
+    padding: 10px 25px 0 25px;
     line-height: 43px;
     font-size: 30px;
     font-weight: 300;
@@ -79,6 +79,7 @@
     padding: 0 25px;
     font-size: 24px;
     line-height: 40px;
+    font-weight: 300;
     color: #BDBDBD;
     .created_at {
       margin-right: 8px;

@@ -104,10 +104,10 @@ class Suggestion extends Component {
                       <Input
                         className="title"
                         type="text"
-                        // focus={!baseSuggestion.id}
+                        focus={!baseSuggestion.id}
                         maxLength={200}
                         value={baseSuggestion.title}
-                        placeholder="请输入您的清单"
+                        placeholder="输入事项内容"
                         placeholderStyle="color: #B3B3B3;font-size: 30rpx"
                         adjustPosition
                         cursorSpacing={10}

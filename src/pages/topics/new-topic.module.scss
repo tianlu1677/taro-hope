@@ -20,10 +20,10 @@ page {
   padding-bottom: 140px;
   font-size: 0;
   .title-content {
-    padding-left: 50px;
+    padding-left: 40px;
     .title {
       height: 100px;
-      width: 92.5%;
+      width: 96.5%;
       border: none;
       border-top: 1PX solid #F3F3F3;
       border-bottom: 1PX solid #F3F3F3;
@@ -47,13 +47,14 @@ page {
   }
 
   .content {
-    padding: 24px 30px 1px 50px;
+    padding: 24px 30px 1px 40px;
     //padding-top: 10px;
     //padding-bottom: 50px;
+    font-weight: 300;
     .plain-content-block {
       min-height: 170px;
       font-size: 30px;
-      padding-right: 30px;
+      //padding-right: 30px;
 
       .body-content {
         height: 200px;
@@ -61,7 +62,7 @@ page {
         border: none;
         font-size: 30px;
         font-weight: 300;
-        line-height: 43px;
+        line-height: 50px;
         letter-spacing: 1px;
         color:rgba(61,61,61,1);
       }
@@ -211,9 +212,8 @@ page {
       background: rgba(243,243,243,1);
       .trash-color {
         color: #C6C6C6;
-        //font-size: 36px;
-        height: 36px;
-        width: 36px;
+        font-size: 36px;
+        text-align: center;
       }
     }
   }

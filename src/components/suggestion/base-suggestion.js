@@ -32,17 +32,9 @@ class BaseSuggestion extends Component {
           { baseSuggestion.status === 'finish' ? <UIcon icon="plus" ex-class="finished"/> : '' }
         </View>
         <View className="title-wrap">
-          {
-            <Input
-              disabled
-              className="title"
-              type="text"
-              maxLength={200}
-              value={baseSuggestion.title}
-              placeholder="请输入您的清单"
-              adjustPosition
-            />
-          }
+          <View className="title">
+            { baseSuggestion.title }
+          </View>
         </View>
       </View>
     );

@@ -48,9 +48,15 @@ class UserHeader extends Component {
           </View>
         }
         {
-          !showHeader && <View className="header"></View>
+          !showHeader && <View className="header" />
         }
-        <View className="avatar" style={{marginTop: showHeader ? Taro.pxTransform(150) : ''}}>
+
+        { showHeader && <View className="header-blank" /> }
+
+        <View style={{borderRadius: '12rpx'}}>
+
+
+        <View className="avatar">
           <Image src={user.avatar_url} className="avatar-img" lazyLoad>
           </Image>
 
@@ -122,6 +128,7 @@ class UserHeader extends Component {
             <View className="num">{user.topics_likes_hits > 0 ? user.topics_likes_hits : 0}</View>
             <View className="txt">被喜欢</View>
           </View>
+        </View>
         </View>
       </View>
     );

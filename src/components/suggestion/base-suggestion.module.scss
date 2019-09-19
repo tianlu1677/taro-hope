@@ -1,4 +1,6 @@
 @import "../../styles/variable";
+@import "../../styles/mixin";
+
 .base-suggestion {
   display: flex;
   padding: 20px 0;
@@ -31,6 +33,7 @@
     margin-left: 20px;
     width: 100%;
     .title {
+      @include multi-line-text(1);
       height: 43px;
       font-size: 30px;
       font-weight: 300;
