@@ -75,7 +75,7 @@ class Suggestion extends Component {
 
   onDeleteSuggestion = (index, event) => {
     // event.stopPropagation()
-    console.log('event', event)
+    // console.log('event', event)
     if(event.type === 'success') {
       this.props.dispathDeleteSuggestion(index)
     }

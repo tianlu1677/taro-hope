@@ -2,22 +2,12 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {dispatchCurrentUser, dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser, dispatchUserMoreInfo} from '@/actions'
-import withShare from '@/utils/with_share';
 import { AtActivityIndicator } from 'taro-ui'
 import { getUserTopicList } from '@/api/user_api'
 import TopicList from '@/components/list/topic-list'
 import UserHeader from '@/components/user-header';
-import Division from '@/components/division'
 
 import './detail.module.scss'
-
-@withShare({
-  title: '',
-  imageUrl: '',
-  path: '',
-  target_id: '',
-  target_type: ''
-})
 
 @connect(state => state.user, { dispatchCurrentUser,  dispatchUserDetail, dispatchFollowUser, dispatchUnFollowUser, dispatchUserMoreInfo })
 
@@ -65,6 +55,13 @@ class Detail extends Component {
   }
 
   componentDidUpdate() {
+  }
+
+  onShareAppMessage() {
+    return {
+      title: this.props.userDetail.name + '的心愿清单',
+      path: '/pages/users/detail?user_id='+this.user_id,
+    };
   }
 
   onFollow = () => {

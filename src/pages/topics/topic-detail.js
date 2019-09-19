@@ -2,7 +2,6 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Input, Image, Swiper, SwiperItem} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import {getTopicReplies, createTopicReplies} from "@/api/topic_api";
-import withShare from '@/utils/with_share';
 import {
   dispatchCurrentUser,
   dispatchFollowUser,
@@ -14,7 +13,6 @@ import {
   dispatchTopicDetailSuggestions
 } from "@/actions"
 import Avatar from '@/components/avatar'
-import Division from '@/components/division'
 import CommentList from '@/components/list/comment-list'
 import {AtActivityIndicator} from 'taro-ui'
 import {deleteReply} from '@/api/reply_api'
@@ -27,13 +25,6 @@ import SuggestionList from '@/components/suggestion/suggestion-list'
 
 import './topic-detail.module.scss'
 
-@withShare({
-  title: '',
-  imageUrl: '',
-  path: '',
-  target_id: '',
-  target_type: ''
-})
 @connect(state => state, {
   dispatchCurrentUser,
   dispatchUserDetail,
@@ -64,10 +55,6 @@ class TopicDetail extends Component {
     this.currentUserId = parseInt((Taro.getStorageSync('user_id') || 0))
     this.currentUserName = Taro.getStorageSync('username')
   }
-
-  $setShareTargetId = () => (this.topic_id)
-  $setSharePath = () => (`/pages/topics/topic-detail?topic_id=${this.topic_id}`)
-  $setShareTitle = () => (this.currentUserName + '心愿详情')
 
   componentDidMount() {
     this.props.dispatchTopicDetail({topic_id: this.topic_id}).then((res) => {
@@ -196,6 +183,13 @@ class TopicDetail extends Component {
     } else {
       this.props.dispatchUnLikeTopic({obj_type: 'topic', obj_id: this.topic_id})
     }
+  }
+
+  onShareAppMessage() {
+    return {
+      title: this.props.topic.topicDetail.title,
+      path: '/pages/topics/topic-detail?topic_id='+this.topic_id,
+    };
   }
 
   render() {
