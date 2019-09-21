@@ -166,11 +166,21 @@ class Mine extends Component {
             <Text className="txt">消息中心</Text>
             <UIcon icon="arrow-right" ex-class="icon-item"/>
           </View>
-          <View className="item" onClick={this.onCopy.bind(this, 'ufuutech')}>
-            <Text className="txt">意见反馈</Text>
-            <Text className="connect-item">wechat:ufuutech</Text>
-            {/*<UIcon icon="arrow-right" ex-class="icon-item"/>*/}
-          </View>
+
+          { process.env.TARO_ENV === 'weapp' &&  <View className="item" onClick={this.onCopy.bind(this, 'ufuutech')}>
+              <Text className="txt">意见反馈</Text>
+              <Text className="connect-item">wechat:ufuutech</Text>
+              {/*<UIcon icon="arrow-right" ex-class="icon-item"/>*/}
+            </View>
+          }
+
+          { process.env.TARO_ENV === 'qq' &&  <View className="item" onClick={this.onCopy.bind(this, '3354456216')}>
+              <Text className="txt">意见反馈</Text>
+              <Text className="connect-item">QQ:3354456216</Text>
+              {/*<UIcon icon="arrow-right" ex-class="icon-item"/>*/}
+            </View>
+          }
+
         </View>
       </View>
     );

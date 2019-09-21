@@ -48,16 +48,12 @@ page {
 
   .content {
     padding: 24px 30px 1px 40px;
-    //padding-top: 10px;
-    //padding-bottom: 50px;
     font-weight: 300;
     .plain-content-block {
-      min-height: 170px;
       font-size: 30px;
-      //padding-right: 30px;
 
       .body-content {
-        height: 200px;
+        min-height: 200px;
         width: 100%;
         border: none;
         font-size: 30px;
