@@ -9,7 +9,12 @@ class AddTopic extends Component {
   }
 
   goNewTopic = () => {
-    goPage.goNewTopic()
+    let auth_token = Taro.getStorageSync('auth_token')
+    if(auth_token) {
+      goPage.goNewTopic()
+    } else {
+      goPage.goLogin()
+    }
   }
 
   render() {

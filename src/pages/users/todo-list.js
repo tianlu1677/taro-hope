@@ -74,7 +74,11 @@ class TodoList extends Component {
 
   goEditTopic = (topic_id, event) => {
     event.stopPropagation()
-    goPage.goEditTopic(topic_id)
+    if(this.auth_token) {
+      goPage.goEditTopic(topic_id)
+    } else {
+      goPage.goLogin()
+    }
   }
 
   goTopicDetail = (topic_id, event) => {

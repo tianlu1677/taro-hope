@@ -8,7 +8,9 @@ export default class goPage {
   // static goCategoryListUrl() {
   //   Taro.navigateTo({url: "/pages/categories/category-list"});
   // }
-
+  static goLogin() {
+    Taro.navigateTo({url: "/pages/login/login"});
+  }
   static goUserDetail(user_id) {
     Taro.navigateTo({url: "/pages/users/detail?user_id=" + user_id});
   }
