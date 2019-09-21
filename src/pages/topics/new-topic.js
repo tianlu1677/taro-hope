@@ -33,7 +33,8 @@ const defaultState = {
   submitting: false,
   public_at: new Date(),
   is_hide: false,
-  suggestionList: []
+  suggestionList: [],
+  lineCount: 5,
 }
 
 @connect(state => state, {
@@ -87,9 +88,11 @@ class NewTopic extends Component {
 
   // 文字
   addPlainText = (event) => {
-    this.setState({
-      body: event.detail.value
-    })
+    if(event) {
+      this.setState({
+        body: event.detail.value
+      })
+    }
   }
 
   // 图片相关内容
@@ -359,6 +362,17 @@ class NewTopic extends Component {
     Taro.navigateBack({delta: 1})
   }
 
+  onLineChange = (e) => {
+    // console.log('xxxxx', e)
+    let lineCount = e.detail.lineCount
+    if(lineCount <= 6) {
+      lineCount = 6
+    }
+    this.setState({
+      lineCount: lineCount
+    })
+  }
+
   render() {
     const { title, video_content, body, selectImages } = this.state
     const {editSuggestionList} = this.props.topic
@@ -389,16 +403,32 @@ class NewTopic extends Component {
           </View>
           <View className="content">
             <View className="plain-content-block">
-              <Textarea
-                placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
-                autoHeight
-                adjustPosition
-                maxlength={2000}
-                value={body}
-                onInput={this.addPlainText}
-                className="body-content"
-                focus
-              />
+              {
+                process.env.TARO_ENV === 'weapp' && <Textarea
+                  placeholder={(this.tenant && this.tenant.permissions.tip_message) || '此刻说出你想对Ta说的话吧 ~'}
+                  autoHeight
+                  adjustPosition
+                  maxlength={2000}
+                  value={body}
+                  onInput={this.addPlainText}
+                  className="body-content"
+                />
+              }
+
+              {
+                process.env.TARO_ENV === 'qq' && <Textarea
+                  placeholder={(this.tenant && this.tenant.permissions.tip_message) || '请输入内容'}
+                  // autoHeight
+                  adjustPosition
+                  maxlength={2000}
+                  value={body}
+                  onInput={this.addPlainText}
+                  className="body-content"
+                  style={{height: `${this.state.lineCount * 36}rpx`}}
+                  onLineChange={this.onLineChange}
+                />
+              }
+
             </View>
 
             <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '10rpx' : '-10rpx'}}>
