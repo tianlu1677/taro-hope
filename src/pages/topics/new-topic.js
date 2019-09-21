@@ -2,6 +2,7 @@ import Taro, {Component} from "@tarojs/taro";
 import {View, Video, Text, Button, Textarea, RichText, Radio, Input, Image, CoverView, CoverImage} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
 import { createTopic, getTopicDetail, updateTopicDetail, deleteTopic } from "@/api/topic_api";
+import { secureCheck } from '@/api/secure_check_api'
 import { createSuggestions } from '@/api/suggestions_api'
 import addVideoImg from '@/assets/images/add-video.png';
 import addPhotoImg from '@/assets/images/add-photo.png';
@@ -197,6 +198,11 @@ class NewTopic extends Component {
   // 提交保存以及修改保存
   onSubmit = async () => {
     if (!this.isValidateForm() || this.state.submitting) { return; }
+    const status = await this._checkContent()
+    if(!status) {
+      return
+    }
+
     this.setState({
       submitting: true
     })
@@ -249,7 +255,6 @@ class NewTopic extends Component {
       topic_res = await updateTopicDetail(topic_id, data)
     } else {
       topic_res = await createTopic(data)
-
     }
     if (topic_res.status === 'failed') {
       Taro.showModal({title: "提示", content: topic_res.msg, showCancel: false, confirmColor: "#00D2FF"});
@@ -273,6 +278,48 @@ class NewTopic extends Component {
       body: body || '',
       video_content: video_content,
     };
+  }
+
+  _checkContent = async () => {
+    const { title, body } = this.state
+    const { editSuggestionList } = this.props.topic
+    let status = true
+    await secureCheck(title).then((res) => {
+      // console.log('errrr', res)
+      if(res.status === 'error') {
+        Taro.showToast({
+          title: `标题${res.msg}`,
+          icon: 'error',
+          duration: 1500
+        })
+        status = false
+        return status
+      }
+    })
+
+    await secureCheck(body).then((res) => {
+      if(res.status === 'error') {
+        Taro.showToast({
+          title: `内容${res.msg}`,
+          duration: 2000
+        })
+        status = false
+        return status
+      }
+    })
+
+    let sug_content = editSuggestionList.map((sug) => (sug.title)).join('')
+    await secureCheck(sug_content).then((res) => {
+      if(res.status === 'error') {
+        Taro.showToast({
+          title: `清单${res.msg}`,
+          duration: 2000
+        })
+        status = false
+        return status
+      }
+    })
+    return status
   }
 
   _submitSuggestions = (topic_id) => {
