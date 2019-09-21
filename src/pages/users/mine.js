@@ -128,6 +128,13 @@ class Mine extends Component {
     })
   }
 
+  onCopy = (text) => {
+    Taro.setClipboardData({data: text})
+    // Taro.showToast({
+    //   title: '复制成功'
+    // })
+  }
+
 
   render() {
     const { currentUser, unreadNotification } = this.props
@@ -159,9 +166,10 @@ class Mine extends Component {
             <Text className="txt">消息中心</Text>
             <UIcon icon="arrow-right" ex-class="icon-item"/>
           </View>
-          <View className="item">
+          <View className="item" onClick={this.onCopy.bind(this, 'ufuutech')}>
             <Text className="txt">意见反馈</Text>
-            <UIcon icon="arrow-right" ex-class="icon-item"/>
+            <Text className="connect-item">wechat:ufuutech</Text>
+            {/*<UIcon icon="arrow-right" ex-class="icon-item"/>*/}
           </View>
         </View>
       </View>

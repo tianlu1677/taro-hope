@@ -12,7 +12,7 @@ import './todo-list.module.scss'
 @withShare({
   title: '',
   imageUrl: '',
-  path: '',
+  path: '/pages/users/todo-list',
   target_id: '',
   target_type: ''
 })

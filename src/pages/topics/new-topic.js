@@ -350,7 +350,7 @@ class NewTopic extends Component {
               />
             </View>
 
-            <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '20rpx' : '0'}}>
+            <View className="suggestions-wrap" style={{marginTop: editSuggestionList.length > 0 ? '10rpx' : '-10rpx'}}>
               <SuggestionList
                 topic_id={this.topic_id}
               />
