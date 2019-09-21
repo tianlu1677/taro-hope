@@ -289,8 +289,8 @@ class NewTopic extends Component {
       if(res.status === 'error') {
         Taro.showToast({
           title: `标题${res.msg}`,
-          icon: 'error',
-          duration: 1500
+          icon: 'none',
+          duration: 1500,
         })
         status = false
         return status
@@ -300,8 +300,9 @@ class NewTopic extends Component {
     await secureCheck(body).then((res) => {
       if(res.status === 'error') {
         Taro.showToast({
-          title: `内容${res.msg}`,
-          duration: 2000
+          title: `心愿${res.msg}`,
+          duration: 2000,
+          icon: 'none'
         })
         status = false
         return status
@@ -313,7 +314,8 @@ class NewTopic extends Component {
       if(res.status === 'error') {
         Taro.showToast({
           title: `清单${res.msg}`,
-          duration: 2000
+          duration: 2000,
+          icon: 'none'
         })
         status = false
         return status

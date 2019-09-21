@@ -2,6 +2,7 @@ import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import { getTenant } from "@/api/tenant_api"
+import queryString from 'query-string'
 
 import Index from './pages/index'
 
@@ -69,11 +70,13 @@ class App extends Component {
 
   componentDidMount () {
     getTenant().then((res) => {
-      // console.log('res', res)
       if(res){
         Taro.setStorage({key: 'tenant', data: res.tenant})
       }
     }).catch()
+
+    const lastPath = '/' + this.$router.params.path + '?' + queryString.stringify(this.$router.params.query)
+    Taro.setStorage({key: 'last_path', data: lastPath })
   }
 
   componentDidShow () {}

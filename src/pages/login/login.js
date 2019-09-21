@@ -40,6 +40,11 @@ export default class Login extends Component {
         <View className="intro">
           { this.tenant.nickname }
         </View>
+
+        <View className="desc">
+          {this.tenant.description }
+        </View>
+
         <Auth />
       </View>
     );

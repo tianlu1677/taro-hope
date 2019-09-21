@@ -1,5 +1,5 @@
 .login {
-  padding: 0 36px;
+  padding: 0 0;
   text-align: center;
   .logo {
     margin-top: 100px;
@@ -10,14 +10,15 @@
   .intro {
     margin-top: 40px;
     font-size: 32px;
-    font-weight: 500;
+    font-weight: 600;
   }
   .desc {
-    margin-top: 40px;
-    font-size: 28px;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #3D3D3D;
   }
   .login-button {
-    margin-top: 100px;
+    margin-top: 70px;
     width: 90%;
   }
   .more-info {
@@ -25,4 +26,5 @@
     font-size: 28px;
     color: #ADADAE;
   }
+
 }
