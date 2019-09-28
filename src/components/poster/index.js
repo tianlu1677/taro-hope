@@ -10,9 +10,9 @@ class Poster extends Component {
 
   static defaultProps = {
     title: '',
-    cover_url: '',
+    cover_url: null,
     username: '',
-    user_avatar: '',
+    user_avatar: null,
     created_at: ''
   }
 
@@ -25,16 +25,19 @@ class Poster extends Component {
     canvasStatus: false,
   }
 
+  formatDate = (datetime) => {
+    let date = new Date(datetime)
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
+  }
 
   setConfig = () => {
     let title = this.props.title
-    let cover_url = this.props.cover_url
-    let username = this.props.username
-    let user_avatar = this.props.user_avatar
-    let created_at = this.props.created_at
-
+    let cover_url = this.props.cover_url || 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png\n'
+    let username = this.props.username || '心愿发布人'
+    let user_avatar = this.props.user_avatar || 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png\n'
+    let created_at = this.formatDate(this.props.created_at)
     let rssConfig =  {
-      width: 750,
+        width: 750,
         height: 750,
         backgroundColor: '#fff',
         debug: false,
@@ -80,14 +83,14 @@ class Poster extends Component {
           zIndex: 999,
         },
         {
-          x: 130,
-          y: 520,
+          x: 140,
+          y: 530,
           text: username,
           fontSize: 24,
           color: '#A4A4A4',
           opacity: 1,
           baseLine: 'middle',
-          lineHeight: 24,
+          lineHeight: 26,
           lineNum: 1,
           textAlign: 'left',
           width: 580,
@@ -95,9 +98,9 @@ class Poster extends Component {
         },
         {
           x: 80,
-          y: 560,
+          y: 570,
           text: created_at,
-          fontSize: 24,
+          fontSize: 20,
           color: '#A4A4A4',
           opacity: 1,
           baseLine: 'middle',
@@ -123,8 +126,8 @@ class Poster extends Component {
         // },
         {
           x: 80,
-          y: 640,
-          text: '分享来自 「 心愿清单 」',
+          y: 660,
+          text: '分享来自「 心愿清单 」',
           fontSize: 24,
           color: '#666',
           opacity: 1,
@@ -150,21 +153,21 @@ class Poster extends Component {
         },
         {
           url: user_avatar,
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           y: 500,
           x: 80,
-          borderRadius: 100,
+          borderRadius: 50,
           borderWidth: 0,
           zIndex: 10,
         },
         {
-          url: 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQHf7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL05rUGlyTXJsd2hxN3BCUnFNbTlNAAIEu1X8VwMEAAAAAA%3D%3D',
+          url: 'https://xinxue-qiniu.meirixinxue.com/user/avatar/47/3b381f.jpeg',
           width: 110,
           height: 110,
           y: 570,
           x: 560,
-          borderRadius: 100,
+          borderRadius: 110,
           borderWidth: 0,
           zIndex: 10,
         },
@@ -180,7 +183,7 @@ class Poster extends Component {
         // }
       ]
     }
-
+    // console.log('resss', rssConfig)
     return rssConfig
   }
   // 调用绘画 => canvasStatus 置为true、同时设置config
@@ -194,6 +197,14 @@ class Poster extends Component {
         success: (res) => {
           if (res.confirm) {
             Taro.openSetting()
+
+            Taro.authorize({
+              scope: 'scope.writePhotosAlbum',
+              success() {//这里是用户同意授权后的回调
+              },
+              fail() {//这里是用户拒绝授权后的回调
+              }
+            })
           } else if (res.cancel) {
             console.log('用户点击取消')
           }
@@ -227,7 +238,7 @@ class Poster extends Component {
           filePath: this.state.shareImage,
         });
         Taro.showToast({
-          title: '海报已保存到您的相册中',
+          title: '已保存到相册',
           icon: 'success',
           duration: 1500,
         });

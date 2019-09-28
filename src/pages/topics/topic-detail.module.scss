@@ -82,7 +82,7 @@
     font-weight: 300;
     color: #BDBDBD;
     .created_at {
-      width: 100%;
+      width: 20%;
       display: flex;
       justify-content: flex-end;
     }
@@ -90,6 +90,7 @@
       display: flex;
       line-height: 1;
       text-align: center;
+      width: 80%;
       .item {
         font-size: 40px;
         color: #BDBDBD;
@@ -99,7 +100,7 @@
         align-items: center;
         text-align: center;
         margin-right: 30px;
-        min-width: 100px;
+        //min-width: 100px;
         .icon {
           font-size: 40px;
           font-weight: 200;
@@ -115,8 +116,10 @@
           font-size: 38px;
         }
         .txt {
+          //min-width: 30px;
           font-size: 24px;
           padding-left: 11px;
+          text-align: left;
         }
 
       }
@@ -172,16 +175,24 @@
   z-index: 100;
   color: $gray;
   font-size: 28px;
-
+  padding: 0 60px;
   .bottom-item {
     display: flex;
     justify-content: space-between;
-    padding: 0 60px;
+    //margin: 0 40px;
     .comment {
       font-size: 40px;
       margin-right: 12px;
     }
-
+    .topic-copy {
+      font-size: 34px;
+      margin-right: 6px;
+    }
+  }
+  .copy-btn {
+    line-height: 40px;
+    padding-left: 42px;
+    border-left: 1PX solid $color-col-line;
   }
 
 
@@ -225,6 +236,7 @@
   align-items: center;
   background-color: $red;
   font-size: 36px;
+  font-weight:500;
   button {
     padding: 0;
     background-color: $red;

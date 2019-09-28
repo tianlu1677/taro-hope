@@ -200,16 +200,25 @@ class NewTopic extends Component {
 
   // 提交保存以及修改保存
   onSubmit = async () => {
-    if (!this.isValidateForm() || this.state.submitting) { return; }
-    const status = await this._checkContent()
-    if(!status) {
+    if(this.state.submitting) {
       return
     }
-
     this.setState({
       submitting: true
     })
     Taro.showLoading({ title: "正在保存中..." });
+
+    if (!this.isValidateForm() || this.state.submitting) { return; }
+    const status = await this._checkContent()
+    if(!status) {
+      this.setState({
+        submitting: false
+      })
+      Taro.hideLoading()
+      return
+    }
+
+
     try {
       await this.uploadAllImage();
       setTimeout(() => {

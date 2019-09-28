@@ -195,26 +195,24 @@ class TopicDetail extends Component {
     const {topic: {topicMeta}} = this.props
     if (topicMeta.child_topic_id) {
       const go_my_topic_res = await Taro.showModal({
-        title: '已保存到我的心愿清单，是否现在查看？'
+        title: '提示',
+        content: '已保存到我的心愿清单，是否现在查看？'
       })
       if (go_my_topic_res.confirm) {
         goPage.goEditTopic(topicMeta.child_topic_id)
       }
       return
     }
-    const res = await Taro.showModal({
-      title: '您确定要保存吗？'
-    })
-    if (res.confirm) {
-      const topic_res = await copyTopic(this.topic_id)
-      if (topic_res.topic && topic_res.topic.id) {
-        this.props.dispatchTopicDetail({topic_id: this.topic_id})
-        const go_my_topic_res = await Taro.showModal({
-          title: '已保存到我的心愿清单，是否现在查看？'
-        })
-        if (go_my_topic_res.confirm) {
-          goPage.goEditTopic(topic_res.topic.id)
-        }
+
+    const topic_res = await copyTopic(this.topic_id)
+    if (topic_res.topic && topic_res.topic.id) {
+      this.props.dispatchTopicDetail({topic_id: this.topic_id})
+      const go_my_topic_res = await Taro.showModal({
+        title: '提示',
+        content: '已保存到我的心愿清单，是否现在查看？'
+      })
+      if (go_my_topic_res.confirm) {
+        goPage.goTopicDetail(topic_res.topic.id)
       }
     }
   }
@@ -332,7 +330,7 @@ class TopicDetail extends Component {
               <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
                 <UIcon icon={topic.topicMeta.liked ? 'liked' : 'like'}
                        ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`}/>
-                <Text className="txt">{topic.topicMeta.liked ? '已喜' : '喜欢'}</Text>
+                <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
               </View>
               <View className="item" onClick={this.onReplyComment}>
                 <UIcon icon="comment" ex-class="icon"/> <Text className="txt">评论</Text>
@@ -392,11 +390,11 @@ class TopicDetail extends Component {
           !show_comment && (topicDetail.user.id !== this.currentUserId) &&
           <View className="topic-bottom border-top-1px">
             <View className="bottom-item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">写个评论呗</Text>
+              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">你写个评论呗</Text>
             </View>
-            <View className="bottom-item" onClick={this.onCopyTopic}>
-              <UIcon icon="topic-copy" ex-class="icon comment"/> <Text className="txt">
-              {topicMeta.child_topic_id ? '已保存到我的心愿清单' : '保存到我的心愿清单'}
+            <View className="bottom-item copy-btn" onClick={this.onCopyTopic}>
+              <UIcon icon="topic-copy" ex-class="icon topic-copy"/> <Text className="txt">
+              {topic.topicMeta.child_topic_id ? '已保存到我的心愿清单' : '保存到我的心愿清单'}
             </Text>
             </View>
           </View>
@@ -409,7 +407,7 @@ class TopicDetail extends Component {
           </View>
         }
         {
-          show_comment && <View className="bottom border-top-1px">
+          show_comment && <View className="topic-bottom border-top-1px">
             <View className="comment-input">
               <Input
                 placeholder={currentComment.placeholder}
