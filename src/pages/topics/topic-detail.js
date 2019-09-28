@@ -347,7 +347,7 @@ class TopicDetail extends Component {
 
           <View className="share-wrapper">
             <View className="share-user">
-              <Button open-type="share" share-type="0" className="share-btn">
+              <Button open-type="share" share-type="1" className="share-btn">
                 {process.env.TARO_ENV === 'weapp' && <Image src={WechatShareFriend} className="share-cover"/>}
                 {process.env.TARO_ENV === 'qq' && <Image src={QQShareFriend} className="share-cover"/>}
               </Button>
@@ -376,7 +376,7 @@ class TopicDetail extends Component {
             </View>
           </View>
         </View>
-        <View className="topic-bottom border-top-1px"/>
+        <View className="border-top-1px"/>
         <View className="comment-wrapper">
           <CommentList
             commentList={this.state.commentList}
@@ -389,16 +389,25 @@ class TopicDetail extends Component {
         </View>
 
         {
-          !show_comment && <View className="bottom inside border-top-1px">
+          !show_comment && (topicDetail.user.id !== this.currentUserId) &&
+          <View className="topic-bottom border-top-1px">
             <View className="bottom-item" onClick={this.onReplyComment}>
               <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">写个评论呗</Text>
             </View>
             <View className="bottom-item" onClick={this.onCopyTopic}>
-              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">保存到我的心愿清单</Text>
+              <UIcon icon="topic-copy" ex-class="icon comment"/> <Text className="txt">
+              {topicMeta.child_topic_id ? '已保存到我的心愿清单' : '保存到我的心愿清单'}
+            </Text>
             </View>
           </View>
         }
-
+        {
+          !show_comment && (topicDetail.user.id === this.currentUserId) && <View className="share-bottom border-top-1px">
+            <Button open-type="share" className="share-bottom-btn">
+              马上分享给好友吧
+            </Button>
+          </View>
+        }
         {
           show_comment && <View className="bottom border-top-1px">
             <View className="comment-input">
