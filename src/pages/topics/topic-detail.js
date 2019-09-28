@@ -353,10 +353,18 @@ class TopicDetail extends Component {
                 <Image src={WechatShareFriend} className="share-cover"/>
               </Button>
             </View>
-            <View className="share-friend" onClick={this.canvasDrawFunc.bind(this, this.state.rssConfig)}>
-              <Button open-type="share" className="share-btn">
-                <Image src={WechatShareZone} className="share-cover" />
-              </Button>
+            <View className="share-friend">
+              <Poster
+                title={topicDetail.title}
+                username={topicDetail.user.name}
+                user_avatar={topicDetail.user.avatar_url}
+                cover_url={topicDetail.medias[0]}
+                created_at={topicDetail.created_at}
+              >
+                <Button className="share-btn">
+                  <Image src={WechatShareZone} className="share-cover" />
+                </Button>
+              </Poster>
             </View>
           </View>
         </View>
@@ -382,8 +390,6 @@ class TopicDetail extends Component {
             </View>
           </View>
         }
-
-        <Poster />
 
         {
           show_comment && <View className="bottom border-top-1px">

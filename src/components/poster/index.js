@@ -1,6 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
 import {View, Text, Button, Image} from "@tarojs/components";
 import {TaroCanvasDrawer} from 'taro-plugin-canvas'; // npm 引入方式
+import { AtToast } from "taro-ui"
 
 import './index.module.scss'
 
@@ -8,26 +9,36 @@ class Poster extends Component {
   static externalClasses = ['ex-class']
 
   static defaultProps = {
-    config: {
-      title: '',
-      cover_url: '',
-      username: '',
-      user_avatar: '',
-    }
+    title: '',
+    cover_url: '',
+    username: '',
+    user_avatar: '',
+    created_at: ''
   }
 
   state = {
+    isOpened: false,
     config: null,
     // 绘制的图片
     shareImage: null,
     // TaroCanvasDrawer 组件状态
     canvasStatus: false,
-    rssConfig: {
+  }
+
+
+  setConfig = () => {
+    let title = this.props.title
+    let cover_url = this.props.cover_url
+    let username = this.props.username
+    let user_avatar = this.props.user_avatar
+    let created_at = this.props.created_at
+
+    let rssConfig =  {
       width: 750,
-      height: 750,
-      backgroundColor: '#fff',
-      debug: false,
-      blocks: [
+        height: 750,
+        backgroundColor: '#fff',
+        debug: false,
+        blocks: [
         {
           x: 0,
           y: 0,
@@ -53,11 +64,11 @@ class Poster extends Component {
           borderRadius: 12,
         }
       ],
-      texts: [
+        texts: [
         {
           x: 80,
           y: 420,
-          text: '2019年我要读完的十本漫画书：不看你一定会后悔系列漫画书?',
+          text: title,
           fontSize: 32,
           color: '#000',
           opacity: 1,
@@ -71,7 +82,7 @@ class Poster extends Component {
         {
           x: 130,
           y: 520,
-          text: 'pille',
+          text: username,
           fontSize: 24,
           color: '#A4A4A4',
           opacity: 1,
@@ -85,7 +96,7 @@ class Poster extends Component {
         {
           x: 80,
           y: 560,
-          text: '在三月十二日创建',
+          text: created_at,
           fontSize: 24,
           color: '#A4A4A4',
           opacity: 1,
@@ -124,9 +135,9 @@ class Poster extends Component {
           zIndex: 999,
         }
       ],
-      images: [
+        images: [
         {
-          url: 'http://pic.juncao.cc/rssfeed/images/demo.png',
+          url: cover_url,
           width: 670,
           height: 320,
           y: 40,
@@ -138,7 +149,7 @@ class Poster extends Component {
           // borderColor: 'red',
         },
         {
-          url: 'http://pic.juncao.cc/rssfeed/images/demo.png',
+          url: user_avatar,
           width: 40,
           height: 40,
           y: 500,
@@ -148,7 +159,7 @@ class Poster extends Component {
           zIndex: 10,
         },
         {
-          url: 'https://pic.juncao.cc/cms/images/minapp.jpg',
+          url: 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQHf7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL05rUGlyTXJsd2hxN3BCUnFNbTlNAAIEu1X8VwMEAAAAAA%3D%3D',
           width: 110,
           height: 110,
           y: 570,
@@ -158,7 +169,7 @@ class Poster extends Component {
           zIndex: 10,
         },
       ],
-      lines: [
+        lines: [
         // {
         //   startY: 540,
         //   startX: 80,
@@ -168,22 +179,41 @@ class Poster extends Component {
         //   color: '#eee',
         // }
       ]
-    },
-  }
+    }
 
+    return rssConfig
+  }
   // 调用绘画 => canvasStatus 置为true、同时设置config
-  canvasDrawFunc = (config = this.state.rssConfig) => {
+  canvasDrawFunc = async () => {
+    // Taro.openSetting()
+    const auth_res = await Taro.getSetting()
+    if(!auth_res.authSetting['scope.writePhotosAlbum']) {
+      Taro.showModal({
+        title: '提示',
+        content: '请您授权保存到您的相册中',
+        success: (res) => {
+          if (res.confirm) {
+            Taro.openSetting()
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return
+    }
+
+    let config = this.setConfig()
     this.setState({
       canvasStatus: true,
       config: config,
     })
     Taro.showLoading({
-      title: '绘制中...'
+      title: '生成中...'
     })
   }
 
-  // 绘制成功回调函数 （必须实现）=> 接收绘制结果、重置 TaroCanvasDrawer 状态
-  onCreateSuccess = (result) => {
+    // 绘制成功回调函数 （必须实现）=> 接收绘制结果、重置 TaroCanvasDrawer 状态
+  onCreateSuccess = async (result) => {
     const {tempFilePath, errMsg} = result;
     Taro.hideLoading();
     if (errMsg === 'canvasToTempFilePath:ok') {
@@ -192,7 +222,24 @@ class Poster extends Component {
         // 重置 TaroCanvasDrawer 状态，方便下一次调用
         canvasStatus: false,
         config: null
+      }, () => {
+        Taro.saveImageToPhotosAlbum({
+          filePath: this.state.shareImage,
+        });
+        Taro.showToast({
+          title: '海报已保存到您的相册中',
+          icon: 'success',
+          duration: 1500,
+        });
       })
+
+      // 预览
+      setTimeout(() => {
+        Taro.previewImage({
+          current: tempFilePath,
+          urls: [tempFilePath]
+        })
+      }, 1500)
     } else {
       // 重置 TaroCanvasDrawer 状态，方便下一次调用
       this.setState({
@@ -202,11 +249,6 @@ class Poster extends Component {
       Taro.showToast({icon: 'none', title: errMsg || '出现错误'});
       console.log(errMsg);
     }
-    // 预览
-    Taro.previewImage({
-      current: tempFilePath,
-      urls: [tempFilePath]
-    })
   }
 
   // 绘制失败回调函数 （必须实现）=> 接收绘制错误信息、重置 TaroCanvasDrawer 状态
@@ -217,11 +259,12 @@ class Poster extends Component {
       canvasStatus: false,
       config: null
     })
+    Taro.hideLoading()
     console.log(error);
   }
 
   // 保存图片至本地
-  saveToAlbum = () => {
+  saveToAlbum = async () => {
     const res = Taro.saveImageToPhotosAlbum({
       filePath: this.state.shareImage,
     });
@@ -239,27 +282,21 @@ class Poster extends Component {
     return (
 
       <View className='shareImage-cont'>
+        <AtToast isOpened={this.state.isOpened} duration={1000} text={'sss'} />
 
         <View>
-          <View className='flex-row'>
-            <Button onClick={this.canvasDrawFunc.bind(this, this.state.rssConfig)}>绘制</Button>
-            <Button onClick={this.saveToAlbum}>保存到相册</Button>
+          <View className='flex-row' onClick={this.canvasDrawFunc.bind(this)}>
+            {
+              this.props.children
+            }
           </View>
         </View>
-
-        {/*<Image*/}
-          {/*className='shareImage'*/}
-          {/*src={this.state.shareImage}*/}
-          {/*mode='widthFix'*/}
-          {/*lazy-load*/}
-        {/*/>*/}
         {
           // 由于部分限制，目前组件通过状态的方式来动态加载
           this.state.canvasStatus &&
-          (<TaroCanvasDrawer
-              config={this.state.config} // 绘制配置
-              onCreateSuccess={this.onCreateSuccess} // 绘制成功回调
-              onCreateFail={this.onCreateFail} // 绘制失败回调
+          (<TaroCanvasDrawer config={this.state.config} // 绘制配置
+            onCreateSuccess={this.onCreateSuccess} // 绘制成功回调
+            onCreateFail={this.onCreateFail} // 绘制失败回调
             />
           )
         }
