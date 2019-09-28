@@ -18,9 +18,18 @@ export async function createTopic(body = {}) {
   return res.data;
 }
 
+export async function copyTopic(topic_id = '') {
+  const res = await request({
+    url: "/api/v1/todos/copy",
+    method: "POST",
+    data: {topic_id: topic_id}
+  });
+  return res.data;
+}
+
 export async function getTopicDetail(id) {
   const res = await request({
-    url: "/api/v1/topics/" + id,
+    url: "/api/v1/todos/" + id,
     method: "GET",
   });
   return res.data;

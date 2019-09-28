@@ -1,7 +1,7 @@
 import Taro, {Component} from "@tarojs/taro";
-import {View, Text, Input, Image, Swiper, SwiperItem} from "@tarojs/components";
+import {View, Text, Input, Image, Swiper, SwiperItem, Button} from "@tarojs/components";
 import {connect} from "@tarojs/redux";
-import {getTopicReplies, createTopicReplies} from "@/api/topic_api";
+import {getTopicReplies, createTopicReplies, copyTopic} from "@/api/topic_api";
 import {
   dispatchCurrentUser,
   dispatchFollowUser,
@@ -22,6 +22,11 @@ import goPage from "@/utils/page_path"
 import ShareIcon from '@/components/share-icon'
 import playVideoImg from '@/assets/images/play-video.png'
 import SuggestionList from '@/components/suggestion/suggestion-list'
+import Poster from '@/components/poster'
+import WechatShareFriend from '@/assets/images/wechat-share-friend.png'
+import WechatShareZone from '@/assets/images/wechat-share-zone.png'
+import QQShareFriend from '@/assets/images/qq-friend.png'
+import QQShareZone from '@/assets/images/qq-share-zone.png'
 
 import './topic-detail.module.scss'
 
@@ -47,6 +52,7 @@ class TopicDetail extends Component {
     currentComment: {body: '', topic_id: '', placeholder: '写点评论吧'},
     loading: true,
     show_comment: false,
+    rssConfig: null
   }
 
   constructor() {
@@ -185,6 +191,38 @@ class TopicDetail extends Component {
     }
   }
 
+  onCopyTopic = async () => {
+    const {topic: { topicMeta } } = this.props
+    if(topicMeta.child_topic_id) {
+      const go_my_topic_res = await Taro.showModal({
+        title: '已保存到我的心愿清单，是否现在查看？'
+      })
+      if(go_my_topic_res.confirm) {
+        goPage.goEditTopic(topicMeta.child_topic_id)
+      }
+      return
+    }
+    const res = await Taro.showModal({
+      title: '您确定要保存吗？'
+    })
+    if(res.confirm) {
+      const topic_res = await copyTopic(this.topic_id)
+      if(topic_res.topic && topic_res.topic.id) {
+        this.props.dispatchTopicDetail({topic_id: this.topic_id})
+        const go_my_topic_res = await Taro.showModal({
+          title: '已保存到我的心愿清单，是否现在查看？'
+        })
+        if(go_my_topic_res.confirm) {
+          goPage.goEditTopic(topic_res.topic.id)
+        }
+      }
+    }
+  }
+
+  canvasDrawFunc = () => {
+
+  }
+
   onShareAppMessage() {
     return {
       title: this.props.topic.topicDetail.title,
@@ -290,23 +328,39 @@ class TopicDetail extends Component {
         }
 
         <View className="numbers">
+          <View className="left-content">
+            <View className="item">
+              <UIcon icon="view-user" ex-class="icon" /> <Text className="txt">{topicDetail.hits}</Text>
+            </View>
+            <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
+              <UIcon icon={topic.topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
+              <Text className="txt">{topic.topicMeta.liked ? '已喜' : '喜欢'}</Text>
+            </View>
+            <View className="item" onClick={this.onReplyComment}>
+              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">评论</Text>
+            </View>
+          </View>
+
           <View className="created_at">
             {topicDetail.created_at_text}
           </View>
-          ·
-          <View className="views_count">
-            浏览{topicDetail.hits}
+        </View>
+
+
+          <View className="share-wrapper">
+            <View className="share-user">
+              <Button open-type="share" className="share-btn">
+                <Image src={WechatShareFriend} className="share-cover"/>
+              </Button>
+            </View>
+            <View className="share-friend" onClick={this.canvasDrawFunc.bind(this, this.state.rssConfig)}>
+              <Button open-type="share" className="share-btn">
+                <Image src={WechatShareZone} className="share-cover" />
+              </Button>
+            </View>
           </View>
         </View>
-
-
-
-        </View>
-
-        {/*<Division />*/}
-
         <View className="topic-bottom border-top-1px" />
-
         <View className="comment-wrapper">
           <CommentList
             commentList={this.state.commentList}
@@ -320,18 +374,16 @@ class TopicDetail extends Component {
 
         {
           !show_comment && <View className="bottom inside border-top-1px">
-            <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
-              <UIcon icon={topic.topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
-              <Text className="txt">{topic.topicMeta.liked ? '已喜欢' : '喜欢'}</Text>
+            <View className="bottom-item" onClick={this.onReplyComment}>
+              <UIcon icon="comment" ex-class="icon comment" /> <Text className="txt">写个评论呗</Text>
             </View>
-            <View className="item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">评论</Text>
-            </View>
-            <View className="item">
-              <ShareIcon size='middle' />
+            <View className="bottom-item" onClick={this.onCopyTopic}>
+              <UIcon icon="comment" ex-class="icon comment" /> <Text className="txt">保存到我的心愿清单</Text>
             </View>
           </View>
         }
+
+        <Poster />
 
         {
           show_comment && <View className="bottom border-top-1px">

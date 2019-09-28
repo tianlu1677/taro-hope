@@ -80,7 +80,7 @@ export const dispatchUnFollowUser = options => createAction({
 
 // 心得
 export const dispatchTopicDetail = options => createAction({
-  url: `/api/v1/topics/${options.topic_id}`,
+  url: `/api/v1/todos/${options.topic_id}`,
   type: TOPIC_DETAIL,
   data: options
 })

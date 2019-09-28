@@ -82,13 +82,72 @@
     font-weight: 300;
     color: #BDBDBD;
     .created_at {
-      margin-right: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
-    .views_count {
-      margin-left: 8px;
+    .left-content {
+      display: flex;
+      line-height: 1;
+      text-align: center;
+      .item {
+        font-size: 40px;
+        color: #BDBDBD;
+        //font-weight: 400;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-right: 30px;
+        min-width: 100px;
+        .icon {
+          font-size: 40px;
+          font-weight: 200;
+        }
+        .like {
+          //font-size: 24px;
+        }
+        .liked {
+          font-size: 36px;
+          color: red;
+        }
+        .comment {
+          font-size: 38px;
+        }
+        .txt {
+          font-size: 24px;
+          padding-left: 11px;
+        }
+
+      }
     }
+
   }
 
+  .share-wrapper {
+    padding: 45px 90px 0 90px;
+    display: flex;
+    justify-content: space-between;
+    .share-user, .share-friend {
+      .share-btn {
+
+      }
+      .share-cover {
+        width:243px;
+        height:70px;
+        line-height: 1;
+      }
+    }
+
+    button {
+      padding: 0;
+      background-color: white;
+      line-height: 1;
+    }
+    button::after {
+      border: none;
+    }
+  }
 }
 
 .comment-wrapper {
@@ -111,37 +170,20 @@
   align-items: center;
   background-color: white;
   z-index: 100;
+  color: $gray;
+  font-size: 28px;
 
-  .item {
-    font-size: 45px;
-    color: $gray;
-    font-weight:400;
+  .bottom-item {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 250px;
-    .icon {
-      font-size: 42px;
-    }
-    .like {
+    justify-content: space-between;
+    padding: 0 60px;
+    .comment {
       font-size: 40px;
-    }
-    .liked {
-      font-size: 36px;
-    }
-    .txt {
-      font-size: 24px;
-      padding-left: 11px;
+      margin-right: 12px;
     }
 
   }
-  .item:first-child {
-    padding-left: 100px;
-  }
-  .item:last-child {
-    padding-right: 100px;
-  }
+
 
   /*输入评论*/
   .comment-input {
