@@ -192,12 +192,12 @@ class TopicDetail extends Component {
   }
 
   onCopyTopic = async () => {
-    const {topic: { topicMeta } } = this.props
-    if(topicMeta.child_topic_id) {
+    const {topic: {topicMeta}} = this.props
+    if (topicMeta.child_topic_id) {
       const go_my_topic_res = await Taro.showModal({
         title: '已保存到我的心愿清单，是否现在查看？'
       })
-      if(go_my_topic_res.confirm) {
+      if (go_my_topic_res.confirm) {
         goPage.goEditTopic(topicMeta.child_topic_id)
       }
       return
@@ -205,34 +205,31 @@ class TopicDetail extends Component {
     const res = await Taro.showModal({
       title: '您确定要保存吗？'
     })
-    if(res.confirm) {
+    if (res.confirm) {
       const topic_res = await copyTopic(this.topic_id)
-      if(topic_res.topic && topic_res.topic.id) {
+      if (topic_res.topic && topic_res.topic.id) {
         this.props.dispatchTopicDetail({topic_id: this.topic_id})
         const go_my_topic_res = await Taro.showModal({
           title: '已保存到我的心愿清单，是否现在查看？'
         })
-        if(go_my_topic_res.confirm) {
+        if (go_my_topic_res.confirm) {
           goPage.goEditTopic(topic_res.topic.id)
         }
       }
     }
   }
 
-  canvasDrawFunc = () => {
-
-  }
-
   onShareAppMessage() {
     return {
       title: this.props.topic.topicDetail.title,
-      path: '/pages/topics/topic-detail?topic_id='+this.topic_id,
+      path: '/pages/topics/topic-detail?topic_id=' + this.topic_id,
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
     };
   }
 
   render() {
-    const {topic, topic: { topicDetail, topicSuggestions} } = this.props
-    const {topic: { topicMeta } } = this.props
+    const {topic, topic: {topicDetail, topicSuggestions}} = this.props
+    const {topic: {topicMeta}} = this.props
     const {currentComment, show_comment, loading} = this.state
     const topicMedias = topicDetail.medias.map((file) => (file.split('?')[0] + '?imageMogr2/thumbnail/!1125x735r/gravity/Center/crop/1125x735'))
     const canEdit = topicDetail.abilities && topicDetail.abilities.update
@@ -246,129 +243,140 @@ class TopicDetail extends Component {
     return (
       <View className="topic-detail">
         <View className="header">
-          <Header title='心愿详情' />
+          <Header title='心愿详情'/>
         </View>
         <View className="topic-wrapper">
-        <View className="avatar-wrapper">
-          <Avatar
-            user={topicDetail.user}
-            showFollow={!canEdit}
-            followed_user={topicMeta.followed_user}
-            topic={topicDetail}
-            currentUserId={this.currentUserId}
-            canEdit={canEdit}
-            is_hide={topicDetail.is_hide}
-          >
-          </Avatar>
-        </View>
-
-        {
-          MediaLength > 0 && <View className="images">
-            <Swiper
-              indicatorDots={MediaLength > 1}
-              indicatorColor="#E6E6E6"
-              indicatorActiveColor="#FD7C97"
-              circular
-              className="media-list"
-              style={{height: Taro.pxTransform(490)}}
+          <View className="avatar-wrapper">
+            <Avatar
+              user={topicDetail.user}
+              showFollow={!canEdit}
+              followed_user={topicMeta.followed_user}
+              topic={topicDetail}
+              currentUserId={this.currentUserId}
+              canEdit={canEdit}
+              is_hide={topicDetail.is_hide}
             >
-              <View>
-                {topicMedias.map((media) => {
-                  return <SwiperItem className="media" key={media}>
-                    <Image
-                      src={media}
-                      className="media-img"
-                      onClick={this.onPreview.bind(this, media)}
+            </Avatar>
+          </View>
+
+          {
+            MediaLength > 0 && <View className="images">
+              <Swiper
+                indicatorDots={MediaLength > 1}
+                indicatorColor="#E6E6E6"
+                indicatorActiveColor="#FD7C97"
+                circular
+                className="media-list"
+                style={{height: Taro.pxTransform(490)}}
+              >
+                <View>
+                  {topicMedias.map((media) => {
+                    return <SwiperItem className="media" key={media}>
+                      <Image
+                        src={media}
+                        className="media-img"
+                        onClick={this.onPreview.bind(this, media)}
                       >
-                    </Image>
-                  </SwiperItem>
-                })}
-                {
-                  video_content &&
-                  <SwiperItem className="media" key={video_content}>
-                    <Image
-                      src={video_content}
-                      className="media-img"
-                      onClick={this.previewVideo.bind(this, video_content)}
-                      mode="widthFix"
-                      lazyLoad>
-                    </Image>
-                    <Image
-                      src={playVideoImg}
-                      alt=""
-                      onClick={this.previewVideo.bind(this, video_content)}
-                      className="play-video" />
-                  </SwiperItem>
-                }
+                      </Image>
+                    </SwiperItem>
+                  })}
+                  {
+                    video_content &&
+                    <SwiperItem className="media" key={video_content}>
+                      <Image
+                        src={video_content}
+                        className="media-img"
+                        onClick={this.previewVideo.bind(this, video_content)}
+                        mode="widthFix"
+                        lazyLoad>
+                      </Image>
+                      <Image
+                        src={playVideoImg}
+                        alt=""
+                        onClick={this.previewVideo.bind(this, video_content)}
+                        className="play-video"/>
+                    </SwiperItem>
+                  }
+                </View>
+              </Swiper>
+            </View>
+          }
+
+          {
+            topicDetail.title && <View className="title">
+              {topicDetail.title}
+            </View>
+          }
+
+          {
+            topicDetail.body && <View className="body">
+              {
+                topicDetail.body.split("\n").map(i => {
+                  return <View className={i ? '' : 'txt'} key={i}>{i}</View>
+                })
+              }
+            </View>
+          }
+
+          {
+            <View className="suggestions-wrap">
+              <SuggestionList suggestionList={topicSuggestions}/>
+            </View>
+          }
+
+          <View className="numbers">
+            <View className="left-content">
+              <View className="item">
+                <UIcon icon="view-user" ex-class="icon"/> <Text className="txt">{topicDetail.hits}</Text>
               </View>
-            </Swiper>
-          </View>
-        }
-
-        {
-          topicDetail.title && <View className="title">
-            {topicDetail.title}
-          </View>
-        }
-
-        {
-          topicDetail.body && <View className="body">
-            {
-              topicDetail.body.split("\n").map(i => {
-                return <View className={i ? '' : 'txt'} key={i}>{i}</View>
-              })
-            }
-          </View>
-        }
-
-        {
-          <View className="suggestions-wrap">
-            <SuggestionList suggestionList={topicSuggestions} />
-          </View>
-        }
-
-        <View className="numbers">
-          <View className="left-content">
-            <View className="item">
-              <UIcon icon="view-user" ex-class="icon" /> <Text className="txt">{topicDetail.hits}</Text>
+              <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
+                <UIcon icon={topic.topicMeta.liked ? 'liked' : 'like'}
+                       ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`}/>
+                <Text className="txt">{topic.topicMeta.liked ? '已喜' : '喜欢'}</Text>
+              </View>
+              <View className="item" onClick={this.onReplyComment}>
+                <UIcon icon="comment" ex-class="icon"/> <Text className="txt">评论</Text>
+              </View>
             </View>
-            <View className="item" onClick={this.onLike.bind(this, !topic.topicMeta.liked)}>
-              <UIcon icon={topic.topicMeta.liked ?  'liked' : 'like'} ex-class={`icon ${topicMeta.liked ? 'liked' : 'like'}`} />
-              <Text className="txt">{topic.topicMeta.liked ? '已喜' : '喜欢'}</Text>
-            </View>
-            <View className="item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon" /> <Text className="txt">评论</Text>
+
+            <View className="created_at">
+              {topicDetail.created_at_text}
             </View>
           </View>
-
-          <View className="created_at">
-            {topicDetail.created_at_text}
-          </View>
-        </View>
 
 
           <View className="share-wrapper">
             <View className="share-user">
-              <Button open-type="share" className="share-btn">
-                <Image src={WechatShareFriend} className="share-cover"/>
+              <Button open-type="share" share-type="0" className="share-btn">
+                {process.env.TARO_ENV === 'weapp' && <Image src={WechatShareFriend} className="share-cover"/>}
+                {process.env.TARO_ENV === 'qq' && <Image src={QQShareFriend} className="share-cover"/>}
               </Button>
             </View>
             <View className="share-friend">
-              <Poster
-                title={topicDetail.title}
-                username={topicDetail.user.name}
-                user_avatar={topicDetail.user.avatar_url}
-                cover_url={topicDetail.medias[0]}
-                created_at={topicDetail.created_at}
-              >
-                <Button className="share-btn">
-                  <Image src={WechatShareZone} className="share-cover" />
-                </Button>
-              </Poster>
+              {process.env.TARO_ENV === 'qq' &&
+              <Button open-type="share" share-type="2" className="share-btn">
+                <Image src={QQShareZone} className="share-cover"/>
+              </Button>
+              }
+              {
+                process.env.TARO_ENV === 'weapp' &&
+                <Poster
+                  title={topicDetail.title}
+                  username={topicDetail.user.name}
+                  user_avatar={topicDetail.user.avatar_url}
+                  cover_url={topicDetail.medias[0]}
+                  created_at={topicDetail.created_at}
+                >
+                  <Button className="share-btn">
+                    <Image src={WechatShareZone} className="share-cover"/>
+                  </Button>
+                </Poster>
+              }
+
             </View>
           </View>
         </View>
-        <View className="topic-bottom border-top-1px" />
+        <View className="topic-bottom border-top-1px"/>
         <View className="comment-wrapper">
           <CommentList
             commentList={this.state.commentList}
@@ -383,10 +391,10 @@ class TopicDetail extends Component {
         {
           !show_comment && <View className="bottom inside border-top-1px">
             <View className="bottom-item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon comment" /> <Text className="txt">写个评论呗</Text>
+              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">写个评论呗</Text>
             </View>
             <View className="bottom-item" onClick={this.onCopyTopic}>
-              <UIcon icon="comment" ex-class="icon comment" /> <Text className="txt">保存到我的心愿清单</Text>
+              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">保存到我的心愿清单</Text>
             </View>
           </View>
         }
