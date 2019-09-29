@@ -212,7 +212,7 @@ class TopicDetail extends Component {
         content: '已保存到我的心愿清单，是否现在查看？'
       })
       if (go_my_topic_res.confirm) {
-        goPage.goTopicDetail(topic_res.topic.id)
+        goPage.goEditTopic(topic_res.topic.id)
       }
     }
   }
@@ -353,7 +353,7 @@ class TopicDetail extends Component {
             <View className="share-friend">
               {process.env.TARO_ENV === 'qq' &&
               <Button open-type="share" share-type="2" className="share-btn">
-                <Image src={QQShareZone} className="share-cover"/>
+                <Image src={QQShareZone} className="share-cover" style={{width: '271rpx'}} />
               </Button>
               }
               {
@@ -400,11 +400,11 @@ class TopicDetail extends Component {
           </View>
         }
         {
-          !show_comment && (topicDetail.user.id === this.currentUserId) && <View className="share-bottom border-top-1px">
-            <Button open-type="share" className="share-bottom-btn">
+          !show_comment && (topicDetail.user.id === this.currentUserId) && <Button open-type="share" className="share-bottom border-top-1px">
+            <Button className="share-bottom-btn">
               马上分享给好友吧
             </Button>
-          </View>
+          </Button>
         }
         {
           show_comment && <View className="topic-bottom border-top-1px">
@@ -415,8 +415,9 @@ class TopicDetail extends Component {
                 value={currentComment.content}
                 cursorSpacing="10"
                 focus
+                autoFocus
                 confirmType="发送"
-                adjustPosition
+                // adjustPosition
                 type="text"
                 maxLength="100"
                 onConfirm={this.publishComment}

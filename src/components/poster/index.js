@@ -10,9 +10,9 @@ class Poster extends Component {
 
   static defaultProps = {
     title: '',
-    cover_url: null,
+    cover_url: '',
     username: '',
-    user_avatar: null,
+    user_avatar: '',
     created_at: ''
   }
 
@@ -32,9 +32,9 @@ class Poster extends Component {
 
   setConfig = () => {
     let title = this.props.title
-    let cover_url = this.props.cover_url || 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png\n'
+    let cover_url = this.props.cover_url.length > 1 ? this.props.cover_url : 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png'
     let username = this.props.username || '心愿发布人'
-    let user_avatar = this.props.user_avatar || 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png\n'
+    let user_avatar = this.props.user_avatar.length > 1  ? this.props.user_avatar : 'http://fans-file.meirixinxue.com/photo/2019/d32afe08-69ad-4fb8-b0bf-913d00fe7d22.png'
     let created_at = this.formatDate(this.props.created_at)
     let rssConfig =  {
         width: 750,
@@ -161,16 +161,16 @@ class Poster extends Component {
           borderWidth: 0,
           zIndex: 10,
         },
-        {
-          url: 'https://xinxue-qiniu.meirixinxue.com/user/avatar/47/3b381f.jpeg',
-          width: 110,
-          height: 110,
-          y: 570,
-          x: 560,
-          borderRadius: 110,
-          borderWidth: 0,
-          zIndex: 10,
-        },
+        // {
+        //   url: 'https://xinxue-qiniu.meirixinxue.com/user/avatar/47/3b381f.jpeg',
+        //   width: 110,
+        //   height: 110,
+        //   y: 570,
+        //   x: 560,
+        //   borderRadius: 110,
+        //   borderWidth: 0,
+        //   zIndex: 10,
+        // },
       ],
         lines: [
         // {

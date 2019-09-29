@@ -200,7 +200,7 @@
   .comment-input {
     display: flex;
     width: 100%;
-    padding: 17px 33px;
+    padding: 17px 0;
     font-size: 26px;
     .comment-content {
       width: 100%;
@@ -216,7 +216,7 @@
       line-height: 66px;
       text-align: center;
       font-size: 30px;
-      color: $light_gray;
+      //color: $light_gray;
     }
   }
   .inside {
@@ -237,11 +237,13 @@
   background-color: $red;
   font-size: 36px;
   font-weight:500;
+  border-radius: 0;
   button {
     padding: 0;
     background-color: $red;
     line-height: 1;
     color: white;
+    border-radius: 0;
   }
   button::after {
     border: none;
