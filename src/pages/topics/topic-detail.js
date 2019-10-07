@@ -57,6 +57,7 @@ class TopicDetail extends Component {
 
   constructor() {
     super(...arguments);
+    // console.log(this.$router)
     this.topic_id = this.$router.params.topic_id
     this.currentUserId = parseInt((Taro.getStorageSync('user_id') || 0))
     this.currentUserName = Taro.getStorageSync('username')
@@ -390,7 +391,7 @@ class TopicDetail extends Component {
           !show_comment && (topicDetail.user.id !== this.currentUserId) &&
           <View className="topic-bottom border-top-1px">
             <View className="bottom-item" onClick={this.onReplyComment}>
-              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">你写个评论呗</Text>
+              <UIcon icon="comment" ex-class="icon comment"/> <Text className="txt">写个评论呗</Text>
             </View>
             <View className="bottom-item copy-btn" onClick={this.onCopyTopic}>
               <UIcon icon="topic-copy" ex-class="icon topic-copy"/> <Text className="txt">

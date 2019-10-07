@@ -2,6 +2,7 @@ import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import { getTenant } from "@/api/tenant_api"
+import { topicDetailScene } from '@/utils/scence'
 import queryString from 'query-string'
 
 import Index from './pages/index'
@@ -77,6 +78,8 @@ class App extends Component {
 
     const lastPath = '/' + this.$router.params.path + '?' + queryString.stringify(this.$router.params.query)
     Taro.setStorage({key: 'last_path', data: lastPath })
+
+    topicDetailScene(this.$router.params.scene)
   }
 
   componentDidShow () {}
