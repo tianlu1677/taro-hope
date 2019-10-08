@@ -203,12 +203,20 @@ class NewTopic extends Component {
     if(this.state.submitting) {
       return
     }
+    
+    if (!this.isValidateForm() || this.state.submitting) { 
+      Taro.showToast({
+        title: `请至少填写一项清单`,
+        icon: "none",
+        duration: 1200
+      });
+      return; 
+    }
     this.setState({
       submitting: true
     })
     Taro.showLoading({ title: "正在保存中..." });
 
-    if (!this.isValidateForm() || this.state.submitting) { return; }
     const status = await this._checkContent()
     if(!status) {
       this.setState({

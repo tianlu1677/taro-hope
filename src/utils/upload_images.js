@@ -23,11 +23,12 @@ export async function uploadImages(localImages = []) {
   });
 
   let result = await Promise.all(images);
-  const assets = result.map((res) => {
-    return JSON.parse(res).image_url;
+  let assets = result.map((res) => {    
+    return JSON.parse(res).image_url   
   });
   console.log(assets)
-  return assets
+  assets = assets.filter(img_url => img_url.toString().length > 3)
+  return assets 
 }
 
 export async function uploadVideo(videoFile) {
