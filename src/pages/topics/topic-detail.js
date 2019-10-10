@@ -56,9 +56,14 @@ class TopicDetail extends Component {
   }
 
   constructor() {
-    super(...arguments);
-    // console.log(this.$router)
-    this.topic_id = this.$router.params.topic_id
+    super(...arguments);    
+    let scene = this.$router.params.scene
+    if(scene && scene.indexOf('GoTopic') >= 0) {      
+      this.topic_id = scene.replace('GoTopicTopicId', '')
+    } else {
+      this.topic_id = this.$router.params.topic_id  
+    }
+    
     this.currentUserId = parseInt((Taro.getStorageSync('user_id') || 0))
     this.currentUserName = Taro.getStorageSync('username')
   }
@@ -317,6 +322,10 @@ class TopicDetail extends Component {
             </View>
           }
 
+          {
+            <Text style={{fontSize: '12px', color: 'gray', padding: '20px'}}>{JSON.stringify(this.$router)}</Text>  
+          }
+          
           {
             <View className="suggestions-wrap">
               <SuggestionList suggestionList={topicSuggestions}/>

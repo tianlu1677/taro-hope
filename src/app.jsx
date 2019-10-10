@@ -79,7 +79,7 @@ class App extends Component {
     const lastPath = '/' + this.$router.params.path + '?' + queryString.stringify(this.$router.params.query)
     Taro.setStorage({key: 'last_path', data: lastPath })
 
-    topicDetailScene(this.$router.params.scene)
+    // topicDetailScene(this.$router.params.scene)
   }
 
   componentDidShow () {}
